@@ -1,0 +1,194 @@
+<?php
+$no_meja = 14;
+$bawa_pulang = 7;
+?>
+
+
+<label class="px-1 text-purple">Dine-In / Take-Away</label><br>
+<div class="row mx-0" style="max-width: 450px;">
+  <?php for ($i = 1; $i <= $no_meja; $i++) { ?>
+    <div class="col-auto py-1 px-1">
+      <button style="width: 55px;" class="btn btn-sm btn-outline-success rounded-0 pilih <?= isset($data['order_0'][$i]) ? "border-2 border-dark" : "" ?>" data-group="nomor" data-mode="0" data-id="<?= $i ?>">
+        DI-<b><?= $i ?></b>
+      </button>
+    </div>
+  <?php } ?>
+</div>
+
+<div class="row mx-0">
+  <?php for ($i = 1; $i <= $bawa_pulang; $i++) { ?>
+    <div class="col-auto py-1 px-1">
+      <button style="width: 55px;" class="btn btn-sm btn-outline-info rounded-0 pilih <?= isset($data['order_1'][$i]) ? "border-2 border-dark" : "" ?>" data-group="nomor" data-mode="1" data-id="<?= $i ?>">
+        TA-<b><?= $i ?></b>
+      </button>
+    </div>
+  <?php } ?>
+</div>
+
+<div class="row mx-0 mt-2">
+  <div class="col px-1">
+    <div class="px-0" id="cart_load" style="height: 10px;"></div>
+    <div id="cart"></div>
+  </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">Menu</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body pt-0">
+    <div class="row mx-0">
+      <div class="col py-1 px-1">
+        <button class="btn btn-sm btn-outline-success text-nowrap w-100 pilih active" data-group="kategori" data-id="0">
+          Semua
+        </button>
+      </div>
+
+      <?php foreach ($data['kat'] as $dk) { ?>
+        <div class="col py-1 px-1">
+          <button class="btn btn-sm btn-outline-dark text-nowrap w-100 pilih" data-group="kategori" data-id="<?= $dk['id'] ?>">
+            <?= $dk['nama'] ?>
+          </button>
+        </div>
+      <?php } ?>
+    </div>
+    <div class="mt-2 px-1" id="menu"></div>
+  </div>
+</div>
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight1" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">Ubah</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body pt-0">
+    <div class="px-1" id="menu_edit_load" style="height: 10px;"></div>
+    <div class="px-1" id="menu_edit"></div>
+  </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight2" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">Bayar</h5>
+    <button type="button" class="btn-close text-reset" id="closeBayar" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body pt-0">
+    <div class="px-1" id="bayar"></div>
+  </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight3" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">Piutang</h5>
+    <button type="button" class="btn-close text-reset" id="closePiutang" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body pt-0">
+    <div class="px-1" id="piutang"></div>
+  </div>
+</div>
+
+<script>
+  var nomor;
+  var mode_dt;
+  var kat = 0;
+  $(".pilih").click(function() {
+    var grup = $(this).attr('data-group');
+
+    if (grup == "nomor") {
+      nomor = $(this).attr('data-id');
+      mode_dt = $(this).attr('data-mode');
+
+      $("button[data-group=" + grup + "]").removeClass('active');
+      $(this).addClass("active");
+
+      $("button[data-group=kategori]").removeClass('active');
+      $("button[data-group=kategori][data-id=0]").addClass("active");
+
+      load_pesanan(mode_dt, nomor);
+      $("div#menu").load('<?= URL::BASE_URL ?>Penjualan/menu/0/' + mode_dt + "/" + nomor);
+    }
+
+    if (grup == "kategori") {
+      $("button[data-group=" + grup + "]").removeClass('active');
+      $(this).addClass("active");
+
+      kat = $(this).attr('data-id');
+      $("div#menu").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
+        $("div#menu").load('<?= URL::BASE_URL ?>Penjualan/menu/' + kat + '/' + mode_dt + "/" + nomor);
+      });
+    }
+  })
+
+  function tambahMenu(add, id, harga, qty, id_kat) {
+    qty = parseInt(qty) + parseInt(add);
+    $.ajax({
+      url: "<?= URL::BASE_URL ?>Penjualan/add/" + mode_dt + "/" + nomor,
+      data: {
+        add: add,
+        id: id,
+        harga: harga,
+        id_kat: id_kat
+      },
+      type: "POST",
+      success: function(res) {
+        if (res == 1) {
+          $("#qty" + id).html(qty);
+          load_pesanan(mode_dt, nomor);
+          $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').removeClass('border-2 border-dark');
+        } else if (res == 0) {
+          $("#qty" + id).html(qty);
+          load_pesanan(mode_dt, nomor);
+          $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').addClass('border-2 border-dark');
+        } else {
+          console.log(res);
+        }
+      },
+    });
+  }
+
+  function load_pesanan(mode_dt, nomor) {
+    $("div#cart_load").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
+      $("div#cart").load('<?= URL::BASE_URL ?>Penjualan/cart/' + mode_dt + "/" + nomor, function() {
+        $("div#cart_load").html('');
+      });
+    });
+
+    $("div#menu_edit_load").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
+      $("div#menu_edit").load('<?= URL::BASE_URL ?>Penjualan/ubah/' + mode_dt + "/" + nomor, function() {
+        $("div#menu_edit_load").html('');
+      });
+    });
+  }
+
+  function load_bayar(mode, nomor) {
+    $("div#bayar").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
+      $("div#bayar").load('<?= URL::BASE_URL ?>Penjualan/cek_bayar/' + mode + "/" + nomor);
+    });
+  }
+
+  function load_piutang(mode, nomor) {
+    $("div#piutang").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
+      $("div#piutang").load('<?= URL::BASE_URL ?>Penjualan/cek_piutang/' + mode + "/" + nomor);
+    });
+  }
+
+  function setDiskon(id, diskon) {
+    $.ajax({
+      url: "<?= URL::BASE_URL ?>Penjualan/set_diskon",
+      data: {
+        id: id,
+        diskon: diskon,
+      },
+      type: "POST",
+      success: function(res) {
+        if (res == 0) {
+          load_pesanan(mode_dt, nomor);
+        } else {
+          console.log(res);
+        }
+      },
+    });
+  }
+</script>

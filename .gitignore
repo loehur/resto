@@ -1,0 +1,7 @@
+img-qrcode/
+.htaccess
+app/Config/
+error_log
+files/
+logs
+*copy*

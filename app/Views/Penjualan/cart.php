@@ -1,0 +1,44 @@
+<table class="table table-sm mx-0">
+  <thead style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+    <tr>
+      <th class="text-purple border-top-0">Pesanan (+)</th>
+      <th class="text-end border-top-0">Total</th>
+    </tr>
+  </thead>
+
+  <tbody id="ubah_pesanan" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight1" aria-controls="offcanvasRight" style="cursor: pointer;">
+    <?php
+    $total = 0;;
+    foreach ($data['order'] as $key => $d) { ?>
+      <?php
+      $total_awal = ($d['harga'] * $d['qty']);
+      $subTotal = ($d['harga'] * $d['qty']) - $d['diskon'];
+      $total += $subTotal;
+      ?>
+      <tr>
+        <td>
+          <span class="fw-bold"><?= $data['menu'][$key]['nama'] ?></span><br>
+          <?= $d['qty'] ?>x @<?= number_format($d['harga']) ?> <?= number_format($total_awal) ?>
+        </td>
+        <td class="text-end">
+          <?php if ($d['diskon'] > 0) { ?>
+            <small class="text-success">Disc. <?= number_format($d['diskon']) ?></small><br>
+          <?php } ?>
+          <?= number_format($subTotal) ?>
+        </td>
+      </tr>
+    <?php } ?>
+  </tbody>
+  <tr class="table-borderless">
+    <th>
+      Total
+    </th>
+    <th class="text-end"><?= number_format($total) ?></th>
+  </tr>
+</table>
+<?php if ($total > 0) { ?>
+  <div class="d-flex flex-row justify-content-between px-1">
+    <div class="piutang" onclick="load_piutang(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn btn-sm rounded-0 btn-outline-danger" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight3" aria-controls="offcanvasRight">Jadikan Piutang</button></div>
+    <div class="bayar" onclick="load_bayar(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn btn-sm rounded-0 btn-outline-success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight2" aria-controls="offcanvasRight">Bayar</button></div>
+  </div>
+<?php } ?>
