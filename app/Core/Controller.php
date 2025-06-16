@@ -74,7 +74,9 @@ class Controller extends URL
     {
         $_SESSION['user'] = $data_user;
         $_SESSION['cabangs'] = $this->db(0)->get('cabang', 'id_cabang');
-        $_SESSION['menu'] = $this->db(0)->get_where('menu_item', $this->wCabang, 'id');
+        $_SESSION['menu'] = $this->db(0)->get_where('menu_item', $this->wCabang . " ORDER BY freq DESC", 'id');
+        $_SESSION['menu_byKat'] = $this->db(0)->get_where('menu_item', $this->wCabang . " ORDER BY freq DESC", 'id_kategori', 1);
+        $_SESSION['kat'] = $this->db(0)->get_where('menu_kategori', $this->wCabang . " ORDER BY freq DESC", 'id');
     }
 
     public function dataSynchrone($id_user)

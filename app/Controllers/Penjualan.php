@@ -11,7 +11,7 @@ class Penjualan extends Controller
    public function index()
    {
       $layout = ['title' => 'Buka Order'];
-      $data['kat'] = $this->db(0)->get_where('menu_kategori', $this->wCabang . " ORDER BY freq DESC", 'id');
+      $data['kat'] =  $_SESSION['kat'];
       $data['order_0'] = $this->db($this->book)->get_where('ref', "step = 0 AND mode = 0", "nomor");
       $data['order_1'] = $this->db($this->book)->get_where('ref', "step = 0 AND mode = 1", "nomor");
       $this->view('layout', $layout);
@@ -38,9 +38,9 @@ class Penjualan extends Controller
    {
       $viewData = __CLASS__ . '/menu';
       if ($id_kat == 0) {
-         $data['menu'] = $this->db(0)->get_where('menu_item', $this->wCabang . " ORDER BY freq DESC", 'id');
+         $data['menu'] = $_SESSION['menu'];
       } else {
-         $menu_byKat = $this->db(0)->get_where('menu_item', $this->wCabang . " ORDER BY freq DESC", 'id_kategori', 1);
+         $menu_byKat =  $_SESSION['menu_byKat'];
          $data['menu'] = isset($menu_byKat[$id_kat]) ? $menu_byKat[$id_kat] : [];
       }
 
