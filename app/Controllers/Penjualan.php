@@ -158,7 +158,7 @@ class Penjualan extends Controller
 
    public function cek_piutang($mode = 0, $nomor = 0)
    {
-      $viewData = 'penjualan/piutang';
+      $viewData = __CLASS__ . '/piutang';
 
       $data['mode'] = $mode;
       $data['nomor'] = $nomor;
