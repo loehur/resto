@@ -74,6 +74,7 @@ class Controller extends URL
     {
         $_SESSION['user'] = $data_user;
         $_SESSION['cabangs'] = $this->db(0)->get('cabang', 'id_cabang');
+        $_SESSION['menu'] = $this->db(0)->get_where('menu_item', $this->wCabang, 'id');
     }
 
     public function dataSynchrone($id_user)

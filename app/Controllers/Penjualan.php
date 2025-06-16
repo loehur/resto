@@ -26,7 +26,7 @@ class Penjualan extends Controller
 
       $cek = $this->db($this->book)->get_where_row('ref', "mode = " . $mode . " AND nomor = " . $nomor . " AND step = 0");
       if (count($cek) > 0) {
-         $data['menu'] = $this->db(0)->get_where('menu_item', $this->wCabang, 'id');
+         $data['menu'] = $_SESSION['menu'];
          $data['order'] = $this->db($this->book)->get_where('pesanan', "ref = '" . $cek['id'] . "'", "id_menu");
       } else {
          $data['order'] = [];
