@@ -20,7 +20,7 @@ class Penjualan extends Controller
 
    public function cart($mode = 0, $nomor = 0)
    {
-      $viewData = 'penjualan/cart';
+      $viewData = __CLASS__ . '/cart';
       $data['mode'] = $mode;
       $data['nomor'] = $nomor;
 
@@ -36,7 +36,7 @@ class Penjualan extends Controller
 
    public function menu($id_kat = 0, $mode = 0, $nomor = 0)
    {
-      $viewData = 'penjualan/menu';
+      $viewData = __CLASS__ . '/menu';
       if ($id_kat == 0) {
          $data['menu'] = $this->db(0)->get_where('menu_item', $this->wCabang . " ORDER BY freq DESC", 'id');
       } else {
@@ -56,7 +56,7 @@ class Penjualan extends Controller
 
    public function ubah($mode = 0, $nomor = 0)
    {
-      $viewData = 'penjualan/ubah';
+      $viewData = __CLASS__ . '/ubah';
       $data['menu'] = $this->db(0)->get_where('menu_item', $this->wCabang . " ORDER BY freq DESC", 'id');
 
       $cek = $this->db($this->book)->get_where_row('ref', "mode = " . $mode . " AND nomor = " . $nomor . " AND step = 0");
@@ -141,7 +141,7 @@ class Penjualan extends Controller
 
    public function cek_bayar($mode = 0, $nomor = 0)
    {
-      $viewData = 'penjualan/bayar';
+      $viewData = __CLASS__ . '/bayar';
 
       $data['mode'] = $mode;
       $data['nomor'] = $nomor;
