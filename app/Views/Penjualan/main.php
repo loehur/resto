@@ -128,6 +128,12 @@ $bawa_pulang = 7;
     });
   })
 
+  $('.offcanvas').on("swiperight", function(event) {
+    $('.offcanvas.show').each(function() {
+      $(this).offcanvas('hide');
+    });
+  });
+
   $(".pilih").click(function() {
     var grup = $(this).attr('data-group');
 
