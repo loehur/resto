@@ -33,27 +33,36 @@ $bawa_pulang = 7;
 </div>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header w-100">
-    <div style="cursor: pointer;" class="border-0 py-2 w-100 text-dark text-center" data-bs-dismiss="offcanvas"><i class="fas fa-arrow-left"></i></div>
+  <div class="row py-2" style="cursor: pointer;" data-bs-dismiss="offcanvas">
+    <div class="col py-2 w-100 text-dark text-center"><i class="fas fa-arrow-left"></i> &nbsp; Kembali</div>
   </div>
-  <div class="offcanvas-body pt-0">
-    <div class="row mx-0">
+  <div class="row px-3 mx-0">
+    <div class="col py-1 px-1">
+      <button class="btn btn-sm btn-outline-success text-nowrap w-100 pilih active" data-group="kategori" data-id="0">
+        Semua
+      </button>
+    </div>
+    <?php foreach ($data['kat'] as $dk) { ?>
       <div class="col py-1 px-1">
-        <button class="btn btn-sm btn-outline-success text-nowrap w-100 pilih active" data-group="kategori" data-id="0">
-          Semua
+        <button class="btn btn-sm btn-outline-dark text-nowrap w-100 pilih" data-group="kategori" data-id="<?= $dk['id'] ?>">
+          <?= $dk['nama'] ?>
         </button>
       </div>
+    <?php } ?>
+  </div>
 
-      <?php foreach ($data['kat'] as $dk) { ?>
-        <div class="col py-1 px-1">
-          <button class="btn btn-sm btn-outline-dark text-nowrap w-100 pilih" data-group="kategori" data-id="<?= $dk['id'] ?>">
-            <?= $dk['nama'] ?>
-          </button>
-        </div>
-      <?php } ?>
+  <div class="offcanvas-body pt-0">
+    <div class="px-1 mt-2 menu_edit_load" style="height: 5px;"></div>
+    <div class="d-flex flex-align-start flex-column h-100 w-100 ">
+      <div class="w-100 h-100 mb-auto" style="overflow-y: auto;">
+        <div class="px-1" id="menu"></div>
+      </div>
     </div>
-    <div class="mt-2 px-1 menu_edit_load" style="height: 5px;"></div>
-    <div class="px-1" id="menu"></div>
+  </div>
+  <div style="max-height: 60px; min-height: 60px" class="order-2 w-100">
+    <div class="row w-100 py-2" style="cursor: pointer;" data-bs-dismiss="offcanvas">
+      <div class="col py-2 w-100 text-dark text-center"><i class="fas fa-arrow-left"></i> &nbsp; Kembali</div>
+    </div>
   </div>
 </div>
 
@@ -70,7 +79,7 @@ $bawa_pulang = 7;
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight2" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header">
-    <div style="cursor: pointer;" class="border-0 py-2 w-100 text-dark text-center" id="closeBayar" data-bs-dismiss="offcanvas"><i class="fas fa-arrow-left"></i></div>
+    <div style="cursor: pointer;" class="border-0 py-2 w-100 text-dark text-center" data-bs-dismiss="offcanvas"><i class="fas fa-arrow-left"></i></div>
   </div>
   <div class="offcanvas-body pt-0">
     <div class="px-1" id="bayar"></div>
@@ -79,7 +88,7 @@ $bawa_pulang = 7;
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight3" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header">
-    <div id="closePiutang" style="cursor: pointer;" class="border-0 py-2 w-100 text-dark text-center" data-bs-dismiss="offcanvas"><i class="fas fa-arrow-left"></i></div>
+    <div style="cursor: pointer;" class="border-0 py-2 w-100 text-dark text-center" data-bs-dismiss="offcanvas"><i class="fas fa-arrow-left"></i></div>
   </div>
   <div class="offcanvas-body pt-0">
     <div class="px-1" id="piutang"></div>

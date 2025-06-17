@@ -1,5 +1,4 @@
-<?php
-foreach ($data['menu'] as $dk) { ?>
+<?php foreach ($data['menu'] as $dk) { ?>
   <div class="d-flex flex-row border-bottom justify-content-between">
     <div class="py-1">
       <span class="text-success fw-bold"><?= $dk['nama'] ?></span><br>
@@ -7,7 +6,7 @@ foreach ($data['menu'] as $dk) { ?>
     </div>
     <div class="py-1 align-self-center">
       <button data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" data-add="-1" class="btn btn-sm btn-outline-danger fw-bold tambah" style="width: 30px;">-</button>
-      <input data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" style="width: 50px;" value="<?= isset($data['order'][$dk['id']]) ? $data['order'][$dk['id']]['qty'] : 0 ?>" class="manual_qty border-0 text-center fw-bold border-bottom-1" id="qty<?= $dk['id'] ?>" type="number">
+      <input data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" style="width: 40px;" value="<?= isset($data['order'][$dk['id']]) ? $data['order'][$dk['id']]['qty'] : 0 ?>" class="manual_qty border-0 text-center fw-bold border-bottom-1" id="qty<?= $dk['id'] ?>" type="number">
       <button data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" data-add="1" class="btn btn-sm btn-outline-success fw-bold tambah" style="width: 30px;">+</button>
     </div>
   </div>
