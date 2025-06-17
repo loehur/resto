@@ -212,7 +212,7 @@ $bawa_pulang = 7;
       type: "POST",
       success: function(res) {
         if (res == 1) {
-          $("#qty" + id).html(0);
+          $("#qty" + id).val(qty);
           load_pesanan(mode_dt, nomor);
           $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').removeClass('border-2 border-dark');
         } else if (res == 0) {
