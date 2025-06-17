@@ -99,7 +99,9 @@ foreach ($data['order'] as $dk) {
       type: "POST",
       success: function(res) {
         if (res == 0) {
-          $("#closeBayar").click();
+          $('.offcanvas.show').each(function() {
+            $(this).offcanvas('hide');
+          });
           $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').removeClass('border-2 border-dark');
           load_pesanan(mode_dt, nomor);
         } else if (res == 1) {
