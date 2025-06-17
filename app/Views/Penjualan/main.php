@@ -121,6 +121,13 @@ $bawa_pulang = 7;
   var nomor;
   var mode_dt;
   var kat = 0;
+
+  $('.offcanvas').dblclick(function() {
+    $('.offcanvas.show').each(function() {
+      $(this).offcanvas('hide');
+    });
+  })
+
   $(".pilih").click(function() {
     var grup = $(this).attr('data-group');
 
