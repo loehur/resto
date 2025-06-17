@@ -128,11 +128,41 @@ $bawa_pulang = 7;
     });
   })
 
-  $('.offcanvas').on("swiperight", function(event) {
-    $('.offcanvas.show').each(function() {
-      $(this).offcanvas('hide');
-    });
+  let startX, startY;
+  const threshold = 50; // Minimum swipe distance
+
+  document.addEventListener('touchstart', (event) => {
+    startX = event.touches[0].clientX;
+    startY = event.touches[0].clientY;
   });
+
+  document.addEventListener('touchend', (event) => {
+    if (!startX || !startY) {
+      return;
+    }
+
+    const endX = event.changedTouches[0].clientX;
+    const endY = event.changedTouches[0].clientY;
+
+    const distX = endX - startX;
+    const distY = endY - startY;
+
+    if (Math.abs(distX) > threshold || Math.abs(distY) > threshold) {
+      if (Math.abs(distX) > Math.abs(distY)) {
+        if (distX > 0) {
+          $('.offcanvas.show').each(function() {
+            $(this).offcanvas('hide');
+          });
+        } else {}
+      } else {
+        if (distY > 0) {} else {}
+      }
+    }
+
+    startX = null;
+    startY = null;
+  });
+
 
   $(".pilih").click(function() {
     var grup = $(this).attr('data-group');
