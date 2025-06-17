@@ -153,6 +153,7 @@ $bawa_pulang = 7;
   })
 
   function tambahMenu(add, id, qty, id_kat) {
+    $("div.menu_edit_load").load('<?= URL::BASE_URL ?>Load/spinner/2');
     qty = parseInt(qty) + parseInt(add);
     $.ajax({
       url: "<?= URL::BASE_URL ?>Penjualan/add/" + mode_dt + "/" + nomor,
@@ -179,6 +180,7 @@ $bawa_pulang = 7;
   }
 
   function tambahMenuManual(id, qty, id_kat) {
+    $("div.menu_edit_load").load('<?= URL::BASE_URL ?>Load/spinner/2');
     $.ajax({
       url: "<?= URL::BASE_URL ?>Penjualan/add_manual/" + mode_dt + "/" + nomor,
       data: {
@@ -210,11 +212,10 @@ $bawa_pulang = 7;
       });
     });
 
-    $("div.menu_edit_load").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
-      $("div#menu_edit").load('<?= URL::BASE_URL ?>Penjualan/ubah/' + mode_dt + "/" + nomor, function() {
-        $("div.menu_edit_load").html('');
-      });
+    $("div#menu_edit").load('<?= URL::BASE_URL ?>Penjualan/ubah/' + mode_dt + "/" + nomor, function() {
+      $("div.menu_edit_load").html('');
     });
+
   }
 
   function load_bayar(mode, nomor) {
