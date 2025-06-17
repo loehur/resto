@@ -438,8 +438,11 @@ if ($log_mode == 1) {
             <script src="<?= $this->ASSETS_URL ?>plugins/adminLTE-3.1.0/js/adminlte.js"></script>
 
             <script>
-                $(document).ready(function() {
-
+                history.pushState(null, null, window.top.location.pathname + window.top.location.search);
+                window.addEventListener('popstate', (e) => {
+                    e.preventDefault();
+                    // Insert Your Logic Here, You Can Do Whatever You Want
+                    history.pushState(null, null, window.top.location.pathname + window.top.location.search);
                 });
 
                 $("a.refresh").on('click', function() {
