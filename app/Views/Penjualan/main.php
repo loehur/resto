@@ -32,7 +32,7 @@ $bawa_pulang = 7;
   </div>
 </div>
 
-<div class="offcanvas offcanvas-end overflow-hidden" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas offcanvas-end overflow-hidden" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="transition: 0.3s;">
   <div class="bg-light bg-gradient mb-2" style="box-shadow: 0px 1px 10px silver;">
     <div class="row py-2" style="cursor: pointer;" data-bs-dismiss="offcanvas">
       <div class="col py-2 w-100 text-dark text-center"><i class="fas fa-arrow-left"></i> &nbsp; Kembali</div>
@@ -66,7 +66,7 @@ $bawa_pulang = 7;
 </div>
 
 
-<div class="offcanvas offcanvas-end overflow-hidden" tabindex="-1" id="offcanvasRight1" aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas offcanvas-end overflow-hidden" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasRight1" aria-labelledby="offcanvasRightLabel">
   <div class="bg-light bg-gradient mb-2" style="box-shadow: 0px 1px 10px silver;">
     <div class="row py-2" style="cursor: pointer;" data-bs-dismiss="offcanvas">
       <div class="col py-2 w-100 text-dark text-center"><i class="fas fa-arrow-left"></i> &nbsp; Kembali</div>
@@ -85,7 +85,7 @@ $bawa_pulang = 7;
   </div>
 </div>
 
-<div class="offcanvas offcanvas-end overflow-hidden" tabindex="-1" id="offcanvasRight2" aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas offcanvas-end overflow-hidden" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasRight2" aria-labelledby="offcanvasRightLabel">
   <div class="bg-light bg-gradient mb-2" style="box-shadow: 0px 1px 10px silver;">
     <div class="row py-2" style="cursor: pointer;" data-bs-dismiss="offcanvas">
       <div class="col py-2 w-100 text-dark text-center"><i class="fas fa-arrow-left"></i> &nbsp; Kembali</div>
@@ -101,7 +101,7 @@ $bawa_pulang = 7;
   </div>
 </div>
 
-<div class="offcanvas offcanvas-end overflow-hidden" tabindex="-1" id="offcanvasRight3" aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas offcanvas-end overflow-hidden" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasRight3" aria-labelledby="offcanvasRightLabel">
   <div class="bg-light bg-gradient mb-2" style="box-shadow: 0px 1px 10px silver;">
     <div class="row py-2" style="cursor: pointer;" data-bs-dismiss="offcanvas">
       <div class="col py-2 w-100 text-dark text-center"><i class="fas fa-arrow-left"></i> &nbsp; Kembali</div>
@@ -125,6 +125,10 @@ $bawa_pulang = 7;
     var grup = $(this).attr('data-group');
 
     if (grup == "nomor") {
+      $('.offcanvas.show').each(function() {
+        $(this).offcanvas('hide');
+      });
+
       nomor = $(this).attr('data-id');
       mode_dt = $(this).attr('data-mode');
 
