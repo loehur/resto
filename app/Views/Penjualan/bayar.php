@@ -45,6 +45,11 @@ foreach ($data['order'] as $dk) {
     <span class="btn btn-success w-100 bg-gradient rounded-0" onclick="bayarOK()">Bayar</span>
   </div>
 </div>
+<div class="w-100 mt-4">
+  <div class="text-center fs-5 fw-bold">
+    <span class="btn btn-outline-secondary w-100 rounded-0" data-bs-dismiss="offcanvas">Batal</span>
+  </div>
+</div>
 
 <script>
   $('.inBayar').keyup(function() {

@@ -27,6 +27,12 @@ foreach ($data['order'] as $dk) {
   </div>
 </div>
 
+<div class="w-100 mt-4">
+  <div class="text-center fs-5 fw-bold">
+    <span class="btn btn-outline-secondary w-100 rounded-0" data-bs-dismiss="offcanvas">Batal</span>
+  </div>
+</div>
+
 <script>
   function piutangOK() {
     let pelanggan = $('select[name=pelanggan]').val();
