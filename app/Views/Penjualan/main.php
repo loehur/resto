@@ -122,12 +122,6 @@ $bawa_pulang = 7;
   var mode_dt;
   var kat = 0;
 
-  $('.offcanvas').dblclick(function() {
-    $('.offcanvas.show').each(function() {
-      $(this).offcanvas('hide');
-    });
-  })
-
   let startX, startY;
   const threshold = 50; // Minimum swipe distance
 
