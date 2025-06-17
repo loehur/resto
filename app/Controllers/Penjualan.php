@@ -28,8 +28,10 @@ class Penjualan extends Controller
       if (count($cek) > 0) {
          $data['menu'] = $_SESSION['menu'];
          $data['order'] = $this->db($this->book)->get_where('pesanan', "ref = '" . $cek['id'] . "'", "id_menu");
+         $data['bayar'] = $this->db($this->book)->get_where('kas', "ref = '" . $cek['id'] . "'");
       } else {
          $data['order'] = [];
+         $data['bayar'] = [];
       }
       $this->view($viewData, $data);
    }
@@ -73,13 +75,15 @@ class Penjualan extends Controller
    {
       $mode = $_POST['mode'];
       $nomor = $_POST['nomor'];
-      $dibayar = $_POST['dibayar'];
+      $uang_diterima = $_POST['dibayar'];
       $metode = $_POST['metode'];
 
       if ($metode == 1) {
          $st_mutasi = 1;
+         $step = 1;
       } else {
          $st_mutasi = 0;
+         $step = 4;
       }
 
       $cek = $this->db($this->book)->get_where_row('ref', "mode = " . $mode . " AND nomor = " . $nomor . " AND step = 0");
@@ -89,20 +93,45 @@ class Penjualan extends Controller
          $order = [];
       }
 
-      $total = 0;
+      $sisa_tagihan = 0;
       foreach ($order as $dk) {
          $subTotal = ($dk['harga'] * $dk['qty']) - $dk['diskon'];
-         $total += $subTotal;
+         $sisa_tagihan += $subTotal;
       }
 
-      if ($total > 0) {
-         $kembali = $dibayar - $total;
+      $yg_sudah_dibayar = 0;
+      $cek_dibayar = $this->db($this->book)->get_where('kas', "status_mutasi <> 2 AND jenis_transaksi = 1 AND ref = '" . $cek['id'] . "'");
+      foreach ($cek_dibayar as $b) {
+         $yg_sudah_dibayar += $b['jumlah'];
+         if ($b['status_mutasi'] == 0) {
+            $step = 4; //checking
+         }
+      }
+
+      $sisa_tagihan -= $yg_sudah_dibayar;
+
+      if ($sisa_tagihan > 0) {
+         $kembali = $uang_diterima - $sisa_tagihan;
+         if ($kembali < 0) {
+            $kembali = 0;
+         }
+
+         if ($uang_diterima >= $sisa_tagihan) {
+            $jumlah_bayar = $sisa_tagihan;
+         } else {
+            $jumlah_bayar = $uang_diterima;
+         }
+
          $cols = "id_cabang, jenis_mutasi, jenis_transaksi, ref, metode_mutasi, status_mutasi, jumlah, id_user, dibayar, kembali";
-         $vals = $this->id_cabang . ",1,1,'" . $cek['id'] . "'," . $metode . "," . $st_mutasi . "," . $total . "," . $this->id_user . "," . $dibayar . "," . $kembali;
+         $vals = $this->id_cabang . ",1,1,'" . $cek['id'] . "'," . $metode . "," . $st_mutasi . "," . $jumlah_bayar . "," . $this->id_user . "," . $uang_diterima . "," . $kembali;
          $in = $this->db($this->book)->insertCols("kas", $cols, $vals);
          if ($in['errno'] == 0) {
-            $up = $this->db($this->book)->update('ref', "step = 1", "id = '" . $cek['id'] . "'");
-            echo $up['errno'] == 0 ? 0 : $up['error'];
+            if ($uang_diterima >= $sisa_tagihan) {
+               $up = $this->db($this->book)->update('ref', "step = " . $step, "id = '" . $cek['id'] . "'");
+               echo $up['errno'] == 0 ? 0 : $up['error'];
+            } else {
+               echo 1;
+            }
          } else {
             echo $in['error'];
          }

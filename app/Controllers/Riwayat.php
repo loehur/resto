@@ -18,7 +18,6 @@ class Riwayat extends Controller
       $pay = [];
       foreach ($data['ref'] as $key => $r) {
          $order[$key] = $this->db($this->book)->get_where('pesanan', "ref = '" . $key . "'");
-         $pay[$key] = $this->db($this->book)->get_where_row('kas', "ref = '" . $key . "'");
          $total[$key] = 0;
          foreach ($order[$key] as $dk) {
             $subTotal = ($dk['harga'] * $dk['qty']) - $dk['diskon'];

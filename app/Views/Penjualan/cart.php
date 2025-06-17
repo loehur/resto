@@ -30,11 +30,28 @@
     <?php } ?>
   </tbody>
   <tr class="table-borderless">
-    <th>
-      Total
+    <th class="text-end">
+      TOTA
     </th>
     <th class="text-end"><?= number_format($total) ?></th>
   </tr>
+  <?php
+  $dibayar = 0;
+  foreach ($data['bayar'] as $b) {
+    $dibayar += $b['jumlah'] ?>
+    <tr>
+      <td class="text-end"><?= URL::METOD_BAYAR[$b['metode_mutasi']] ?></td>
+      <td class="text-end">-<?= number_format($b['jumlah'])  ?></td>
+    </tr>
+  <?php } ?>
+  <?php if (count($data['bayar']) > 0) { ?>
+    <tr class="table-borderless">
+      <th class="text-end">
+        SISA
+      </th>
+      <th class="text-end"><?= number_format($total - $dibayar) ?></th>
+    </tr>
+  <?php } ?>
 </table>
 <?php if ($total > 0) { ?>
   <div class="d-flex flex-row justify-content-between px-1">

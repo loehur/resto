@@ -23,7 +23,7 @@ foreach ($data['order'] as $dk) {
 
 <div class="w-100 mt-5">
   <div class="text-center fs-5 fw-bold">
-    <span class="btn btn-danger w-100 rounded-0" onclick="piutangOK()">Jadikan Piutang</span>
+    <span class="btn btn-danger w-100 rounded-0 bg-gradient" onclick="piutangOK()">Jadikan Piutang</span>
   </div>
 </div>
 

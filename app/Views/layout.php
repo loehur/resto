@@ -13,7 +13,7 @@ if (isset($data)) {
     <meta charset="utf-8">
     <link rel="icon" href="<?= $this->ASSETS_URL ?>icon/logo.png">
     <title><?= $title ?></title>
-    <meta name="viewport" content="width=390, user-scalable=no">
+    <meta name="viewport" content="width=350, user-scalable=no">
     <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>css/ionicons.min.css">
     <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>plugins/fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>plugins/bootstrap-5.1/bootstrap.min.css">

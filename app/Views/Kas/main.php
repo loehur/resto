@@ -1,141 +1,137 @@
 <?php $kas = $data['saldo']; ?>
-<div class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-auto p-1">
-        <div class="p-0">
-          <div class="d-flex flex-row">
-            <div class="mr-auto">
-              <small>Saldo Kas</small><br>
-              <span class="text-bold text-success">Rp. <?= number_format($kas); ?></span>
-            </div>
-            <div class="p-0 pr-0 pb-2 pt-2">
-              <div class="btn-group dropdown">
-                <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  Menu Kas
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Pengeluaran</a>
-                  <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal3">Penarikan</a>
-                </div>
-              </div>
-            </div>
-          </div>
+<div class="row mx-0">
+  <div class="col-auto p-1">
+    <div class="p-0">
+      <div class="d-flex flex-row">
+        <div class="mr-auto">
+          <small>Saldo Kas</small><br>
+          <span class="text-bold text-success">Rp. <?= number_format($kas); ?></span>
         </div>
-
-        <div class="row">
-          <div class="col">
-            <div class="card">
-              <table class="table table-sm w-100 m-0" style="min-width: 300px;">
-                <tr>
-                  <th class="pt-2 text-center" colspan="4">
-                    Cashflow History
-                  </th>
-                </tr>
-                <tbody>
-                  <?php
-                  $no = 0;
-                  foreach ($data['debit_list'] as $a) {
-                    $id = $a['id'];
-                    $f1 = substr($a['insertTime'], 5, 11);
-                    $f2 = $a['note'];
-                    $f2b = $a['note_primary'];
-                    $f3 = $a['id_user'];
-                    $f4 = $a['jumlah'];
-                    $f5 = $a['status_mutasi'];
-                    $f6 = $a['jenis_transaksi'];
-                    $st = $a['status_mutasi'];
-                    $cl = $a['id_client'];
-                    $metod = $a['metode_mutasi'];
-
-                    $karyawan = '';
-                    $client = "";
-                    $classTR = '';
-                    if ($f6 == 4) {
-                      $classTR = 'text-danger';
-                    } else if ($f6 == 5) {
-                      $classTR = 'text-info';
-                    } else {
-                      $classTR = 'text-primary';
-                    }
-
-                    $metode = "";
-
-                    echo "<tr>";
-                    echo "<td nowrap><small>#" . $id . " " . $f1 . "</small><br><b class='" . $classTR . "'>" . $f2b . "</b> <small>" . $f2 . " " . $client . "</></small></span></td>";
-                    echo "<td nowrap class='text-right'><small>" . $metode . "</small> <b><span>" . number_format($f4) . "</span></b><br><small class='text-" . URL::ST_MUTASI[$st][1] . "'>" . URL::ST_MUTASI[$st][0] . "</small></td>";
-                    echo "</tr>";
-                  }
-                  ?>
-                </tbody>
-              </table>
+        <div class="p-0 pr-0 pb-2 pt-2">
+          <div class="btn-group dropdown">
+            <button class="btn btn-sm btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Menu Kas
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Pengeluaran</a>
+              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal3">Penarikan</a>
             </div>
           </div>
-          <?php if (count($data['kasbon']) > 0) { ?>
-            <div class="col">
-              <div class="card">
-                <table class="table table-sm w-100 p-0 m-0">
-                  <th class="pt-2 text-center" colspan="4">
-                    Kasbon History
-                  </th>
-                  <tbody>
-                    <?php
-                    foreach ($data['kasbon'] as $a) {
-                      $id = $a['id'];
-                      $st_trx = $a['status_mutasi'];
-
-                      $f1 = substr($a['insertTime'], 5, 11);
-                      $f2 = $a['note'];
-                      $f2b = $a['note_primary'];
-                      $f3 = $a['id_user'];
-                      $f4 = $a['jumlah'];
-                      $f6 = $a['jenis_transaksi'];
-                      $st = $a['status_mutasi'];
-                      $cl = $a['id_client'];
-                      $metod = $a['metode_mutasi'];
-
-                      $metode = "";
-                      $statusNya = '';
-
-                      $stKasbon = $data['dataPotong'][$id];
-                      $statusKasbon = "";
-                      $trKasbon = "";
-                      if ($stKasbon == 1) {
-                        $statusKasbon = "<span class='text-success'>Lunas</span>";
-                        $trKasbon = "table-success";
-                      } else {
-                      }
-
-                      $karyawan = '';
-                      $karyawan_tarik = '';
-
-                      $id_kar = $a['id_client'];
-                      $id_kar_tarik = $a['id_user'];
-
-                      foreach ($this->userAll as $c) {
-                        if ($c['id_user'] == $id_kar) {
-                          $karyawan = $c['nama_user'];
-                        }
-                        if ($c['id_user'] == $id_kar_tarik) {
-                          $karyawan_tarik = $c['nama_user'];
-                        }
-                      }
-
-                      $st_trx_name = "";
-                      echo "<tr class='" . $trKasbon . "'>";
-                      echo "<td class='text-right'><small>#" . $id . "<br>" . substr($a['insertTime'], 5, 11) . "</small></td>";
-                      echo "<td><span><small>Penarik: " . $karyawan_tarik . "<br></small><b>" . $f2b . "</b> <small>" . " " . $karyawan . " " . $f2 . "</></small></span></td>";
-                      echo "<td class='text-right'><small>" . $metode . "</small> <span>" . number_format($a['jumlah']) . "</span><br>" . $statusNya . " " . $statusKasbon . "</td>";
-                      echo "</tr>";
-                    }
-                    ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          <?php } ?>
         </div>
       </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <table class="table table-sm w-100 m-0" style="min-width: 300px;">
+            <tr>
+              <th class="pt-2 text-center" colspan="4">
+                Cashflow History
+              </th>
+            </tr>
+            <tbody>
+              <?php
+              $no = 0;
+              foreach ($data['debit_list'] as $a) {
+                $id = $a['id'];
+                $f1 = substr($a['insertTime'], 5, 11);
+                $f2 = $a['note'];
+                $f2b = $a['note_primary'];
+                $f3 = $a['id_user'];
+                $f4 = $a['jumlah'];
+                $f5 = $a['status_mutasi'];
+                $f6 = $a['jenis_transaksi'];
+                $st = $a['status_mutasi'];
+                $cl = $a['id_client'];
+                $metod = $a['metode_mutasi'];
+
+                $karyawan = '';
+                $client = "";
+                $classTR = '';
+                if ($f6 == 4) {
+                  $classTR = 'text-danger';
+                } else if ($f6 == 5) {
+                  $classTR = 'text-info';
+                } else {
+                  $classTR = 'text-primary';
+                }
+
+                $metode = "";
+
+                echo "<tr>";
+                echo "<td nowrap><small>#" . $id . " " . $f1 . "</small><br><b class='" . $classTR . "'>" . $f2b . "</b> <small>" . $f2 . " " . $client . "</></small></span></td>";
+                echo "<td nowrap class='text-right'><small>" . $metode . "</small> <b><span>" . number_format($f4) . "</span></b><br><small class='text-" . URL::ST_MUTASI[$st][1] . "'>" . URL::ST_MUTASI[$st][0] . "</small></td>";
+                echo "</tr>";
+              }
+              ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <?php if (count($data['kasbon']) > 0) { ?>
+        <div class="col">
+          <div class="card">
+            <table class="table table-sm w-100 p-0 m-0">
+              <th class="pt-2 text-center" colspan="4">
+                Kasbon History
+              </th>
+              <tbody>
+                <?php
+                foreach ($data['kasbon'] as $a) {
+                  $id = $a['id'];
+                  $st_trx = $a['status_mutasi'];
+
+                  $f1 = substr($a['insertTime'], 5, 11);
+                  $f2 = $a['note'];
+                  $f2b = $a['note_primary'];
+                  $f3 = $a['id_user'];
+                  $f4 = $a['jumlah'];
+                  $f6 = $a['jenis_transaksi'];
+                  $st = $a['status_mutasi'];
+                  $cl = $a['id_client'];
+                  $metod = $a['metode_mutasi'];
+
+                  $metode = "";
+                  $statusNya = '';
+
+                  $stKasbon = $data['dataPotong'][$id];
+                  $statusKasbon = "";
+                  $trKasbon = "";
+                  if ($stKasbon == 1) {
+                    $statusKasbon = "<span class='text-success'>Lunas</span>";
+                    $trKasbon = "table-success";
+                  } else {
+                  }
+
+                  $karyawan = '';
+                  $karyawan_tarik = '';
+
+                  $id_kar = $a['id_client'];
+                  $id_kar_tarik = $a['id_user'];
+
+                  foreach ($this->userAll as $c) {
+                    if ($c['id_user'] == $id_kar) {
+                      $karyawan = $c['nama_user'];
+                    }
+                    if ($c['id_user'] == $id_kar_tarik) {
+                      $karyawan_tarik = $c['nama_user'];
+                    }
+                  }
+
+                  $st_trx_name = "";
+                  echo "<tr class='" . $trKasbon . "'>";
+                  echo "<td class='text-right'><small>#" . $id . "<br>" . substr($a['insertTime'], 5, 11) . "</small></td>";
+                  echo "<td><span><small>Penarik: " . $karyawan_tarik . "<br></small><b>" . $f2b . "</b> <small>" . " " . $karyawan . " " . $f2 . "</></small></span></td>";
+                  echo "<td class='text-right'><small>" . $metode . "</small> <span>" . number_format($a['jumlah']) . "</span><br>" . $statusNya . " " . $statusKasbon . "</td>";
+                  echo "</tr>";
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <?php } ?>
     </div>
   </div>
 </div>
@@ -175,7 +171,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-sm btn-danger">Tarik Kas Pengeluaran</button>
+            <button type="submit" class="btn btn-sm rounded-0 w-100 bg-gradient btn-danger">Buat Pengeluaran</button>
           </div>
         </form>
       </div>

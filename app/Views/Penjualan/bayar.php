@@ -28,7 +28,7 @@ foreach ($data['order'] as $dk) {
       <div class="form-check">
         <input class="form-check-input" type="radio" value="1" name="metode" id="flexRadioDefault2" checked>
         <label class="form-check-label" for="flexRadioDefault2">
-          Cash
+          CASH
         </label>
       </div>
       <div class="form-check">
@@ -42,7 +42,7 @@ foreach ($data['order'] as $dk) {
 </div>
 <div class="w-100 mt-4">
   <div class="text-center fs-5 fw-bold">
-    <span class="btn btn-success w-100 rounded-0" onclick="bayarOK()">Bayar</span>
+    <span class="btn btn-success w-100 bg-gradient rounded-0" onclick="bayarOK()">Bayar</span>
   </div>
 </div>
 
@@ -86,31 +86,29 @@ foreach ($data['order'] as $dk) {
   function bayarOK() {
     let bill = parseInt(<?= $total ?>);
     let total_bayar = parseInt($('.inBayar').val());
-    let sisa = total_bayar - bill;
     let metode = $('input[name="metode"]:checked').val();
 
-    if (sisa >= 0) {
-      $.ajax({
-        url: "<?= URL::BASE_URL ?>Penjualan/bayar",
-        data: {
-          mode: <?= $data['mode'] ?>,
-          nomor: <?= $data['nomor'] ?>,
-          dibayar: total_bayar,
-          metode: metode
-        },
-        type: "POST",
-        success: function(res) {
-          if (res == 0) {
-            $("#closeBayar").click();
-            $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').removeClass('border-2 border-dark');
-            load_pesanan(mode_dt, nomor);
-          } else {
-            console.log(res);
-          }
-        },
-      });
-    } else {
-      console.log("Kurang Bayar");
-    }
+    $.ajax({
+      url: "<?= URL::BASE_URL ?>Penjualan/bayar",
+      data: {
+        mode: <?= $data['mode'] ?>,
+        nomor: <?= $data['nomor'] ?>,
+        dibayar: total_bayar,
+        metode: metode
+      },
+      type: "POST",
+      success: function(res) {
+        if (res == 0) {
+          $("#closeBayar").click();
+          $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').removeClass('border-2 border-dark');
+          load_pesanan(mode_dt, nomor);
+        } else if (res == 1) {
+          $("#closeBayar").click();
+          load_pesanan(mode_dt, nomor);
+        } else {
+          console.log(res);
+        }
+      },
+    });
   }
 </script>
