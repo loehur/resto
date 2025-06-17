@@ -7,7 +7,7 @@ foreach ($data['order'] as $dk) { ?>
     </div>
     <div class="py-1 align-self-center">
       <button data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" data-add="-1" class="btn btn-sm btn-outline-danger fw-bold tambah_ubah" style="width: 30px;">-</button>
-      <input data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" style="width: 50px;" value="<?= $dk['qty'] ?>" class="manual_qty_ubah border-0 text-center fw-bold border-bottom-1" id="qty<?= $dk['id'] ?>" type="number">
+      <input data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" style="width: 40px;" value="<?= $dk['qty'] ?>" class="manual_qty_ubah border-0 text-center fw-bold border-bottom-1" id="qty<?= $dk['id'] ?>" type="number">
       <button data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" data-add="1" class="btn btn-sm btn-outline-success fw-bold tambah_ubah" style="width: 30px;">+</button>
     </div>
   </div>

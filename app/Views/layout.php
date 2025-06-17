@@ -194,6 +194,10 @@ if ($log_mode == 1) {
                         <?php foreach ($menu as $key => $m) { ?>
                             <ul id="nav_<?= $key ?>" class="nav nav-pills nav-sidebar flex-column <?= $key == 0 ? $hideKasir : $hideAdmin ?>">
                                 <?php foreach ($m as $mk) { ?>
+                                    <?php
+                                    if ($this->id_privilege < $mk['p'])
+                                        continue;
+                                    ?>
                                     <?php if (!isset($mk['submenu'])) { ?>
                                         <li class="nav-item ">
                                             <a href="<?= URL::BASE_URL . $mk['c'] ?>" class="nav-link <?= (strpos($title, $mk['title']) !== FALSE) ? 'active' : '' ?>">
@@ -297,18 +301,6 @@ if ($log_mode == 1) {
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>
                                                         Laba/Rugi Laundry Bulanan
-                                                    </p>
-                                                </a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="<?= URL::BASE_URL ?>Export" class="nav-link 
-                    <?php if ($title == 'Data Export - Rekap') {
-                                        echo 'active';
-                                    } ?>">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>
-                                                        Data Export
                                                     </p>
                                                 </a>
                                             </li>

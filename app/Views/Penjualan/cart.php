@@ -31,7 +31,7 @@
   </tbody>
   <tr class="table-borderless">
     <th class="text-end">
-      TOTA
+      TOTAL
     </th>
     <th class="text-end"><?= number_format($total) ?></th>
   </tr>
@@ -44,6 +44,7 @@
       <td class="text-end">-<?= number_format($b['jumlah'])  ?></td>
     </tr>
   <?php } ?>
+
   <?php if (count($data['bayar']) > 0) { ?>
     <tr class="table-borderless">
       <th class="text-end">
@@ -53,7 +54,7 @@
     </tr>
   <?php } ?>
 </table>
-<?php if ($total > 0) { ?>
+<?php if ($total > 0 && $_SESSION['user']['id_privilege'] >= 90) { ?>
   <div class="d-flex flex-row justify-content-between px-1">
     <div class="piutang" onclick="load_piutang(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn btn-sm rounded-0 btn-outline-danger" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight3" aria-controls="offcanvasRight">Jadikan Piutang</button></div>
     <div class="bayar" onclick="load_bayar(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn btn-sm rounded-0 btn-outline-success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight2" aria-controls="offcanvasRight">Pembayaran</button></div>

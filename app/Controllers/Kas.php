@@ -54,7 +54,7 @@ class Kas extends Controller
          }
       }
 
-      $jenis_pengeluaran = $this->db(0)->get("item_pengeluaran");
+      $jenis_pengeluaran = $this->db(0)->get_order("item_pengeluaran", "freq DESC");
 
       $this->view('layout', $layout);
       $this->view(__CLASS__ . "/main", [
@@ -118,82 +118,12 @@ class Kas extends Controller
       $data_main = $this->db(date('Y'))->count_where('kas', $where);
 
       if ($data_main < 1) {
+         //update freq
+         $this->db(0)->update('item_pengeluaran', "freq = freq + 1", "id_item_pengeluaran = " . $id_jenis);
          $cols = 'id_cabang, jenis_mutasi, jenis_transaksi, metode_mutasi, note, note_primary, status_mutasi, jumlah, id_user, id_client, ref';
          $vals = $this->id_cabang . ",2,4,1,'" . $keterangan . "','" . $jenis . "'," . $status_mutasi . "," . $jumlah . "," . $this->id_user . ",0," . $id_jenis;
          $in = $this->db(date('Y'))->insertCols('kas', $cols, $vals);
          echo $in['errno'] == 0 ? 0 : $in['error'];
-      }
-   }
-
-   function qris_instant($reff_id)
-   {
-      $cek = $this->db($_SESSION['user']['book'])->get_where_row('kas', "ref_finance = '" . $reff_id . "' AND qr_string <> '' AND (status_mutasi <> 3 OR status_mutasi <> 4)");
-
-      if (count($cek) > 0) {
-         $par['jumlah'] = $cek['jumlah_tp'];
-         $par['qr_link'] = $cek['qr_link'];
-         $par['qr_string'] = $cek['qr_string'];
-         $this->view('operasi/qr_print', $par);
-      } else {
-         $total = $this->db($_SESSION['user']['book'])->sum_col_where('kas', 'jumlah', "ref_finance ='" . $reff_id . "'");
-         $qr_req = $this->model('Tokopay')->createOrder($total, $reff_id, 'QRIS');
-         $data = json_decode($qr_req, true);
-         if (isset($data['status'])) {
-            if ($data['status'] == 'Success') {
-               if (isset($data['data'])) {
-                  $d = $data['data'];
-                  $set = "pay_url = '" . $d['pay_url'] . "', qr_link = '" . $d['qr_link'] . "', qr_string = '" . $d['qr_string'] . "', trx_id = '" . $d['trx_id'] . "', jumlah_tp = " . $d['total_bayar'];
-                  $up = $this->db($_SESSION['user']['book'])->update('kas', $set, "ref_finance = '" . $reff_id . "'");
-                  if ($up['errno'] == 0) {
-                     $par['jumlah'] = $d['total_bayar'];
-                     $par['qr_link'] = $d['qr_link'];
-                     $par['qr_string'] = $d['qr_string'];
-                     $this->view('operasi/qr_print', $par);
-                  } else {
-                     print_r($up['error']);
-                  }
-               }
-            } else {
-               print_r($data);
-            }
-         } else {
-            print_r($data);
-         }
-      }
-   }
-
-   function cek_qris($reff_id, $jumlah)
-   {
-      $cek = $this->db($_SESSION['user']['book'])->get_where_row('kas', "ref_finance = '" . $reff_id . "'");
-      if ($cek['status_mutasi'] == 3) {
-         echo 0;
-      } else {
-         $qr_cek = $this->model('Tokopay')->createOrder($jumlah, $reff_id, 'QRIS');
-         $data = json_decode($qr_cek, true);
-         if (isset($data['status'])) {
-            if ($data['status'] == 'Success') {
-               if (isset($data['data'])) {
-                  $d = $data['data'];
-                  if ($d['status'] == 'Success') {
-                     $set = "status_mutasi = 3";
-                     $up = $this->db($_SESSION['user']['book'])->update('kas', $set, "ref_finance = '" . $reff_id . "'");
-                     if ($up['errno'] == 0) {
-                        echo 0;
-                     } else {
-                        echo ($up['error']);
-                     }
-                  } else {
-                     print_r($data);
-                  }
-               } else {
-                  print_r($data);
-               }
-            } else {
-               print_r($data);
-            }
-         } else {
-            print_r($data);
-         }
       }
    }
 }

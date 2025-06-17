@@ -1,6 +1,6 @@
 <?php
 foreach ($data['ref'] as $key => $r) { ?>
-  <div class="row border-bottom py-1">
+  <div class="row mx-0 border-bottom py-1">
     <div class="col">
       <b><?= $r['id'] ?></b><br>
       <span class="badge bg-primary"><?= $r['mode'] == 0 ? "Dine-In" : "Take-Away" ?></span><br>

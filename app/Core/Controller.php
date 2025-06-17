@@ -74,6 +74,8 @@ class Controller extends URL
     {
         $_SESSION['user'] = $data_user;
         $wCabang = "id_cabang = " . $data_user['id_cabang'];
+        $_SESSION['users'] = $this->db(0)->get_where('user', $wCabang . " AND en = 1", "id_user");
+        $_SESSION['cabang'] = $this->db(0)->get_where_row('cabang', $wCabang);
         $_SESSION['cabangs'] = $this->db(0)->get('cabang', 'id_cabang');
         $_SESSION['privilege'] = $this->db(0)->get('privilege', 'id_privilege');
         $_SESSION['menu'] = $this->db(0)->get_where('menu_item', $wCabang . " ORDER BY freq DESC", 'id');

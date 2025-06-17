@@ -80,10 +80,10 @@ class Absen extends Controller
          //CEK MAX PER CABANG
          if ($jenis == 0) {
             $where = "id_cabang = " . $_SESSION['user']['id_cabang'] . " AND jenis = " . $jenis . " AND tanggal = '" . $tgl . "'";
-            $max = $_SESSION['data']['cabang'][$jenis . '_max'];
+            $max = $_SESSION['cabang'][$jenis . '_max'];
          } else if ($jenis == 1) {
             $where = "id_cabang = " . $_SESSION['user']['id_cabang'] . " AND jenis = " . $jenis . " AND tanggal = '" . $tgl . "'";
-            $max = $_SESSION['data']['cabang'][$jenis . '_max'];
+            $max = $_SESSION['cabang'][$jenis . '_max'];
          } else if ($jenis == 2) {
             $where = "jenis = " . $jenis . " AND tanggal = '" . $tgl . "'";
             $max = 1;
