@@ -39,16 +39,6 @@ class Data_List extends Controller
             $order = 'id_surcas_jenis ASC';
             $data_main = $this->db(0)->get_order($table, $order);
             break;
-         case "user":
-            $this->session_cek(1);
-            $view = 'data_list/' . $page;
-            $z['mode'] = "aktif";
-            $data_operasi = ['title' => 'Karyawan Aktif'];
-            $table = $page;
-            $d2 = $this->db(0)->get('cabang');
-            $where = "en = 1 ORDER BY id_cabang ASC";
-            $data_main = $this->db(0)->get_where($table, $where);
-            break;
          case "userDisable":
             $this->session_cek(1);
             $view = 'data_list/user';
@@ -58,14 +48,6 @@ class Data_List extends Controller
             $d2 = $this->db(0)->get('cabang');
             $where = "en = 0 ORDER BY id_cabang ASC";
             $data_main = $this->db(0)->get_where($table, $where);
-            break;
-         case "karyawan":
-            $view = 'data_list/' . $page;
-            $data_operasi = ['title' => 'Karyawan Mac Address'];
-            $table = $page;
-            $cols = 'id_user, nama_user, mac, mac_2';
-            $where = $this->wCabang . " AND en = 1";
-            $data_main = $this->db(0)->get_cols_where("user", $cols, $where, 1);
             break;
       }
       $this->view('layout', ['data_operasi' => $data_operasi]);

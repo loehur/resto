@@ -56,6 +56,6 @@
 <?php if ($total > 0) { ?>
   <div class="d-flex flex-row justify-content-between px-1">
     <div class="piutang" onclick="load_piutang(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn btn-sm rounded-0 btn-outline-danger" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight3" aria-controls="offcanvasRight">Jadikan Piutang</button></div>
-    <div class="bayar" onclick="load_bayar(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn btn-sm rounded-0 btn-outline-success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight2" aria-controls="offcanvasRight">Bayar</button></div>
+    <div class="bayar" onclick="load_bayar(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn btn-sm rounded-0 btn-outline-success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight2" aria-controls="offcanvasRight">Pembayaran</button></div>
   </div>
 <?php } ?>

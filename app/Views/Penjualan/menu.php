@@ -6,13 +6,9 @@ foreach ($data['menu'] as $dk) { ?>
       Rp<?= number_format($dk['harga']) ?>
     </div>
     <div class="py-1 align-self-center">
-      <button data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" data-add="-1" data-harga="<?= $dk['harga'] ?>" class="btn btn-sm btn-outline-danger fw-bold tambah" style="width: 30px;">
-        -
-      </button>
-      <span class="px-2 fw-bold" id="qty<?= $dk['id'] ?>"><?= isset($data['order'][$dk['id']]) ? $data['order'][$dk['id']]['qty'] : 0 ?></span>
-      <button data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" data-add="1" data-harga="<?= $dk['harga'] ?>" class="btn btn-sm btn-outline-success fw-bold tambah" style="width: 30px;">
-        +
-      </button>
+      <button data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" data-add="-1" class="btn btn-sm btn-outline-danger fw-bold tambah" style="width: 30px;">-</button>
+      <input data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" style="width: 50px;" value="<?= isset($data['order'][$dk['id']]) ? $data['order'][$dk['id']]['qty'] : 0 ?>" class="manual_qty border-0 text-center fw-bold border-bottom-1" id="qty<?= $dk['id'] ?>" type="number">
+      <button data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" data-add="1" class="btn btn-sm btn-outline-success fw-bold tambah" style="width: 30px;">+</button>
     </div>
   </div>
 <?php } ?>
@@ -21,14 +17,29 @@ foreach ($data['menu'] as $dk) { ?>
   $(".tambah").click(function() {
     const add = $(this).attr("data-add");
     const id = $(this).attr("data-id");
-    const harga = $(this).attr("data-harga");
     const id_kat = $(this).attr("data-kat");
 
-    let qty = $("#qty" + id).html();
+    let qty = $("#qty" + id).val();
     if (qty == 0 && add == -1) {
       return;
     } else {
-      tambahMenu(add, id, harga, qty, id_kat);
+      tambahMenu(add, id, qty, id_kat);
     }
   })
+
+  var val_before;
+  $("input.manual_qty").focusin(function() {
+    val_before = $(this).val();
+  });
+
+  $("input.manual_qty").focusout(function() {
+    const qty = $(this).val();
+    if (val_before == qty) {
+      console.log('Tidak ada perubahan qty');
+      return;
+    }
+    const id = $(this).attr("data-id");
+    const id_kat = $(this).attr("data-kat");
+    tambahMenuManual(id, qty, id_kat);
+  });
 </script>

@@ -12,4 +12,23 @@ $menu[1] = [
         'icon' => 'fab fa-whatsapp',
         'txt' => 'Whatsapp Status'
     ],
+    [
+        'c' => '',
+        'title' => 'Karyawan',
+        'icon' => 'fas fa-user-friends',
+        'txt' => 'Karyawan',
+        'submenu' =>
+        [
+            [
+                'c' => 'Karyawan/index/1',
+                'title' => 'Karyawan Aktif',
+                'txt' => 'Aktif',
+            ],
+            [
+                'c' => 'Karyawan/index/0',
+                'title' => 'Karyawan Non Aktif',
+                'txt' => 'Non Aktif',
+            ],
+        ]
+    ],
 ];

@@ -73,10 +73,12 @@ class Controller extends URL
     public function parameter($data_user)
     {
         $_SESSION['user'] = $data_user;
+        $wCabang = "id_cabang = " . $data_user['id_cabang'];
         $_SESSION['cabangs'] = $this->db(0)->get('cabang', 'id_cabang');
-        $_SESSION['menu'] = $this->db(0)->get_where('menu_item', "id_cabang = " . $data_user['id_cabang'] . " ORDER BY freq DESC", 'id');
-        $_SESSION['menu_byKat'] = $this->db(0)->get_where('menu_item', "id_cabang = " . $data_user['id_cabang'] . " ORDER BY freq DESC", 'id_kategori', 1);
-        $_SESSION['kat'] = $this->db(0)->get_where('menu_kategori', "id_cabang = " . $data_user['id_cabang'] . " ORDER BY freq DESC", 'id');
+        $_SESSION['privilege'] = $this->db(0)->get('privilege', 'id_privilege');
+        $_SESSION['menu'] = $this->db(0)->get_where('menu_item', $wCabang . " ORDER BY freq DESC", 'id');
+        $_SESSION['menu_byKat'] = $this->db(0)->get_where('menu_item', $wCabang . " ORDER BY freq DESC", 'id_kategori', 1);
+        $_SESSION['kat'] = $this->db(0)->get_where('menu_kategori', $wCabang . " ORDER BY freq DESC", 'id');
     }
 
     public function dataSynchrone($id_user)

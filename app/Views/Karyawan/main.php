@@ -5,79 +5,73 @@
     width: 100%;
   }
 </style>
-<div class="content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col">
-        <div class="card">
-          <div class="card-header">
-            <button type="button" class="btn btn-sm btn-primary float-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Tambah Karyawan
-            </button>
-          </div>
-          <div class="card-body p-0">
-            <table class="table table-sm" style="max-width: 450px;">
-              <tbody>
-                <?php
-                $no = 0;
-                foreach ($data['data_main'] as $a) {
-                  $no++;
+<div class="row mx-0">
+  <div class="col px-0">
+    <div class="card">
+      <div class="card-header">
+        <button type="button" class="btn btn-sm btn-primary float-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Tambah Karyawan
+        </button>
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-sm">
+          <tbody>
+            <?php
+            $no = 0;
+            foreach ($data as $a) {
+              $no++;
 
-                  $id = $a['id_user'];
-                  $f2 = $a['id_cabang'];
-                  $f2name = "";
-                  foreach ($data['d2'] as $b) {
-                    if ($f2 == $b['id_cabang']) {
-                      $f2name = $b['kode_cabang'];
-                    }
-                  }
+              $id = $a['id_user'];
+              $f2 = $a['id_cabang'];
+              $f2name = "";
 
-                  if (!isset($cabangRow)) {
-                    echo "<tr class='table-primary'><td colspan=11 class='text-center'>#" . $f2 . " <b>" . $f2name . "</b></td></tr>";
-                  }
-                  if (isset($cabangRow) && $cabangRow <> $f2) {
-                    echo "<tr class='table-primary'><td colspan=11 class='text-center'>#" . $f2 . " <b>" . $f2name . "</b></td></tr>";
-                  }
+              $f2name = $_SESSION['cabangs'][$f2]['kode_cabang'];
 
-                  $f3 = $a['id_privilege'];
-                  $f3name = "";
-                  foreach ($this->dPrivilege as $b) {
-                    if ($f3 == $b['id_privilege']) {
-                      $f3name = $b['privilege'];
-                    }
-                  }
+              if (!isset($cabangRow)) {
+                echo "<tr class='table-primary'><td colspan=11 class='text-center'>#" . $f2 . " <b>" . $f2name . "</b></td></tr>";
+              }
+              if (isset($cabangRow) && $cabangRow <> $f2) {
+                echo "<tr class='table-primary'><td colspan=11 class='text-center'>#" . $f2 . " <b>" . $f2name . "</b></td></tr>";
+              }
 
-                  if ($f3 <> 100) {
-                    $classAdmin = "";
-                  } else {
-                    $classAdmin = "row-disabled";
-                  }
+              $f3 = $a['id_privilege'];
+              $f3name = "";
+              $f3name = $_SESSION['privilege'][$f3]['privilege'];
 
-                  echo "<tr class='" . $classAdmin . "'>";
-                  echo "<td>";
-                  echo "<span data-mode=2 data-id_value='" . $id . "' data-value='" . $a['nama_user'] . "'><b>" . $a['nama_user'] . "</b></span><br><span data-mode=5 data-id_value='" . $id . "' data-value='" . $f3name . "'>" . $f3name . "</span>";
-                  echo "</td>";
-                  echo "<td>" . $no . "#" . $id . " <span data-mode=4 data-id_value='" . $id . "' data-value='" . $f2name . "'>" . $f2name . "</span><br><span data-mode=6 data-id_value='" . $id . "' data-value='" . $a['no_user'] . "'>" . $a['no_user'] . "</span></td>";
-                  echo "<td class='text-right'>";
-                  echo " ";
-                  echo "</td>";
-                  if ($data['z']['mode'] == 'aktif') {
-                    echo "<td><a data-id_value='" . $id . "' data-value='0' class='text-danger enable' href='#'><i class='fas fa-times-circle'></i></a></td>";
-                  } else {
-                    echo "<td><a data-id_value='" . $id . "' data-value='1' class='text-success enable' href='#'><i class='fas fa-recycle'></i></a></td>";
-                  }
-                  echo "</tr>";
-                  $cabangRow = $f2;
+              if ($f3 <> 100) {
+                $classAdmin = "";
+              } else {
+                $classAdmin = "row-disabled";
+              }
+
+              echo "<tr class='" . $classAdmin . "'>";
+              echo "<td>";
+              echo "<span data-mode=2 data-id_value='" . $id . "' data-value='" . $a['nama_user'] . "'><b>" . $a['nama_user'] . "</b></span><br><span data-mode=5 data-id_value='" . $id . "' data-value='" . $f3name . "'>" . $f3name . "</span>";
+              echo "</td>";
+              echo "<td>" . $no . "#" . $id . " <span data-mode=4 data-id_value='" . $id . "' data-value='" . $f2name . "'>" . $f2name . "</span><br><span data-mode=6 data-id_value='" . $id . "' data-value='" . $a['no_user'] . "'>" . $a['no_user'] . "</span></td>";
+              echo "<td class='text-right'>";
+              echo " ";
+              echo "</td>";
+              if ($f3 <> 100) {
+                if ($a['en'] == 1) {
+                  echo "<td><a data-id_value='" . $id . "' data-value='0' class='text-danger enable' href='#'><i class='fas fa-times-circle'></i></a></td>";
+                } else {
+                  echo "<td><a data-id_value='" . $id . "' data-value='1' class='text-success enable' href='#'><i class='fas fa-recycle'></i></a></td>";
                 }
-                ?>
-              </tbody>
-            </table>
-          </div>
-        </div>
+              } else {
+                echo "<td></td>";
+              }
+              echo "</tr>";
+              $cabangRow = $f2;
+            }
+            ?>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </div>
+
 
 <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -100,7 +94,7 @@
                   <label for="exampleInputEmail1">Cabang</label>
                   <select name="f3" class="form-control" required>
                     <option value="" disabled selected>---</option>
-                    <?php foreach ($data['d2'] as $a) { ?>
+                    <?php foreach ($_SESSION['cabangs'] as $a) { ?>
                       <option value="<?= $a['id_cabang'] ?>"><?= $a['kode_cabang'] ?></option>
                     <?php } ?>
                   </select>
@@ -117,7 +111,7 @@
                   <label for="exampleInputEmail1">Privilege</label>
                   <select name="f4" class="form-control" required>
                     <option value="" disabled selected>---</option>
-                    <?php foreach ($this->dPrivilege as $a) {
+                    <?php foreach ($_SESSION['privilege'] as $a) {
                       if ($a['id_privilege'] <> 100) { ?>
                         <option value="<?= $a['id_privilege'] ?>"><?= $a['privilege'] ?></option>
                     <?php }
@@ -140,16 +134,9 @@
 <!-- SCRIPT -->
 <script src="<?= $this->ASSETS_URL ?>js/jquery-3.6.0.min.js"></script>
 <script src="<?= $this->ASSETS_URL ?>js/popper.min.js"></script>
-<script src="<?= $this->ASSETS_URL ?>plugins/bootstrap-5.1/bootstrap.bundle.min.js"></script>
-<script src="<?= $this->ASSETS_URL ?>plugins/select2/select2.min.js"></script>
 
 <script>
   $(document).ready(function() {
-
-    $('.selectMulti').select2({
-      theme: "classic"
-    });
-
     $("form").on("submit", function(e) {
       e.preventDefault();
       $.ajax({
@@ -190,12 +177,12 @@
           span.html("<input type='text' id='value_' value='" + value + "'>");
           break;
         case '4':
-          span.html('<select id="value_"><option value="' + value + '" selected>' + valHtml + '</option><?php foreach ($data['d2'] as $a) { ?><option value="<?= $a['id_cabang'] ?>"><?= $a['kode_cabang'] ?></option><?php } ?></select>');
+          span.html('<select id="value_"><option value="' + value + '" selected>' + valHtml + '</option><?php foreach ($_SESSION['cabangs'] as $a) { ?><option value="<?= $a['id_cabang'] ?>"><?= $a['kode_cabang'] ?></option><?php } ?></select>');
           break;
         case '5':
           span.html(
-            '<select id="value_"><option value="' + value + '" selected>' + valHtml + '</option><?php foreach ($this->dPrivilege as $a) :  if ($a['id_privilege'] <> 100) { ?><option value="<?= $a['id_privilege'] ?>"><?= $a['privilege'] ?></option><?php }
-                                                                                                                                                                                                                                                    endforeach ?></select>'
+            '<select id="value_"><option value="' + value + '" selected>' + valHtml + '</option><?php foreach ($_SESSION['privilege'] as $a) :  if ($a['id_privilege'] <> 100) { ?><option value="<?= $a['id_privilege'] ?>"><?= $a['privilege'] ?></option><?php }
+                                                                                                                                                                                                                                                        endforeach ?></select>'
           );
           break;
         default:

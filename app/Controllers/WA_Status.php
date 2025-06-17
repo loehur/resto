@@ -10,8 +10,8 @@ class WA_Status extends Controller
 
    function index()
    {
-      $data_operasi = ['title' => __CLASS__];
-      $this->view('layout', ['data_operasi' => $data_operasi]);
+      $layout = ['title' => __CLASS__];
+      $this->view('layout', $layout);
       $this->view(__CLASS__ . '/loader');
    }
 

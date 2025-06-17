@@ -33,9 +33,8 @@ $bawa_pulang = 7;
 </div>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header">
-    <h5 id="offcanvasRightLabel">Menu</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  <div class="offcanvas-header w-100">
+    <div style="cursor: pointer;" class="border-0 py-2 w-100 text-dark text-center" data-bs-dismiss="offcanvas"><i class="fas fa-arrow-left"></i></div>
   </div>
   <div class="offcanvas-body pt-0">
     <div class="row mx-0">
@@ -53,26 +52,25 @@ $bawa_pulang = 7;
         </div>
       <?php } ?>
     </div>
-    <div class="mt-2 px-1" id="menu"></div>
+    <div class="mt-2 px-1 menu_edit_load" style="height: 5px;"></div>
+    <div class="px-1" id="menu"></div>
   </div>
 </div>
 
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight1" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header">
-    <h5 id="offcanvasRightLabel">Ubah</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div style="cursor: pointer;" class="border-0 py-2 w-100 text-dark text-center" data-bs-dismiss="offcanvas"><i class="fas fa-arrow-left"></i></div>
   </div>
   <div class="offcanvas-body pt-0">
-    <div class="px-1" id="menu_edit_load" style="height: 10px;"></div>
+    <div class="mt-2 px-1 menu_edit_load" style="height: 5px;"></div>
     <div class="px-1" id="menu_edit"></div>
   </div>
 </div>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight2" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header">
-    <h5 id="offcanvasRightLabel">Bayar</h5>
-    <button type="button" class="btn-close text-reset" id="closeBayar" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div style="cursor: pointer;" class="border-0 py-2 w-100 text-dark text-center" id="closeBayar" data-bs-dismiss="offcanvas"><i class="fas fa-arrow-left"></i></div>
   </div>
   <div class="offcanvas-body pt-0">
     <div class="px-1" id="bayar"></div>
@@ -81,8 +79,7 @@ $bawa_pulang = 7;
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight3" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header">
-    <h5 id="offcanvasRightLabel">Piutang</h5>
-    <button type="button" class="btn-close text-reset" id="closePiutang" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div id="closePiutang" style="cursor: pointer;" class="border-0 py-2 w-100 text-dark text-center" data-bs-dismiss="offcanvas"><i class="fas fa-arrow-left"></i></div>
   </div>
   <div class="offcanvas-body pt-0">
     <div class="px-1" id="piutang"></div>
@@ -121,14 +118,13 @@ $bawa_pulang = 7;
     }
   })
 
-  function tambahMenu(add, id, harga, qty, id_kat) {
+  function tambahMenu(add, id, qty, id_kat) {
     qty = parseInt(qty) + parseInt(add);
     $.ajax({
       url: "<?= URL::BASE_URL ?>Penjualan/add/" + mode_dt + "/" + nomor,
       data: {
         add: add,
         id: id,
-        harga: harga,
         id_kat: id_kat
       },
       type: "POST",
@@ -138,7 +134,32 @@ $bawa_pulang = 7;
           load_pesanan(mode_dt, nomor);
           $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').removeClass('border-2 border-dark');
         } else if (res == 0) {
+          $("#qty" + id).val(qty);
+          load_pesanan(mode_dt, nomor);
+          $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').addClass('border-2 border-dark');
+        } else {
+          console.log(res);
+        }
+      },
+    });
+  }
+
+  function tambahMenuManual(id, qty, id_kat) {
+    $.ajax({
+      url: "<?= URL::BASE_URL ?>Penjualan/add_manual/" + mode_dt + "/" + nomor,
+      data: {
+        qty: qty,
+        id: id,
+        id_kat: id_kat
+      },
+      type: "POST",
+      success: function(res) {
+        if (res == 1) {
           $("#qty" + id).html(qty);
+          load_pesanan(mode_dt, nomor);
+          $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').removeClass('border-2 border-dark');
+        } else if (res == 0) {
+          $("#qty" + id).val(qty);
           load_pesanan(mode_dt, nomor);
           $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').addClass('border-2 border-dark');
         } else {
@@ -155,9 +176,9 @@ $bawa_pulang = 7;
       });
     });
 
-    $("div#menu_edit_load").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
+    $("div.menu_edit_load").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
       $("div#menu_edit").load('<?= URL::BASE_URL ?>Penjualan/ubah/' + mode_dt + "/" + nomor, function() {
-        $("div#menu_edit_load").html('');
+        $("div.menu_edit_load").html('');
       });
     });
   }
