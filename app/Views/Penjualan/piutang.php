@@ -5,7 +5,7 @@ foreach ($data['order'] as $dk) {
   $total += $subTotal;
 } ?>
 
-<div class="w-100">
+<div class="w-100 mt-5">
   <div class="text-center">Total</div>
   <div class="text-center fs-5 fw-bold"><?= number_format($total) ?></div>
 </div>
@@ -27,12 +27,6 @@ foreach ($data['order'] as $dk) {
   </div>
 </div>
 
-<div class="w-100 mt-4">
-  <div class="text-center fs-5 fw-bold">
-    <span class="btn btn-outline-secondary w-100 rounded-0" data-bs-dismiss="offcanvas">Batal</span>
-  </div>
-</div>
-
 <script>
   function piutangOK() {
     let pelanggan = $('select[name=pelanggan]').val();
@@ -48,7 +42,9 @@ foreach ($data['order'] as $dk) {
         type: "POST",
         success: function(res) {
           if (res == 0) {
-            $("#closePiutang").click();
+            $('.offcanvas.show').each(function() {
+              $(this).offcanvas('hide');
+            });
             $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').removeClass('border-2 border-dark');
             load_pesanan(mode_dt, nomor);
           } else {
