@@ -18,8 +18,8 @@ class Rekap extends Controller
 
       switch ($mode) {
          case 1:
-            $data_operasi = ['title' => 'Harian Cabang - Rekap'];
-            $viewData = 'rekap/rekap';
+            $layout = ['title' => 'Harian Cabang - Rekap'];
+            $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
                $today = $_SESSION['user']['book'] . "-" . $_POST['m'] . "-" . $_POST['d'];
@@ -32,8 +32,8 @@ class Rekap extends Controller
             $whereCabang = $this->wCabang . " AND ";
             break;
          case 2:
-            $data_operasi = ['title' => 'Bulanan Cabang - Rekap'];
-            $viewData = 'rekap/rekap';
+            $layout = ['title' => 'Bulanan Cabang - Rekap'];
+            $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
                $today = $_SESSION['user']['book'] . "-" . $_POST['m'];
@@ -46,8 +46,8 @@ class Rekap extends Controller
             $whereCabang = $this->wCabang . " AND ";
             break;
          case 3:
-            $data_operasi = ['title' => 'Bulanan Laundry - Rekap', 'vLaundry' => true];
-            $viewData = 'rekap/rekap';
+            $layout = ['title' => 'Bulanan Laundry - Rekap', 'vLaundry' => true];
+            $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
                $today = $_SESSION['user']['book'] . "-" . $_POST['m'];
@@ -60,8 +60,8 @@ class Rekap extends Controller
             $whereCabang = '';
             break;
          case 4:
-            $data_operasi = ['title' => 'Harian Laundry - Rekap', 'vLaundry' => true];
-            $viewData = 'rekap/rekap';
+            $layout = ['title' => 'Harian Laundry - Rekap', 'vLaundry' => true];
+            $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
                $today = $_SESSION['user']['book'] . "-" . $_POST['m'] . "-" . $_POST['d'];
@@ -89,19 +89,14 @@ class Rekap extends Controller
 
       //PENDAPATAN
       $cols = "sum(jumlah) as total";
-      $where = $whereCabang . "jenis_transaksi = 1 AND status_mutasi <> 4 AND insertTime LIKE '%" . $today . "%'";
+      $where = $whereCabang . "jenis_transaksi = 1 AND status_mutasi <> 2 AND insertTime LIKE '%" . $today . "%'";
       $where_umum = $where;
-      $kas_laundry = 0;
-      $kas_laundry = $this->db($_SESSION['user']['book'])->get_cols_where('kas', $cols, $where_umum, 0)['total'];
-
-      $where = $whereCabang . "jenis_transaksi = 3 AND status_mutasi <> 4 AND insertTime LIKE '%" . $today . "%'";
-      $where_member = $where;
-      $kas_member = 0;
-      $kas_member = $this->db($_SESSION['user']['book'])->get_cols_where('kas', $cols, $where, 0)['total'];
+      $kas = 0;
+      $kas = $this->db($_SESSION['user']['book'])->get_cols_where('kas', $cols, $where_umum, 0)['total'];
 
       //PENGELUARAN
       $cols = "note_primary, sum(jumlah) as total";
-      $where = $whereCabang . "jenis_transaksi = 4 AND status_mutasi <> 4 AND insertTime LIKE '%" . $today . "%' GROUP BY note_primary";
+      $where = $whereCabang . "jenis_transaksi = 4 AND status_mutasi <> 2 AND insertTime LIKE '%" . $today . "%' GROUP BY note_primary";
       $where_keluar =  $whereCabang . "jenis_transaksi = 4 AND status_mutasi <> 3 AND insertTime LIKE '%" . $today . "%'";
       $kas_keluar = $this->db($_SESSION['user']['book'])->get_cols_where('kas', $cols, $where, 1);
 
@@ -114,7 +109,7 @@ class Rekap extends Controller
 
       //PENARIKAN
       $cols = "note_primary, sum(jumlah) as total";
-      $where = $whereCabang . "jenis_transaksi = 2 AND status_mutasi <> 4 AND insertTime LIKE '%" . $today . "%' GROUP BY note_primary";
+      $where = $whereCabang . "jenis_transaksi = 2 AND status_mutasi <> 2 AND insertTime LIKE '%" . $today . "%' GROUP BY note_primary";
       $where_tarik =  $whereCabang . "jenis_transaksi = 2 AND status_mutasi <> 3 AND insertTime LIKE '%" . $today . "%'";
       $kas_tarik = $this->db($_SESSION['user']['book'])->get_cols_where('kas', $cols, $where, 1);
 
@@ -141,16 +136,14 @@ class Rekap extends Controller
          }
       }
 
-      $this->view('layout', ['data_operasi' => $data_operasi]);
+      $this->view('layout', $layout);
       $this->view($viewData, [
          'data_main' => $data_main,
          'dataTanggal' => $dataTanggal,
-         'kasLaundry' => $kas_laundry,
+         'kasLaundry' => $kas,
          'whereUmum' => $where_umum,
          'whereKeluar' => $where_keluar,
-         'whereMember' => $where_member,
          'whereTarik' => $where_tarik,
-         'kasMember' => $kas_member,
          'kas_keluar' => $kas_keluar,
          'kas_tarik' => $kas_tarik,
          'prepost_cost' => $prepost_cost,
@@ -160,9 +153,9 @@ class Rekap extends Controller
 
    function detail($where, $mode = 1)
    {
-      $viewData = 'rekap/rekap_bulanan_detail';
-      $data_operasi = ['title' => 'Bulanan Cabang - Rekap'];
-      $this->view('layout', ['data_operasi' => $data_operasi]);
+      $viewData = 'Rekap/detail';
+      $layout = ['title' => 'Bulanan Cabang - Rekap'];
+      $this->view('layout', ['data_operasi' => $layout]);
 
       $data = [];
       $where =  base64_decode($where);

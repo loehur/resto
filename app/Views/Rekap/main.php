@@ -195,101 +195,15 @@ $target_page_rekap = $uri_segments[$uriCount - 1];
             }
           }
           ?>
-          <div class="card-body mt-1 p-0 table-responsive-sm">
-            <table class="table table-sm w-100">
-              <thead>
-                <tr>
-                  <th colspan="3" class="text-success border-success">Pendapatan</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                foreach ($rekapQty as $keyA => $a) {
-                  foreach ($this->dPenjualan as $b) {
-                    if ($b['id_penjualan_jenis'] == $keyA) {
-                      $jenisPenjualan = $b['penjualan_jenis'];
-                      $unit = "";
-                      foreach ($this->dSatuan as $sa) {
-                        if ($sa['id_satuan'] == $b['id_satuan']) {
-                          $unit = $sa['nama_satuan'];
-                        }
-                      }
-                      echo "<tr>";
-                      echo "<td class='text-primary'>" . $jenisPenjualan . "</td>";
-                      echo "<td class='text-right'>" . $a . " " . $unit . "</td>";
-                      echo '<td style="width: 70px;"></td>';
-                      echo "</tr>";
-                    }
-                  }
-                }
-                ?>
-              </tbody>
-            </table>
-          </div>
-          <br>
-          <div class="card-body p-0 table-responsive-sm">
-            <table class="table table-sm w-100">
-              <tbody>
-                <?php
-                $jenisPenjualan = "";
-                $jenisPenjualanBefore = "";
 
-                foreach ($rekap as $keyA => $a) {
-                  foreach ($this->dPenjualan as $b) {
-                    if ($b['id_penjualan_jenis'] == $keyA) {
-                      $unit = "";
-                      foreach ($this->dSatuan as $sa) {
-                        if ($sa['id_satuan'] == $b['id_satuan']) {
-                          $unit = $sa['nama_satuan'];
-                        }
-                      }
-
-                      foreach ($a as $keyB => $c) {
-                        $serLayanan = $keyB;
-                        $arrLayanan = unserialize($keyB);
-                        $layanan = "";
-                        foreach ($arrLayanan as $d) {
-                          foreach ($this->dLayanan as $e) {
-                            if ($d == $e['id_layanan']) {
-                              $layanan = $layanan . " " . $e['layanan'];
-                            }
-                          }
-                        }
-                        $jenisPenjualan = $b['penjualan_jenis'];
-                        if ($jenisPenjualan == $jenisPenjualanBefore) {
-                          $jenisPenjualan = "";
-                        }
-                        echo "<tr>";
-                        echo "<td class='text-primary'>" . $jenisPenjualan . "</td>";
-                        echo "<td>" . $layanan . "</td>";
-                        echo "<td class='text-right'>" . $c . " " . $unit . "</td>";
-                        echo '<td style="width: 70px;"></td>';
-                        echo "</tr>";
-                        $jenisPenjualanBefore = $b['penjualan_jenis'];
-                      }
-                    }
-                  }
-                }
-                ?>
-              </tbody>
-            </table>
-          </div>
-
-          <?php $total_pendapatan = $data['kasLaundry'] + $data['kasMember']; ?>
-
-          <br>
+          <?php $total_pendapatan = $data['kasLaundry']; ?>
           <div class="card-body p-0 table-responsive-sm">
             <table class="table table-sm w-100">
               <tbody>
                 <tr>
-                  <td>Pendapatan Laundry <span class="text-primary">Umum</span></td>
+                  <td>Pendapatan</td>
                   <td class="text-right">Rp<?= number_format($data['kasLaundry']) ?></td>
                   <td><a href="<?= URL::BASE_URL ?>Rekap/detail/<?= base64_encode($data['whereUmum']) ?>/1">Detail</a></td>
-                </tr>
-                <tr>
-                  <td>Pendapatan Laundry <span class="text-success">Member</span></td>
-                  <td class="text-right">Rp<?= number_format($data['kasMember']) ?></td>
-                  <td><a href="<?= URL::BASE_URL ?>Rekap/detail/<?= base64_encode($data['whereMember']) ?>/2">Detail</a></td>
                 </tr>
                 <tr class="table-success">
                   <td class="fw-bold">Total Pendapatan</td>
