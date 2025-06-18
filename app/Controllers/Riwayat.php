@@ -11,7 +11,7 @@ class Riwayat extends Controller
    public function index()
    {
       $layout = ['title' => 'Riwayat Pesanan'];
-      $data['ref'] = $this->db($this->book)->get_where('ref', "step <> 0 AND tgl = '" . date("Y-m-d") . "' ORDER BY id DESC", 'id');
+      $data['ref'] = $this->db($this->book)->get_where('ref', "step <> 0 ORDER BY id DESC LIMIT 30", 'id');
 
       $order = [];
       $total = [];
