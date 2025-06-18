@@ -77,14 +77,14 @@ class Rekap extends Controller
 
       //STATISTIC LAUNDRY
       if ($whereCabang == '') {
-         $where = $whereCabang . "bin = 0 AND insertTime LIKE '%" . $today . "%'";
-         $data_lain1 = $this->db($_SESSION['user']['book'])->get_where('sale', $where);
+         $where = $whereCabang . "insertTime LIKE '%" . $today . "%'";
+         $data_lain1 = $this->db($_SESSION['user']['book'])->get_where('pesanan', $where);
          foreach ($data_lain1 as $dl1) {
             array_push($data_main, $dl1);
          }
       } else {
-         $where = $whereCabang . "bin = 0 AND insertTime LIKE '%" . $today . "%'";
-         $data_main = $this->db($_SESSION['user']['book'])->get_where('sale', $where);
+         $where = $whereCabang . "insertTime LIKE '%" . $today . "%'";
+         $data_main = $this->db($_SESSION['user']['book'])->get_where('pesanan', $where);
       }
 
       //PENDAPATAN

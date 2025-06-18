@@ -10,6 +10,14 @@ foreach ($data['order'] as $dk) {
   <div class="text-center fs-5 fw-bold"><?= number_format($total) ?></div>
 </div>
 <div class="w-100 mt-3">
+  <div class="d-flex justify-content-center">
+    <div class="px-1"><span onclick="data_kembalian(<?= $total ?>)" class="pilihBayar btn btn-sm rounded-0 btn-outline-primary">Bayar Pas</span></div>
+    <div class="px-1"><span onclick="data_kembalian(20000)" class="pilihBayar btn btn-sm rounded-0 btn-outline-primary">20.000</span></div>
+    <div class="px-1"><span onclick="data_kembalian(50000)" class="pilihBayar btn btn-sm rounded-0 btn-outline-primary">50.000</span></div>
+    <div class="px-1"><span onclick="data_kembalian(100000)" class="pilihBayar btn btn-sm rounded-0 btn-outline-primary">100.000</span></div>
+  </div>
+</div>
+<div class="w-100 mt-3">
   <div class="text-center">Input Jumlah Bayar</div>
   <div class="text-center"><input class="border-top-0 border-start-0 border-end-0 border-bottom fs-2 text-success w-100 text-center inBayar" type="number"></div>
 </div>
@@ -47,9 +55,14 @@ foreach ($data['order'] as $dk) {
 </div>
 
 <script>
+  var bill = parseInt(<?= $total ?>);
+
   $('.inBayar').keyup(function() {
-    let bill = parseInt(<?= $total ?>);
     let total_bayar = parseInt($(this).val());
+    data_kembalian(total_bayar);
+  })
+
+  function data_kembalian(total_bayar) {
     let sisa = total_bayar - bill;
     $("#dibayar").html(number_format(total_bayar));
     if (sisa > 0) {
@@ -57,7 +70,8 @@ foreach ($data['order'] as $dk) {
     } else {
       $("#kembalian").html(0);
     }
-  })
+    $('.inBayar').val(total_bayar);
+  }
 
   function number_format(number, decimals, dec_point, thousands_sep) {
     // Strip all characters but numerical ones.

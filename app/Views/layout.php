@@ -288,7 +288,7 @@ if ($log_mode == 1) {
                                     } ?>">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>
-                                                        Laba/Rugi Laundry Harian
+                                                        Laba/Rugi Total Harian
                                                     </p>
                                                 </a>
                                             </li>
@@ -300,7 +300,7 @@ if ($log_mode == 1) {
                                     } ?>">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>
-                                                        Laba/Rugi Laundry Bulanan
+                                                        Laba/Rugi Total Bulanan
                                                     </p>
                                                 </a>
                                             </li>
