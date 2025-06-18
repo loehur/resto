@@ -237,90 +237,6 @@ if ($log_mode == 1) {
                         <!-- INI MENU ADMIN ----------------------------------------->
                         <?php if ($this->id_privilege == 100) { ?>
                             <ul id="nav_3" class="nav nav-pills nav-sidebar flex-column <?= $hideAdmin ?>">
-                                <?php if ($this->id_cabang > 0) { ?>
-                                    <li class="nav-item <?php if (strpos($title, 'Rekap') !== FALSE) {
-                                                            echo 'menu-is-opening menu-open';
-                                                        } ?>">
-                                        <a href="#" class="nav-link 
-                <?php if (strpos($title, 'Rekap') !== FALSE) {
-                                        echo 'active';
-                                    } ?>">
-                                            <i class="nav-icon fas fa-chart-line"></i>
-                                            <p>
-                                                Rekap
-                                                <i class="fas fa-angle-left right"></i>
-                                            </p>
-                                        </a>
-                                        <ul class="nav nav-treeview" style="display: 
-                <?php if (strpos($title, 'Rekap') !== FALSE) {
-                                        echo 'block;';
-                                    } else {
-                                        echo 'none;';
-                                    } ?>;">
-                                            <li class="nav-item">
-                                                <a href="<?= URL::BASE_URL ?>Rekap/i/1" class="nav-link 
-                    <?php if ($title == 'Harian Cabang - Rekap') {
-                                        echo 'active';
-                                    } ?>">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>
-                                                        Laba/Rugi Cabang Harian
-                                                    </p>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="<?= URL::BASE_URL ?>Rekap/i/2" class="nav-link 
-                    <?php if ($title == 'Bulanan Cabang - Rekap') {
-                                        echo 'active';
-                                    } ?>">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>
-                                                        Laba/Rugi Cabang Bulanan
-                                                    </p>
-                                                </a>
-                                            </li>
-
-
-                                            <li class="nav-item">
-                                                <a href="<?= URL::BASE_URL ?>Rekap/i/4" class="nav-link 
-                    <?php if ($title == 'Harian Laundry - Rekap') {
-                                        echo 'active';
-                                    } ?>">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>
-                                                        Laba/Rugi Total Harian
-                                                    </p>
-                                                </a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="<?= URL::BASE_URL ?>Rekap/i/3" class="nav-link 
-                    <?php if ($title == 'Bulanan Laundry - Rekap') {
-                                        echo 'active';
-                                    } ?>">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>
-                                                        Laba/Rugi Total Bulanan
-                                                    </p>
-                                                </a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="<?= URL::BASE_URL ?>Gaji" class="nav-link 
-                    <?php if ($title == 'Gaji Bulanan - Rekap') {
-                                        echo 'active';
-                                    } ?>">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>
-                                                        Gaji Bulanan
-                                                    </p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                <?php } ?>
-
-
                                 <li class="nav-item ">
                                     <a href="<?= URL::BASE_URL ?>Cabang_List" class="nav-link 
                   <?php if ($title == 'Data Cabang') : echo 'active';
@@ -353,13 +269,13 @@ if ($log_mode == 1) {
                                 echo 'none;';
                             } ?>;">
                                         <li class="nav-item">
-                                            <a href="<?= URL::BASE_URL ?>Data_List/i/item" class="nav-link 
+                                            <a href="#" class="nav-link 
               <?php if ($title == 'Item Laundry') {
                                 echo 'active';
                             } ?>">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>
-                                                    Item Laundry
+                                                    Menu dan Kategori
                                                 </p>
                                             </a>
                                         </li>
@@ -375,49 +291,22 @@ if ($log_mode == 1) {
                                                 </p>
                                             </a>
                                         </li>
-
-                                        <li class="nav-item">
-                                            <a href="<?= URL::BASE_URL ?>Data_List/i/surcas" class="nav-link 
-              <?php if ($title == 'Surcharge') {
-                                echo 'active';
-                            } ?>">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>
-                                                    Surcharge
-                                                </p>
-                                            </a>
-                                        </li>
                                     </ul>
                                 </li>
 
-
-                                <?php
-                                // JIKA SUDAH PUNYA CABANG
-                                if ($this->id_cabang > 0) { ?>
-                                    <li class="nav-item ">
-                                        <a href="<?= URL::BASE_URL ?>Setting" class="nav-link 
-                  <?php if ($title == 'Setting') : echo 'active';
-                                    endif ?>">
-                                            <i class="nav-icon fas fa-wrench"></i>
-                                            <p>
-                                                Setting
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item ">
-                                        <a href="<?= URL::BASE_URL ?>Troubleshoot" class="nav-link 
+                                <li class="nav-item ">
+                                    <a href="<?= URL::BASE_URL ?>Troubleshoot" class="nav-link 
                   <?php if ($title == 'Troubleshoot') : echo 'active';
-                                    endif ?>">
-                                            <i class="nav-icon fas fa-hammer"></i>
-                                            <p>
-                                                Troubleshoot
-                                            </p>
-                                        </a>
-                                    </li>
+                            endif ?>">
+                                        <i class="nav-icon fas fa-hammer"></i>
+                                        <p>
+                                            Troubleshoot
+                                        </p>
+                                    </a>
+                                </li>
                             </ul>
-                    <?php
-                                }
-                            } ?>
+                        <?php
+                        } ?>
                     </ul>
                 </nav>
             </div>

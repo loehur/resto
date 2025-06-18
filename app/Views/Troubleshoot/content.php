@@ -1,15 +1,9 @@
-<div class="content mt-2">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col">
-        <div class="card p-2">
-          <pre>
+<div class="row mx-0">
+  <div class="col">
+    <pre>
             <?php
             print_r($_SESSION['user']);
             ?>
           </pre>
-        </div>
-      </div>
-    </div>
   </div>
 </div>

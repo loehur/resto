@@ -18,7 +18,7 @@ class Rekap extends Controller
 
       switch ($mode) {
          case 1:
-            $layout = ['title' => 'Harian Cabang - Rekap'];
+            $layout = ['title' => 'Rekap Cabang Harian'];
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
@@ -32,7 +32,7 @@ class Rekap extends Controller
             $whereCabang = $this->wCabang . " AND ";
             break;
          case 2:
-            $layout = ['title' => 'Bulanan Cabang - Rekap'];
+            $layout = ['title' => 'Rekap Cabang Bulanan'];
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
@@ -46,7 +46,7 @@ class Rekap extends Controller
             $whereCabang = $this->wCabang . " AND ";
             break;
          case 3:
-            $layout = ['title' => 'Bulanan Laundry - Rekap', 'vLaundry' => true];
+            $layout = ['title' => 'Rekap Total Harian', 'vLaundry' => true];
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
@@ -60,7 +60,7 @@ class Rekap extends Controller
             $whereCabang = '';
             break;
          case 4:
-            $layout = ['title' => 'Harian Laundry - Rekap', 'vLaundry' => true];
+            $layout = ['title' => 'Rekap Total Bulanan', 'vLaundry' => true];
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {

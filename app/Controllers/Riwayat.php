@@ -11,7 +11,7 @@ class Riwayat extends Controller
    public function index()
    {
       $layout = ['title' => 'Riwayat Pesanan'];
-      $data['ref'] = $this->db($this->book)->get_where('ref', "step <> 0 AND tgl = '" . date("Y-m-d") . "'", 'id');
+      $data['ref'] = $this->db($this->book)->get_where('ref', "step <> 0 AND tgl = '" . date("Y-m-d") . "' ORDER BY id DESC", 'id');
 
       $order = [];
       $total = [];
@@ -31,5 +31,14 @@ class Riwayat extends Controller
 
       $this->view('layout', $layout);
       $this->view(__CLASS__ . "/main", $data);
+   }
+
+   public function cart($ref = 0)
+   {
+      $viewData = __CLASS__ . '/cart';
+      $data['menu'] = $_SESSION['menu'];
+      $data['order'] = $this->db($this->book)->get_where('pesanan', "ref = '" . $ref . "'", "id_menu");
+      $data['bayar'] = $this->db($this->book)->get_where('kas', "ref = '" . $ref . "'");
+      $this->view($viewData, $data);
    }
 }

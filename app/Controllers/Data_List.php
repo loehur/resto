@@ -31,26 +31,8 @@ class Data_List extends Controller
             $order = 'id_item_pengeluaran ASC';
             $data_main = $this->db(0)->get_order($table, $order);
             break;
-         case "surcas":
-            $this->session_cek(1);
-            $view = 'data_list/' . $page;
-            $data_operasi = ['title' => 'Surcharge'];
-            $table = "surcas_jenis";
-            $order = 'id_surcas_jenis ASC';
-            $data_main = $this->db(0)->get_order($table, $order);
-            break;
-         case "userDisable":
-            $this->session_cek(1);
-            $view = 'data_list/user';
-            $z['mode'] = "nonaktif";
-            $data_operasi = ['title' => 'Karyawan Non Aktif'];
-            $table = "user";
-            $d2 = $this->db(0)->get('cabang');
-            $where = "en = 0 ORDER BY id_cabang ASC";
-            $data_main = $this->db(0)->get_where($table, $where);
-            break;
       }
-      $this->view('layout', ['data_operasi' => $data_operasi]);
+      $this->view('layout', $data_operasi);
       $this->view($view, ['data_main' => $data_main, 'd2' => $d2, 'z' => $z]);
    }
 

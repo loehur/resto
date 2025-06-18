@@ -169,25 +169,6 @@ $target_page_rekap = $uri_segments[$uriCount - 1];
     </form>
 
     <div class="card">
-      <?php
-      $rekap = array();
-      $rekapQty = array();
-      foreach ($data['data_main'] as $a) {
-        $serLayanan = $a['list_layanan'];
-        if (isset($rekap[$a['id_penjualan_jenis']][$serLayanan]) ==  TRUE) {
-          $rekap[$a['id_penjualan_jenis']][$serLayanan] =  $rekap[$a['id_penjualan_jenis']][$serLayanan] + $a['qty'];
-        } else {
-          $rekap[$a['id_penjualan_jenis']][$serLayanan] = $a['qty'];
-        }
-
-        if (isset($rekapQty[$a['id_penjualan_jenis']]) ==  TRUE) {
-          $rekapQty[$a['id_penjualan_jenis']] =  $rekapQty[$a['id_penjualan_jenis']] + $a['qty'];
-        } else {
-          $rekapQty[$a['id_penjualan_jenis']] = $a['qty'];
-        }
-      }
-      ?>
-
       <?php $total_pendapatan = $data['kasLaundry']; ?>
       <div class="card-body p-0 table-responsive-sm">
         <table class="table table-sm w-100">

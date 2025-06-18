@@ -2,17 +2,40 @@
 $menu[1] = [
     [
         'p' => 100,
-        'c' => 'AdminApproval/index/Setoran',
+        'c' => 'E/e_page/construction',
         'title' => 'Approval',
         'icon' => 'fas fa-tasks',
         'txt' => 'Approval'
     ],
     [
         'p' => 100,
-        'c' => 'WA_Status',
-        'title' => 'WA_Status',
-        'icon' => 'fab fa-whatsapp',
-        'txt' => 'Whatsapp Status'
+        'c' => '',
+        'title' => 'Rekap',
+        'icon' => 'fas fa-user-friends',
+        'txt' => 'Laporan',
+        'submenu' =>
+        [
+            [
+                'c' => 'Rekap/i/1',
+                'title' => 'Rekap Cabang Harian',
+                'txt' => 'Cabang Harian',
+            ],
+            [
+                'c' => 'Rekap/i/2',
+                'title' => 'Rekap Cabang Bulanan',
+                'txt' => 'Cabang Harian',
+            ],
+            [
+                'c' => 'Rekap/i/3',
+                'title' => 'Rekap Total Harian',
+                'txt' => 'Total Harian',
+            ],
+            [
+                'c' => 'Rekap/i/4',
+                'title' => 'Rekap Total Bulanan',
+                'txt' => 'Cabang Harian',
+            ],
+        ]
     ],
     [
         'p' => 100,
@@ -33,5 +56,12 @@ $menu[1] = [
                 'txt' => 'Non Aktif',
             ],
         ]
+    ],
+    [
+        'p' => 100,
+        'c' => 'WA_Status',
+        'title' => 'WA_Status',
+        'icon' => 'fab fa-whatsapp',
+        'txt' => 'Whatsapp Status'
     ],
 ];

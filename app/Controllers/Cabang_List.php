@@ -14,7 +14,7 @@ class Cabang_List extends Controller
       $table = 'cabang';
       $data_cabang = $this->db(0)->get($table);
 
-      $this->view('layout', ['data_operasi' => $data_operasi]);
+      $this->view('layout', $data_operasi);
       $this->view('data_list/cabang', ['data_cabang' => $data_cabang]);
    }
 
