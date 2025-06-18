@@ -13,7 +13,7 @@ if (isset($data)) {
     <meta charset="utf-8">
     <link rel="icon" href="<?= $this->ASSETS_URL ?>icon/logo.png">
     <title><?= $title ?></title>
-    <meta name="viewport" content="width=400, user-scalable=no">
+    <meta name="viewport" content="width=<?= URL::WIDTH ?>, user-scalable=no">
     <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>css/ionicons.min.css">
     <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>plugins/fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>plugins/bootstrap-5.1/bootstrap.min.css">
@@ -431,7 +431,7 @@ if ($log_mode == 1) {
             }
         </style>
 
-        <div class="content-wrapper pt-2 px-2 bg-white" id="content" style="min-width: 390px;">
+        <div class="content-wrapper pt-2 px-2 bg-white" id="content" style="min-width: <?= URL::WIDTH ?>px;">
             <script src="<?= $this->ASSETS_URL ?>plugins/adminLTE-3.1.0/jquery/jquery.min.js"></script>
             <script src="<?= $this->ASSETS_URL ?>plugins/adminLTE-3.1.0/bootstrap/js/bootstrap.bundle.min.js"></script>
             <script src="<?= $this->ASSETS_URL ?>plugins/bootstrap-5.1/bootstrap.bundle.min.js"></script>
