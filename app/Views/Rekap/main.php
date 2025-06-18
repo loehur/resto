@@ -173,10 +173,6 @@ $target_page_rekap = $uri_segments[$uriCount - 1];
       <div class="card-body p-0 table-responsive-sm">
         <table class="table table-sm w-100">
           <tbody>
-            <tr>
-              <td>Pendapatan</td>
-              <td class="text-right">Rp<?= number_format($data['kasLaundry']) ?></td>
-            </tr>
             <tr class="table-success">
               <td class="fw-bold">Total Pendapatan</td>
               <td class="text-right fw-bold">Rp<?= number_format($total_pendapatan) ?></td>
