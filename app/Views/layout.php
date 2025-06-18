@@ -462,7 +462,10 @@ if ($log_mode == 1) {
                             if (distX > 0) {
                                 function buka_menu(boleh) {
                                     if (boleh == true) {
-                                        $("#menu_utama").click();
+                                        $('.sidebar-closed').each(function() {
+                                            $("#menu_utama").click();
+                                            return false;
+                                        });
                                     }
                                 }
 
@@ -476,7 +479,10 @@ if ($log_mode == 1) {
 
                                 adaCanvas(true, buka_menu);
                             } else {
-                                $("#menu_utama").click();
+                                $('.sidebar-open').each(function() {
+                                    $("#menu_utama").click();
+                                    return false;
+                                });
                             }
                         } else {
                             if (distY > 0) {} else {}
