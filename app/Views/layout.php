@@ -113,7 +113,7 @@ if ($log_mode == 1) {
         <nav class="main-header navbar navbar-expand navbar-light sticky-top pb-0 pt-2">
             <div class="row w-100 mx-0 px-0">
                 <div class="col-auto ps-0 pe-1 text-nowrap">
-                    <a class="nav-link p-0 ps-2" data-widget="pushmenu" href="#" role="button"> <span class="btn btn-sm"><i class="fas fa-bars"></i> Menu</span></a>
+                    <a class="nav-link p-0 ps-2" id="menu_utama" data-widget="pushmenu" href="#" role="button"> <span class="btn btn-sm"><i class="fas fa-bars"></i> Menu</span></a>
                 </div>
 
                 <?php if ($this->id_privilege == 100 or $this->id_privilege == 12) { ?>
@@ -460,10 +460,24 @@ if ($log_mode == 1) {
                     if (Math.abs(distX) > threshold || Math.abs(distY) > threshold) {
                         if (Math.abs(distX) > Math.abs(distY)) {
                             if (distX > 0) {
-                                $('.offcanvas.show').each(function() {
-                                    $(this).offcanvas('hide');
-                                });
-                            } else {}
+                                function buka_menu(boleh) {
+                                    if (boleh == true) {
+                                        $("#menu_utama").click();
+                                    }
+                                }
+
+                                function adaCanvas(boleh, cek_canvas) {
+                                    $('.offcanvas.show').each(function() {
+                                        $(this).offcanvas('hide');
+                                        boleh = false;
+                                    });
+                                    buka_menu(boleh);
+                                }
+
+                                adaCanvas(true, buka_menu);
+                            } else {
+                                $("#menu_utama").click();
+                            }
                         } else {
                             if (distY > 0) {} else {}
                         }
