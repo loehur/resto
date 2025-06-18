@@ -176,12 +176,10 @@ $target_page_rekap = $uri_segments[$uriCount - 1];
             <tr>
               <td>Pendapatan</td>
               <td class="text-right">Rp<?= number_format($data['kasLaundry']) ?></td>
-              <td><a href="<?= URL::BASE_URL ?>Rekap/detail/<?= base64_encode($data['whereUmum']) ?>/1">Detail</a></td>
             </tr>
             <tr class="table-success">
               <td class="fw-bold">Total Pendapatan</td>
               <td class="text-right fw-bold">Rp<?= number_format($total_pendapatan) ?></td>
-              <td class="text-right" style="width: 70px;"></td>
             </tr>
           </tbody>
         </table>
@@ -203,7 +201,6 @@ $target_page_rekap = $uri_segments[$uriCount - 1];
               echo "<tr>";
               echo "<td class=''>" . $a['note_primary'] . "</td>";
               echo "<td class='text-right'>Rp" . number_format($a['total']) . "</td>";
-              echo "<td style='width: 70px;'></td>";
               echo "</tr>";
               $total_keluar += $a['total'];
             }
@@ -215,7 +212,6 @@ $target_page_rekap = $uri_segments[$uriCount - 1];
               echo "<tr>";
               echo "<td class=''>Gaji Karyawan</td>";
               echo "<td class='text-right'>Rp" . number_format($gaji) . "</td>";
-              echo "<td style='width: 70px;'></td>";
               echo "</tr>";
               $total_keluar += $gaji;
             }
@@ -225,12 +221,10 @@ $target_page_rekap = $uri_segments[$uriCount - 1];
             <tr>
               <td>Pre/Post Paid</td>
               <td class="text-end"><?= number_format($data['prepost_cost']) ?></td>
-              <td></td>
             </tr>
             <tr class="table-danger">
               <td><b>Total Pengeluaran</b></td>
               <td class="text-right"><b>Rp<?= number_format($total_keluar) ?></b></td>
-              <td style="width: 70px;"><a href="<?= URL::BASE_URL ?>Rekap/detail/<?= base64_encode($data['whereKeluar']) ?>/3">Detail</a></td>
             </tr>
           </tbody>
         </table>
@@ -246,7 +240,6 @@ $target_page_rekap = $uri_segments[$uriCount - 1];
             echo "<tr class='table-primary'>";
             echo "<td class='fw-bold'>Laba/Rugi</td>";
             echo "<td class='text-right'><b>Rp " . number_format($total_pendapatan - $total_keluar) . "</b></td>";
-            echo "<td style='width: 70px;'></td>";
             echo "</tr>";
             ?>
           </tbody>
@@ -274,7 +267,6 @@ $target_page_rekap = $uri_segments[$uriCount - 1];
             <tr class="table-secondary">
               <td><b>Total Penarikan</b></td>
               <td class="text-right"><b>Rp<?= number_format($total_tarik) ?></b></td>
-              <td style='width: 70px;'><a href="<?= URL::BASE_URL ?>Rekap/detail/<?= base64_encode($data['whereTarik']) ?>/3">Detail</a></td>
             </tr>
           </tbody>
         </table>
