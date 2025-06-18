@@ -438,6 +438,41 @@ if ($log_mode == 1) {
             <script src="<?= $this->ASSETS_URL ?>plugins/adminLTE-3.1.0/js/adminlte.js"></script>
 
             <script>
+                let startX, startY;
+                const threshold = 50; // Minimum swipe distance
+
+                document.addEventListener('touchstart', (event) => {
+                    startX = event.touches[0].clientX;
+                    startY = event.touches[0].clientY;
+                });
+
+                document.addEventListener('touchend', (event) => {
+                    if (!startX || !startY) {
+                        return;
+                    }
+
+                    const endX = event.changedTouches[0].clientX;
+                    const endY = event.changedTouches[0].clientY;
+
+                    const distX = endX - startX;
+                    const distY = endY - startY;
+
+                    if (Math.abs(distX) > threshold || Math.abs(distY) > threshold) {
+                        if (Math.abs(distX) > Math.abs(distY)) {
+                            if (distX > 0) {
+                                $('.offcanvas.show').each(function() {
+                                    $(this).offcanvas('hide');
+                                });
+                            } else {}
+                        } else {
+                            if (distY > 0) {} else {}
+                        }
+                    }
+
+                    startX = null;
+                    startY = null;
+                });
+
                 $("a.refresh").on('click', function() {
                     $.ajax('<?= URL::BASE_URL ?>Data_List/synchrone', {
                         beforeSend: function() {
