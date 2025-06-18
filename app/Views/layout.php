@@ -128,7 +128,7 @@ if ($log_mode == 1) {
                         <?php if ($this->id_privilege == 100) { ?>
                             <select id="userLog" class="form-control form-control-sm bg-success">
                                 <option>------</option>
-                                <?php foreach ($this->user as $a) {
+                                <?php foreach ($_SESSION['users'] as $a) {
                                     if ($a['id_user'] <> $_SESSION['user']['id_user']) { ?>
                                         <option value="<?= $a['id_user'] ?>"><?= strtoupper($a['nama_user']) ?></option>
                                 <?php }
