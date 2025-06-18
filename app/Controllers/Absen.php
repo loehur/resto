@@ -48,46 +48,23 @@ class Absen extends Controller
          $cols = "id_karyawan,jenis,tanggal,jam,id_cabang";
          $vals = $user_absen['id_user'] . "," . $jenis . ",'" . $tgl . "','" . $jam . "'," . $_SESSION['user']['id_cabang'];
 
-
-         //CEK HARIAN
-         if ($jenis == 0 || $jenis == 2) {
-            $where_user = "id_karyawan = " . $user_absen['id_user'] . " AND jenis in(0,2) AND tanggal = '" . $tgl . "'";
-            $cek_user = $this->db(0)->count_where('absen', $where_user);
-            if ($cek_user > 0) {
-               $res = [
-                  'code' => 0,
-                  'msg' => "GAGAL - MELEBIHI BATAS ABSEN HARIAN"
-               ];
-               print_r(json_encode($res));
-               exit();
-            }
+         //CEK MAX PER ORANG
+         $where_user = "id_karyawan = " . $user_absen['id_user'] . " AND jenis in(0,2) AND tanggal = '" . $tgl . "'";
+         $cek_user = $this->db(0)->count_where('absen', $where_user);
+         if ($cek_user > 0) {
+            $res = [
+               'code' => 0,
+               'msg' => "GAGAL - MELEBIHI BATAS ABSEN HARIAN"
+            ];
+            print_r(json_encode($res));
+            exit();
          }
 
-         //CEK MALAM
-         if ($jenis == 1) {
-            $where_user = "id_karyawan = " . $user_absen['id_user'] . " AND jenis = 1 AND tanggal = '" . $tgl . "'";
-            $cek_user = $this->db(0)->count_where('absen', $where_user);
-            if ($cek_user > 0) {
-               $res = [
-                  'code' => 0,
-                  'msg' => "GAGAL - MELEBIHI BATAS ABSEN HARIAN"
-               ];
-               print_r(json_encode($res));
-               exit();
-            }
-         }
 
          //CEK MAX PER CABANG
-         if ($jenis == 0) {
-            $where = "id_cabang = " . $_SESSION['user']['id_cabang'] . " AND jenis = " . $jenis . " AND tanggal = '" . $tgl . "'";
-            $max = $_SESSION['cabang'][$jenis . '_max'];
-         } else if ($jenis == 1) {
-            $where = "id_cabang = " . $_SESSION['user']['id_cabang'] . " AND jenis = " . $jenis . " AND tanggal = '" . $tgl . "'";
-            $max = $_SESSION['cabang'][$jenis . '_max'];
-         } else if ($jenis == 2) {
-            $where = "jenis = " . $jenis . " AND tanggal = '" . $tgl . "'";
-            $max = 1;
-         }
+
+         $where = "id_cabang = " . $_SESSION['user']['id_cabang'] . " AND jenis = " . $jenis . " AND tanggal = '" . $tgl . "'";
+         $max = $_SESSION['cabang'][$jenis . '_max'];
          $cek = $this->db(0)->count_where('absen', $where);
 
          if ($cek < $max) {
