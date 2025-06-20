@@ -66,6 +66,11 @@
     buka_canvas('offcanvasRight');
   })
 
+  $("#ubah_pesanan").click(function() {
+    buka_canvas('offcanvasRight1');
+  })
+
+
   $(".bayar").click(function() {
     buka_canvas('offcanvasRight2');
   })
