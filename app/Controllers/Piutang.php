@@ -52,6 +52,8 @@ class Piutang extends Controller
          }
       }
 
+      print_r($order);
+
       $data['total'] = $total;
       $data['pelanggan'] = $pelanggan;
       $this->view($viewData, $data);
