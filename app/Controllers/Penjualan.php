@@ -245,7 +245,7 @@ class Penjualan extends Controller
             echo $in['errno'] == 0 ? 0 : $in['error'];
          }
       } else {
-         if ($p['qty'] == 0) {
+         if ($p['qty'] <= 0) {
             echo "Qty 0 diabaikan";
             exit();
          }
