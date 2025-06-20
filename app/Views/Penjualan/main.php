@@ -5,7 +5,7 @@ $bawa_pulang = 5;
 
 
 <label class="px-1 text-purple">Dine-In / Take-Away</label><br>
-<div class="row mx-0" style="max-width: 450px;">
+<div class="row mx-0" style="max-width: <?= URL::MAX_WIDTH ?>px;">
   <?php for ($i = 1; $i <= $no_meja; $i++) { ?>
     <div class="col-auto py-1 px-1">
       <button style="width: 67px;" class="btn btn-outline-success rounded-0 pilih <?= isset($data['order_0'][$i]) ? "border-2 border-dark" : "" ?>" data-group="nomor" data-mode="0" data-id="<?= $i ?>">
