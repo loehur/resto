@@ -14,9 +14,10 @@
 
 <script>
   var val_before;
+  var id;
   var milidetik = 0;
   var add = 0;
-  var id, id_kat, qty;
+  var id_kat, qty;
   var interval;
 
   $("input.manual_qty").focusin(function() {
@@ -33,10 +34,20 @@
   }
 
   $(".tambah").click(function() {
-    add = $(this).attr("data-add");
-    id = $(this).attr("data-id");
-    id_kat = $(this).attr("data-kat");
+    const id_baru = $(this).attr("data-id");
+    if (milidetik == 0) {
+      id = 0;
+    }
 
+    if (id != 0 && id != id_baru) {
+      console.log(id, id, milidetik);
+      return;
+    }
+
+    id = id_baru;
+
+    add = $(this).attr("data-add");
+    id_kat = $(this).attr("data-kat");
     qty = $(".qty" + id).val();
     if (qty == 0 && add == -1) {
       return;
@@ -48,6 +59,7 @@
       } else {
         milidetik = 0;
       }
+
     }
   })
 

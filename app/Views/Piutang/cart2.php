@@ -1,40 +1,56 @@
-<table class="table table-sm mx-0">
-  <thead>
-    <tr>
-      <th class="border-top-0">Pesanan</th>
-      <th class="text-end border-top-0">Total</th>
-    </tr>
-  </thead>
-
-  <tbody id="ubah_pesanan" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight1" aria-controls="offcanvasRight" style="cursor: pointer;">
-    <?php
-    $total = 0;;
-    foreach ($data['order'] as $ref => $a) {
-      foreach ($a as $key => $d) { ?>
+  <?php
+  $total_bon = [];
+  foreach ($data['order'] as $ref => $a) {
+    $total_bon[$ref] = 0; ?>
+    <div class="border-bottom py-2">
+      <table class="w-100 mx-0">
+        <thead>
+          <tr>
+            <th colspan="2" class="text-purple">#<?= $ref ?></th>
+          </tr>
+        </thead>
         <?php
-        $total_awal = ($d['harga'] * $d['qty']);
-        $subTotal = ($d['harga'] * $d['qty']) - $d['diskon'];
-        $total += $subTotal;
-        ?>
-        <tr>
-          <td>
-            <small></small><span class="fw-bold"><?= $data['menu'][$key]['nama'] ?></span><br>
-            <?= $d['qty'] ?>x @<?= number_format($d['harga']) ?> <?= number_format($total_awal) ?>
-          </td>
-          <td class="text-end">
-            <?php if ($d['diskon'] > 0) { ?>
-              <small class="text-success">Disc. <?= number_format($d['diskon']) ?></small><br>
-            <?php } ?>
-            <?= number_format($subTotal) ?>
-          </td>
+        foreach ($a as $key => $d) {
+          $total_awal = ($d['harga'] * $d['qty']);
+          $subTotal = ($d['harga'] * $d['qty']) - $d['diskon'];
+          $total_bon[$ref] += $subTotal; ?>
+          <tr>
+            <td>
+              <small></small><span class="fw-bold"><?= $data['menu'][$key]['nama'] ?></span><br>
+              <?= $d['qty'] ?>x @<?= number_format($d['harga']) ?> <?= number_format($total_awal) ?>
+            </td>
+            <td class="text-end">
+              <?php if ($d['diskon'] > 0) { ?>
+                <small class="text-success">Disc. <?= number_format($d['diskon']) ?></small><br>
+              <?php } ?>
+              <?= number_format($subTotal) ?>
+            </td>
+          </tr>
+        <?php } ?>
+        <tr class="table-borderless">
+          <th class="text-end">
+            Total
+          </th>
+          <th class="text-end"><?= number_format($total_bon[$ref]) ?></th>
         </tr>
-    <?php }
-    } ?>
-  </tbody>
-  <tr class="table-borderless">
-    <th class="text-end">
-      Total
-    </th>
-    <th class="text-end"><?= number_format($total) ?></th>
-  </tr>
-</table>
+        <?php
+        $dibayar[$ref] = 0;
+        foreach ($data['bayar'][$ref] as $b) {
+          $dibayar[$ref] += $b['jumlah']; ?>
+          <tr>
+            <td class="text-end"><?= URL::METOD_BAYAR[$b['metode_mutasi']] ?></td>
+            <td class="text-end">-<?= number_format($b['jumlah'])  ?></td>
+          </tr>
+        <?php } ?>
+
+        <?php if (count($data['bayar'][$ref]) > 0) { ?>
+          <tr class="table-borderless">
+            <th class="text-end">
+              Sisa
+            </th>
+            <th class="text-end"><?= number_format($total_bon[$ref] - $dibayar[$ref]) ?></th>
+          </tr>
+        <?php } ?>
+      </table>
+    </div>
+  <?php } ?>

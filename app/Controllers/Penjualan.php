@@ -28,7 +28,7 @@ class Penjualan extends Controller
       if (count($cek) > 0) {
          $data['menu'] = $_SESSION['resto_menu'];
          $data['order'] = $this->db($this->book)->get_where('pesanan', "ref = '" . $cek['id'] . "'", "id_menu");
-         $data['bayar'] = $this->db($this->book)->get_where('kas', "ref = '" . $cek['id'] . "'");
+         $data['bayar'] = $this->db($this->book)->get_where('kas', "ref = '" . $cek['id'] . "' AND status_mutasi <> 2");
       } else {
          $data['order'] = [];
          $data['bayar'] = [];
@@ -206,12 +206,13 @@ class Penjualan extends Controller
    function add_manual($mode, $nomor)
    {
       $p = $_POST;
+      $num_qty = preg_replace('/[^0-9]/', '', $p['qty']);
       $cek = $this->db($this->book)->get_where_row("ref", "mode = " . $mode . " AND nomor = " . $nomor . " AND step = 0");
       if (count($cek) > 0) {
          $where = "id_menu = " . $p['id'] . " AND ref = '" . $cek['id'] . "'";
          $cek_menu = $this->db($this->book)->get_where_row("pesanan", $where);
          if (count($cek_menu) > 0) {
-            if ($p['qty'] <= 0) {
+            if ($num_qty <= 0) {
                $del = $this->db($this->book)->delete_where("pesanan", $where);
                if ($del['errno'] == 0) {
                   $hitung_menu = $this->db($this->book)->count_where("pesanan", "ref = '" . $cek_menu['ref'] . "'");
@@ -229,7 +230,7 @@ class Penjualan extends Controller
                   echo $del['error'];
                }
             } else {
-               $up = $this->db($this->book)->update("pesanan", "qty = " . $p['qty'], $where);
+               $up = $this->db($this->book)->update("pesanan", "qty = " . $num_qty, $where);
                //update freq
                $this->db(0)->update("menu_item", "freq = freq + 1", "id = " . $p['id']);
                $this->db(0)->update("menu_kategori", "freq = freq + 1", "id = " . $p['id_kat']);
@@ -237,7 +238,7 @@ class Penjualan extends Controller
             }
          } else {
             $cols = "ref, id_menu, qty, harga";
-            $vals = "'" . $cek['id'] . "'," . $p['id'] . "," . $p['qty'] . "," . $_SESSION['resto_menu'][$p['id']]['harga'];
+            $vals = "'" . $cek['id'] . "'," . $p['id'] . "," . $num_qty . "," . $_SESSION['resto_menu'][$p['id']]['harga'];
             $in = $this->db($this->book)->insertCols("pesanan", $cols, $vals);
             //update freq
             $this->db(0)->update("menu_item", "freq = freq + 1", "id = " . $p['id']);
@@ -245,7 +246,7 @@ class Penjualan extends Controller
             echo $in['errno'] == 0 ? 0 : $in['error'];
          }
       } else {
-         if ($p['qty'] <= 0) {
+         if ($num_qty <= 0) {
             echo "Qty 0 diabaikan";
             exit();
          }
@@ -257,7 +258,7 @@ class Penjualan extends Controller
          if ($in['errno'] == 0) {
             $p = $_POST;
             $cols = "ref, id_menu, qty, harga";
-            $vals = "'" . $ref . "'," . $p['id'] . "," . $p['qty'] . "," . $_SESSION['resto_menu'][$p['id']]['harga'];
+            $vals = "'" . $ref . "'," . $p['id'] . "," . $num_qty . "," . $_SESSION['resto_menu'][$p['id']]['harga'];
             $in = $this->db($this->book)->insertCols("pesanan", $cols, $vals);
             //update freq
             $this->db(0)->update("menu_item", "freq = freq + 1", "id = " . $p['id']);

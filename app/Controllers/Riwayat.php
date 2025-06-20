@@ -36,7 +36,7 @@ class Riwayat extends Controller
       $viewData = __CLASS__ . '/cart';
       $data['menu'] = $_SESSION['resto_menu'];
       $data['order'] = $this->db($this->book)->get_where('pesanan', "ref = '" . $ref . "'", "id_menu");
-      $data['bayar'] = $this->db($this->book)->get_where('kas', "ref = '" . $ref . "'");
+      $data['bayar'] = $this->db($this->book)->get_where('kas', "ref = '" . $ref . "' AND status_mutasi <> 2");
       $this->view($viewData, $data);
    }
 }

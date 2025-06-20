@@ -27,11 +27,11 @@ foreach ($data['order'] as $dk) {
 </div>
 <div class="w-100 mt-3">
   <div class="d-flex justify-content-center">
-    <div class="px-2">
-      <div class="text-center">Kembalian</div>
-      <div class="text-center fs-5 fw-bold text-danger" id="kembalian"></div>
+    <div class="px-3 border-end">
+      <div class="text-end">Kembalian</div>
+      <div class="text-end fs-5 fw-bold text-danger" id="kembalian"></div>
     </div>
-    <div class="px-2">
+    <div class="px-3">
       <div class="text-center">Metode Bayar</div>
       <div class="form-check">
         <input class="form-check-input" type="radio" value="1" name="metode" id="flexRadioDefault2" checked>

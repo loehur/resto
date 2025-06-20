@@ -49,3 +49,13 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   }
   return s.join(dec);
 }
+
+function checkboxArray(name) {
+  const checkedCheckboxes = document.querySelectorAll(
+    "input[name=" + name + "]:checked"
+  );
+  const values = Array.from(checkedCheckboxes).map(
+    (checkbox) => checkbox.value
+  );
+  return values;
+}

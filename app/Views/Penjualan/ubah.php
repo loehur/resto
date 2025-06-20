@@ -30,7 +30,19 @@ foreach ($data['order'] as $dk) { ?>
 
   $(".tambah_ubah").click(function() {
     const add = $(this).attr("data-add");
-    id = $(this).attr("data-id");
+
+    const id_baru = $(this).attr("data-id");
+    if (milidetik == 0) {
+      id = 0;
+    }
+
+    if (id != 0 && id != id_baru) {
+      console.log(id, id, milidetik);
+      return;
+    }
+
+    id = id_baru;
+
     id_kat = $(this).attr("data-kat");
     qty = $(".qty" + id).val();
     if (qty == 0 && add == -1) {
