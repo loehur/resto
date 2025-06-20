@@ -7,7 +7,7 @@ foreach ($data['order'] as $dk) { ?>
     </div>
     <div class="py-1 align-self-center">
       <button data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" data-add="-1" class="btn btn-sm btn-outline-danger fw-bold tambah_ubah" style="width: 30px;">-</button>
-      <input data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" style="width: 40px;" value="<?= $dk['qty'] ?>" class="manual_qty_ubah border-0 text-center fw-bold border-bottom-1" id="qty_ubah<?= $dk['id_menu'] ?>" type="number">
+      <input data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" style="width: 40px;" value="<?= $dk['qty'] ?>" class="manual_qty_ubah qty<?= $dk['id_menu'] ?> border-0 text-center fw-bold border-bottom-1" type="number">
       <button data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" data-add="1" class="btn btn-sm btn-outline-success fw-bold tambah_ubah" style="width: 30px;">+</button>
     </div>
   </div>
@@ -32,12 +32,12 @@ foreach ($data['order'] as $dk) { ?>
     const add = $(this).attr("data-add");
     id = $(this).attr("data-id");
     id_kat = $(this).attr("data-kat");
-    qty = $("#qty_ubah" + id).val();
+    qty = $(".qty" + id).val();
     if (qty == 0 && add == -1) {
       return;
     } else {
-      $("#qty_ubah" + id).val(parseInt(qty) + parseInt(add));
-      qty = $("#qty_ubah" + id).val();
+      $(".qty" + id).val(parseInt(qty) + parseInt(add));
+      qty = $(".qty" + id).val();
       if (milidetik == 0) {
         interval = setInterval(update_qty, 1);
       } else {

@@ -6,7 +6,7 @@
     </div>
     <div class="py-1 align-self-center">
       <button data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" data-add="-1" class="btn btn-sm btn-outline-danger fw-bold tambah" style="width: 30px;">-</button>
-      <input data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" style="width: 40px;" value="<?= isset($data['order'][$dk['id']]) ? $data['order'][$dk['id']]['qty'] : 0 ?>" class="manual_qty border-0 text-center fw-bold border-bottom-1" id="qty<?= $dk['id'] ?>" type="number">
+      <input data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" style="width: 40px;" value="<?= isset($data['order'][$dk['id']]) ? $data['order'][$dk['id']]['qty'] : 0 ?>" class="manual_qty qty<?= $dk['id'] ?> border-0 text-center fw-bold border-bottom-1" type="number">
       <button data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" data-add="1" class="btn btn-sm btn-outline-success fw-bold tambah" style="width: 30px;">+</button>
     </div>
   </div>
@@ -37,12 +37,12 @@
     id = $(this).attr("data-id");
     id_kat = $(this).attr("data-kat");
 
-    qty = $("#qty" + id).val();
+    qty = $(".qty" + id).val();
     if (qty == 0 && add == -1) {
       return;
     } else {
-      $("#qty" + id).val(parseInt(qty) + parseInt(add));
-      qty = $("#qty" + id).val();
+      $(".qty" + id).val(parseInt(qty) + parseInt(add));
+      qty = $(".qty" + id).val();
       if (milidetik == 0) {
         interval = setInterval(update_qty, 1);
       } else {
