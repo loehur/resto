@@ -20,10 +20,10 @@ class Absen extends Controller
    {
       $viewData = __CLASS__ . '/content';
       $tgl = date('Y-m-d');
-      $data['hari_ini'] = $this->db(0)->get_where('absen', 'id_cabang = ' . $_SESSION['user']['id_cabang'] . " AND tanggal LIKE '" . $tgl . "%'");
+      $data['hari_ini'] = $this->db(0)->get_where('absen', 'id_cabang = ' . $_SESSION['resto_user']['id_cabang'] . " AND tanggal LIKE '" . $tgl . "%'");
 
       $tgl_kemarin = date('Y-m-d', strtotime("-1 day"));
-      $data['kemarin'] = $this->db(0)->get_where('absen', 'id_cabang = ' . $_SESSION['user']['id_cabang'] . " AND tanggal LIKE '" . $tgl_kemarin . "%'");
+      $data['kemarin'] = $this->db(0)->get_where('absen', 'id_cabang = ' . $_SESSION['resto_user']['id_cabang'] . " AND tanggal LIKE '" . $tgl_kemarin . "%'");
 
       $this->view($viewData, $data);
    }
@@ -46,7 +46,7 @@ class Absen extends Controller
 
       if ($user_absen) {
          $cols = "id_karyawan,jenis,tanggal,jam,id_cabang";
-         $vals = $user_absen['id_user'] . "," . $jenis . ",'" . $tgl . "','" . $jam . "'," . $_SESSION['user']['id_cabang'];
+         $vals = $user_absen['id_user'] . "," . $jenis . ",'" . $tgl . "','" . $jam . "'," . $_SESSION['resto_user']['id_cabang'];
 
          //CEK MAX PER ORANG
          $where_user = "id_karyawan = " . $user_absen['id_user'] . " AND jenis in(0,2) AND tanggal = '" . $tgl . "'";
@@ -63,8 +63,8 @@ class Absen extends Controller
 
          //CEK MAX PER CABANG
 
-         $where = "id_cabang = " . $_SESSION['user']['id_cabang'] . " AND jenis = " . $jenis . " AND tanggal = '" . $tgl . "'";
-         $max = $_SESSION['cabang'][$jenis . '_max'];
+         $where = "id_cabang = " . $_SESSION['resto_user']['id_cabang'] . " AND jenis = " . $jenis . " AND tanggal = '" . $tgl . "'";
+         $max = $_SESSION['resto_cabang'][$jenis . '_max'];
          $cek = $this->db(0)->count_where('absen', $where);
 
          if ($cek < $max) {

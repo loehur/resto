@@ -40,7 +40,7 @@ class Kas extends Controller
 
       //KASBON
       $where = $this->wCabang . " AND jenis_transaksi = 5 AND jenis_mutasi = 2 AND status_mutasi = 1 ORDER BY id DESC LIMIT 25"; //5 kasbon
-      $kasbon = $this->db($_SESSION['user']['book'])->get_where('kas', $where);
+      $kasbon = $this->db($_SESSION['resto_user']['book'])->get_where('kas', $where);
 
       $dataPotong = array();
       foreach ($kasbon as $k) {

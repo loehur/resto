@@ -11,7 +11,7 @@ class Penjualan extends Controller
    public function index()
    {
       $layout = ['title' => 'Buka Order'];
-      $data['kat'] =  $_SESSION['kat'];
+      $data['kat'] =  $_SESSION['resto_kat'];
       $data['order_0'] = $this->db($this->book)->get_where('ref', "step = 0 AND mode = 0", "nomor");
       $data['order_1'] = $this->db($this->book)->get_where('ref', "step = 0 AND mode = 1", "nomor");
       $this->view('layout', $layout);
@@ -26,7 +26,7 @@ class Penjualan extends Controller
 
       $cek = $this->db($this->book)->get_where_row('ref', "mode = " . $mode . " AND nomor = " . $nomor . " AND step = 0");
       if (count($cek) > 0) {
-         $data['menu'] = $_SESSION['menu'];
+         $data['menu'] = $_SESSION['resto_menu'];
          $data['order'] = $this->db($this->book)->get_where('pesanan', "ref = '" . $cek['id'] . "'", "id_menu");
          $data['bayar'] = $this->db($this->book)->get_where('kas', "ref = '" . $cek['id'] . "'");
       } else {
@@ -40,9 +40,9 @@ class Penjualan extends Controller
    {
       $viewData = __CLASS__ . '/menu';
       if ($id_kat == 0) {
-         $data['menu'] = $_SESSION['menu'];
+         $data['menu'] = $_SESSION['resto_menu'];
       } else {
-         $menu_byKat =  $_SESSION['menu_byKat'];
+         $menu_byKat =  $_SESSION['resto_menu_byKat'];
          $data['menu'] = isset($menu_byKat[$id_kat]) ? $menu_byKat[$id_kat] : [];
       }
 
@@ -240,7 +240,7 @@ class Penjualan extends Controller
          } else {
             $p = $_POST;
             $cols = "ref, id_menu, qty, harga";
-            $vals = "'" . $cek['id'] . "'," . $p['id'] . ",1," . $_SESSION['menu'][$p['id']]['harga'];
+            $vals = "'" . $cek['id'] . "'," . $p['id'] . ",1," . $_SESSION['resto_menu'][$p['id']]['harga'];
             $in = $this->db($this->book)->insertCols("pesanan", $cols, $vals);
             //update freq
             $this->db(0)->update("menu_item", "freq = freq + " . $p['add'], "id = " . $p['id']);
@@ -255,7 +255,7 @@ class Penjualan extends Controller
          if ($in['errno'] == 0) {
             $p = $_POST;
             $cols = "ref, id_menu, qty, harga";
-            $vals = "'" . $ref . "'," . $p['id'] . ",1," . $_SESSION['menu'][$p['id']]['harga'];
+            $vals = "'" . $ref . "'," . $p['id'] . ",1," . $_SESSION['resto_menu'][$p['id']]['harga'];
             $in = $this->db($this->book)->insertCols("pesanan", $cols, $vals);
             //update freq
             $this->db(0)->update("menu_item", "freq = freq + " . $p['add'], "id = " . $p['id']);
@@ -301,7 +301,7 @@ class Penjualan extends Controller
             }
          } else {
             $cols = "ref, id_menu, qty, harga";
-            $vals = "'" . $cek['id'] . "'," . $p['id'] . "," . $p['qty'] . "," . $_SESSION['menu'][$p['id']]['harga'];
+            $vals = "'" . $cek['id'] . "'," . $p['id'] . "," . $p['qty'] . "," . $_SESSION['resto_menu'][$p['id']]['harga'];
             $in = $this->db($this->book)->insertCols("pesanan", $cols, $vals);
             //update freq
             $this->db(0)->update("menu_item", "freq = freq + " . $p['add'], "id = " . $p['id']);
@@ -321,7 +321,7 @@ class Penjualan extends Controller
          if ($in['errno'] == 0) {
             $p = $_POST;
             $cols = "ref, id_menu, qty, harga";
-            $vals = "'" . $ref . "'," . $p['id'] . "," . $p['qty'] . "," . $_SESSION['menu'][$p['id']]['harga'];
+            $vals = "'" . $ref . "'," . $p['id'] . "," . $p['qty'] . "," . $_SESSION['resto_menu'][$p['id']]['harga'];
             $in = $this->db($this->book)->insertCols("pesanan", $cols, $vals);
             //update freq
             $this->db(0)->update("menu_item", "freq = freq + " . $p['add'], "id = " . $p['id']);

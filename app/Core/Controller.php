@@ -8,14 +8,14 @@ class Controller extends URL
 
     public function operating_data()
     {
-        if (isset($_SESSION['login'])) {
-            if ($_SESSION['login'] == true) {
-                $this->id_user = $_SESSION['user']['id_user'];
-                $this->nama_user = $_SESSION['user']['nama_user'];
-                $this->id_cabang = $_SESSION['user']['id_cabang'];
-                $this->id_privilege = $_SESSION['user']['id_privilege'];
+        if (isset($_SESSION['resto_login'])) {
+            if ($_SESSION['resto_login'] == true) {
+                $this->id_user = $_SESSION['resto_user']['id_user'];
+                $this->nama_user = $_SESSION['resto_user']['nama_user'];
+                $this->id_cabang = $_SESSION['resto_user']['id_cabang'];
+                $this->id_privilege = $_SESSION['resto_user']['id_privilege'];
                 $this->wCabang = 'id_cabang = ' . $this->id_cabang;
-                $this->book = $_SESSION['user']['book'];
+                $this->book = $_SESSION['resto_user']['book'];
             }
         }
     }
@@ -47,19 +47,19 @@ class Controller extends URL
 
     public function session_cek($admin = 0)
     {
-        if (isset($_SESSION['login'])) {
-            if ($_SESSION['login'] == False) {
+        if (isset($_SESSION['resto_login'])) {
+            if ($_SESSION['resto_login'] == False) {
                 session_destroy();
                 header("location: " . URL::BASE_URL . "Login");
             } else {
                 if ($admin == 1) {
-                    if ($_SESSION['user']['id_privilege'] <> 100) {
+                    if ($_SESSION['resto_user']['id_privilege'] <> 100) {
                         session_destroy();
                         header("location: " . URL::BASE_URL . "Login");
                     }
                 }
                 if ($admin == 2) {
-                    if ($_SESSION['user']['id_privilege'] <> 100 && $_SESSION['user']['id_privilege'] <> 12) {
+                    if ($_SESSION['resto_user']['id_privilege'] <> 100 && $_SESSION['resto_user']['id_privilege'] <> 12) {
                         session_destroy();
                         header("location: " . URL::BASE_URL . "Login");
                     }
@@ -72,15 +72,16 @@ class Controller extends URL
 
     public function parameter($data_user)
     {
-        $_SESSION['user'] = $data_user;
+        $_SESSION['resto_user'] = $data_user;
         $wCabang = "id_cabang = " . $data_user['id_cabang'];
-        $_SESSION['users'] = $this->db(0)->get_where('user', $wCabang . " AND en = 1", "id_user");
-        $_SESSION['cabang'] = $this->db(0)->get_where_row('cabang', $wCabang);
-        $_SESSION['cabangs'] = $this->db(0)->get('cabang', 'id_cabang');
-        $_SESSION['privilege'] = $this->db(0)->get('privilege', 'id_privilege');
-        $_SESSION['menu'] = $this->db(0)->get_where('menu_item', $wCabang . " ORDER BY freq DESC", 'id');
-        $_SESSION['menu_byKat'] = $this->db(0)->get_where('menu_item', $wCabang . " ORDER BY freq DESC", 'id_kategori', 1);
-        $_SESSION['kat'] = $this->db(0)->get_where('menu_kategori', $wCabang . " ORDER BY freq DESC", 'id');
+
+        $_SESSION['resto_users'] = $this->db(0)->get_where('user', $wCabang . " AND en = 1", "id_user");
+        $_SESSION['resto_cabang'] = $this->db(0)->get_where_row('cabang', $wCabang);
+        $_SESSION['resto_cabangs'] = $this->db(0)->get('cabang', 'id_cabang');
+        $_SESSION['resto_privilege'] = $this->db(0)->get('privilege', 'id_privilege');
+        $_SESSION['resto_menu'] = $this->db(0)->get_where('menu_item', $wCabang . " ORDER BY freq DESC", 'id');
+        $_SESSION['resto_menu_byKat'] = $this->db(0)->get_where('menu_item', $wCabang . " ORDER BY freq DESC", 'id_kategori', 1);
+        $_SESSION['resto_kat'] = $this->db(0)->get_where('menu_kategori', $wCabang . " ORDER BY freq DESC", 'id');
     }
 
     public function dataSynchrone($id_user)

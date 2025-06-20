@@ -32,7 +32,7 @@ class Pelanggan extends Controller
             $this->model('Log')->write($do['error']);
          }
 
-         $this->dataSynchrone($_SESSION['user']['id_user']);
+         $this->dataSynchrone($_SESSION['resto_user']['id_user']);
          echo 1;
       } else {
          $text =  "Gagal! nama " . strtoupper($nama_pelanggan) . " sudah digunakan";

@@ -5,7 +5,7 @@ $menu[0] = [
         'c' => 'Penjualan',
         'title' => 'Buka Order',
         'icon' => 'fas fa-cash-register',
-        'txt' => 'Buka Order [ <b>' . $_SESSION['cabangs'][$_SESSION['user']['id_cabang']]['kode_cabang'] . '</b> ]'
+        'txt' => 'Buka Order [ <b>' . $_SESSION['resto_cabangs'][$_SESSION['resto_user']['id_cabang']]['kode_cabang'] . '</b> ]'
     ],
     [
         'p' => 30,

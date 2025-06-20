@@ -82,7 +82,7 @@ $hideKasir = "";
 $classAdmin = "btn-danger";
 $classKasir = "btn-success";
 
-if ($_SESSION['user']['id_privilege'] == 100) {
+if ($_SESSION['resto_user']['id_privilege'] == 100) {
     $hideAdmin = "d-none";
 } else {
     $hideAdmin = "";
@@ -119,7 +119,7 @@ if ($log_mode == 1) {
                 <?php if ($this->id_privilege == 100 or $this->id_privilege == 12) { ?>
                     <div class="col-auto ps-0 pe-1">
                         <select id="selectCabang" class="form-control form-control-sm bg-primary">
-                            <?php foreach ($_SESSION['cabangs'] as $lcb) { ?>
+                            <?php foreach ($_SESSION['resto_cabangs'] as $lcb) { ?>
                                 <option class="font-weight-bold" value="<?= $lcb['id_cabang'] ?>" <?= ($this->id_cabang == $lcb['id_cabang']) ? "selected" : '' ?>><?= $lcb['kode_cabang'] ?></option>
                             <?php } ?>
                         </select>
@@ -128,8 +128,8 @@ if ($log_mode == 1) {
                         <?php if ($this->id_privilege == 100) { ?>
                             <select id="userLog" class="form-control form-control-sm bg-success">
                                 <option>------</option>
-                                <?php foreach ($_SESSION['users'] as $a) {
-                                    if ($a['id_user'] <> $_SESSION['user']['id_user']) { ?>
+                                <?php foreach ($_SESSION['resto_users'] as $a) {
+                                    if ($a['id_user'] <> $_SESSION['resto_user']['id_user']) { ?>
                                         <option value="<?= $a['id_user'] ?>"><?= strtoupper($a['nama_user']) ?></option>
                                 <?php }
                                 } ?>
@@ -141,7 +141,7 @@ if ($log_mode == 1) {
                 <div class="col-auto ps-0 me-auto pe-1">
                     <select id="selectBook" class="form-control form-control-sm bg-info">
                         <?php for ($y = URL::Y_START; $y <= date('Y'); $y++) { ?>
-                            <option class="font-weight-bold" value="<?= $y ?>" <?= ($_SESSION['user']['book'] == $y) ? "selected" : '' ?>><?= $y ?></option>
+                            <option class="font-weight-bold" value="<?= $y ?>" <?= ($_SESSION['resto_user']['book'] == $y) ? "selected" : '' ?>><?= $y ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -158,7 +158,7 @@ if ($log_mode == 1) {
             </div>
         </nav>
 
-        <aside class="main-sidebar sidebar-light-green border-end">
+        <aside class="main-sidebar sidebar-light-green border-end position-fixed">
             <div class="sidebar">
                 <div class="user-panel mt-2 pb-2 mb-2 d-flex">
                     <div class="info">
@@ -171,7 +171,7 @@ if ($log_mode == 1) {
                             </tr>
                             <tr>
                                 <td><i class="fas fa-wifi"></i></td>
-                                <td><?= $_SESSION['cabangs'][$_SESSION['user']['id_cabang']]['wifi_pass']; ?></td>
+                                <td><?= $_SESSION['resto_cabangs'][$_SESSION['resto_user']['id_cabang']]['wifi_pass']; ?></td>
                             </tr>
                         </table>
                     </div>
@@ -312,14 +312,6 @@ if ($log_mode == 1) {
             </div>
         </aside>
 
-        <style>
-            .content-wrapper {
-                max-height: 100px;
-                overflow: auto;
-                display: inline-block;
-            }
-        </style>
-
         <div class="content-wrapper pt-2 px-2 bg-white" id="content" style="min-width: <?= URL::WIDTH ?>px;">
             <script src="<?= $this->ASSETS_URL ?>plugins/adminLTE-3.1.0/jquery/jquery.min.js"></script>
             <script src="<?= $this->ASSETS_URL ?>plugins/adminLTE-3.1.0/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -358,12 +350,12 @@ if ($log_mode == 1) {
                                     }
                                 }
 
-                                function adaCanvas(boleh, cek_canvas) {
+                                function adaCanvas(boleh, callback) {
                                     $('.offcanvas.show').each(function() {
                                         $(this).offcanvas('hide');
                                         boleh = false;
                                     });
-                                    buka_menu(boleh);
+                                    callback(boleh);
                                 }
 
                                 adaCanvas(true, buka_menu);

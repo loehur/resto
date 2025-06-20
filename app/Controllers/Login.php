@@ -8,8 +8,8 @@ class Login extends Controller
       if (isset($_COOKIE['MDLNUMS'])) {
          $data = unserialize($this->model("Enc")->dec_2($_COOKIE['MDLNUMS']));
       }
-      if (isset($_SESSION['login'])) {
-         if ($_SESSION['login'] == TRUE) {
+      if (isset($_SESSION['resto_login'])) {
+         if ($_SESSION['resto_login'] == TRUE) {
             header('Location: ' . URL::BASE_URL . "Penjualan");
          } else {
             $this->view('login', $data);
@@ -31,7 +31,7 @@ class Login extends Controller
 
             $device = $_SERVER['HTTP_USER_AGENT'];
             if ($username == $user_data['username'] && $user_data['device'] == $device) {
-               $_SESSION['login'] = TRUE;
+               $_SESSION['resto_login'] = TRUE;
                $this->parameter($user_data);
                $this->save_cookie($user_data);
             }
@@ -174,7 +174,7 @@ class Login extends Controller
       // LAST LOGIN
       $this->data('User')->last_login($username);
       //LOGIN
-      $_SESSION['login'] = TRUE;
+      $_SESSION['resto_login'] = TRUE;
       $this->save_nums($no_user);
       $res = [
          'code' => 11,

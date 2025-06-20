@@ -22,8 +22,8 @@ class Rekap extends Controller
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
-               $today = $_SESSION['user']['book'] . "-" . $_POST['m'] . "-" . $_POST['d'];
-               $dataTanggal = array('tanggal' => $_POST['d'], 'bulan' => $_POST['m'], 'tahun' => $_SESSION['user']['book']);
+               $today = $_SESSION['resto_user']['book'] . "-" . $_POST['m'] . "-" . $_POST['d'];
+               $dataTanggal = array('tanggal' => $_POST['d'], 'bulan' => $_POST['m'], 'tahun' => $_SESSION['resto_user']['book']);
             } else {
                $today = date('Y-m-d');
                $dataTanggal = array('tanggal' => date('d'), 'bulan' => date('m'), 'tahun' => date('Y'));
@@ -36,8 +36,8 @@ class Rekap extends Controller
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
-               $today = $_SESSION['user']['book'] . "-" . $_POST['m'];
-               $dataTanggal = array('bulan' => $_POST['m'], 'tahun' => $_SESSION['user']['book']);
+               $today = $_SESSION['resto_user']['book'] . "-" . $_POST['m'];
+               $dataTanggal = array('bulan' => $_POST['m'], 'tahun' => $_SESSION['resto_user']['book']);
             } else {
                $today = date('Y-m');
                $dataTanggal = array('bulan' => date('m'), 'tahun' => date('Y'));
@@ -50,8 +50,8 @@ class Rekap extends Controller
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
-               $today = $_SESSION['user']['book'] . "-" . $_POST['m'];
-               $dataTanggal = array('bulan' => $_POST['m'], 'tahun' => $_SESSION['user']['book']);
+               $today = $_SESSION['resto_user']['book'] . "-" . $_POST['m'];
+               $dataTanggal = array('bulan' => $_POST['m'], 'tahun' => $_SESSION['resto_user']['book']);
             } else {
                $today = date('Y-m');
                $dataTanggal = array('bulan' => date('m'), 'tahun' => date('Y'));
@@ -64,8 +64,8 @@ class Rekap extends Controller
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
-               $today = $_SESSION['user']['book'] . "-" . $_POST['m'] . "-" . $_POST['d'];
-               $dataTanggal = array('tanggal' => $_POST['d'], 'bulan' => $_POST['m'], 'tahun' => $_SESSION['user']['book']);
+               $today = $_SESSION['resto_user']['book'] . "-" . $_POST['m'] . "-" . $_POST['d'];
+               $dataTanggal = array('tanggal' => $_POST['d'], 'bulan' => $_POST['m'], 'tahun' => $_SESSION['resto_user']['book']);
             } else {
                $today = date('Y-m-d');
                $dataTanggal = array('tanggal' => date('d'), 'bulan' => date('m'), 'tahun' => date('Y'));
@@ -78,13 +78,13 @@ class Rekap extends Controller
       //STATISTIC LAUNDRY
       if ($whereCabang == '') {
          $where = $whereCabang . "insertTime LIKE '%" . $today . "%'";
-         $data_lain1 = $this->db($_SESSION['user']['book'])->get_where('pesanan', $where);
+         $data_lain1 = $this->db($_SESSION['resto_user']['book'])->get_where('pesanan', $where);
          foreach ($data_lain1 as $dl1) {
             array_push($data_main, $dl1);
          }
       } else {
          $where = $whereCabang . "insertTime LIKE '%" . $today . "%'";
-         $data_main = $this->db($_SESSION['user']['book'])->get_where('pesanan', $where);
+         $data_main = $this->db($_SESSION['resto_user']['book'])->get_where('pesanan', $where);
       }
 
       //PENDAPATAN
@@ -92,13 +92,13 @@ class Rekap extends Controller
       $where = $whereCabang . "jenis_transaksi = 1 AND status_mutasi <> 2 AND insertTime LIKE '%" . $today . "%'";
       $where_umum = $where;
       $kas = 0;
-      $kas = $this->db($_SESSION['user']['book'])->get_cols_where('kas', $cols, $where_umum, 0)['total'];
+      $kas = $this->db($_SESSION['resto_user']['book'])->get_cols_where('kas', $cols, $where_umum, 0)['total'];
 
       //PENGELUARAN
       $cols = "note_primary, sum(jumlah) as total";
       $where = $whereCabang . "jenis_transaksi = 4 AND status_mutasi <> 2 AND insertTime LIKE '%" . $today . "%' GROUP BY note_primary";
       $where_keluar =  $whereCabang . "jenis_transaksi = 4 AND status_mutasi <> 3 AND insertTime LIKE '%" . $today . "%'";
-      $kas_keluar = $this->db($_SESSION['user']['book'])->get_cols_where('kas', $cols, $where, 1);
+      $kas_keluar = $this->db($_SESSION['resto_user']['book'])->get_cols_where('kas', $cols, $where, 1);
 
       //PENGELUARAN PREPAID/POSTPAID
       $col = "price";
@@ -111,7 +111,7 @@ class Rekap extends Controller
       $cols = "note_primary, sum(jumlah) as total";
       $where = $whereCabang . "jenis_transaksi = 2 AND status_mutasi <> 2 AND insertTime LIKE '%" . $today . "%' GROUP BY note_primary";
       $where_tarik =  $whereCabang . "jenis_transaksi = 2 AND status_mutasi <> 3 AND insertTime LIKE '%" . $today . "%'";
-      $kas_tarik = $this->db($_SESSION['user']['book'])->get_cols_where('kas', $cols, $where, 1);
+      $kas_tarik = $this->db($_SESSION['resto_user']['book'])->get_cols_where('kas', $cols, $where, 1);
 
       //GAJI KARYAWAN
       $cols = "sum(jumlah) as total";
@@ -159,7 +159,7 @@ class Rekap extends Controller
 
       $data = [];
       $where =  base64_decode($where);
-      $data = $this->db($_SESSION['user']['book'])->get_where('kas', $where);
+      $data = $this->db($_SESSION['resto_user']['book'])->get_where('kas', $where);
 
       $this->view($viewData, [
          'data' => $data,

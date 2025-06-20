@@ -25,7 +25,7 @@
               $f2 = $a['id_cabang'];
               $f2name = "";
 
-              $f2name = $_SESSION['cabangs'][$f2]['kode_cabang'];
+              $f2name = $_SESSION['resto_cabangs'][$f2]['kode_cabang'];
 
               if (!isset($cabangRow)) {
                 echo "<tr class='table-primary'><td colspan=11 class='text-center'>#" . $f2 . " <b>" . $f2name . "</b></td></tr>";
@@ -36,7 +36,7 @@
 
               $f3 = $a['id_privilege'];
               $f3name = "";
-              $f3name = $_SESSION['privilege'][$f3]['privilege'];
+              $f3name = $_SESSION['resto_privilege'][$f3]['privilege'];
 
               if ($f3 <> 100) {
                 $classAdmin = "";
@@ -94,7 +94,7 @@
                   <label for="exampleInputEmail1">Cabang</label>
                   <select name="f3" class="form-control" required>
                     <option value="" disabled selected>---</option>
-                    <?php foreach ($_SESSION['cabangs'] as $a) { ?>
+                    <?php foreach ($_SESSION['resto_cabangs'] as $a) { ?>
                       <option value="<?= $a['id_cabang'] ?>"><?= $a['kode_cabang'] ?></option>
                     <?php } ?>
                   </select>
@@ -111,7 +111,7 @@
                   <label for="exampleInputEmail1">Privilege</label>
                   <select name="f4" class="form-control" required>
                     <option value="" disabled selected>---</option>
-                    <?php foreach ($_SESSION['privilege'] as $a) {
+                    <?php foreach ($_SESSION['resto_privilege'] as $a) {
                       if ($a['id_privilege'] <> 100) { ?>
                         <option value="<?= $a['id_privilege'] ?>"><?= $a['privilege'] ?></option>
                     <?php }
@@ -177,12 +177,12 @@
           span.html("<input type='text' id='value_' value='" + value + "'>");
           break;
         case '4':
-          span.html('<select id="value_"><option value="' + value + '" selected>' + valHtml + '</option><?php foreach ($_SESSION['cabangs'] as $a) { ?><option value="<?= $a['id_cabang'] ?>"><?= $a['kode_cabang'] ?></option><?php } ?></select>');
+          span.html('<select id="value_"><option value="' + value + '" selected>' + valHtml + '</option><?php foreach ($_SESSION['resto_cabangs'] as $a) { ?><option value="<?= $a['id_cabang'] ?>"><?= $a['kode_cabang'] ?></option><?php } ?></select>');
           break;
         case '5':
           span.html(
-            '<select id="value_"><option value="' + value + '" selected>' + valHtml + '</option><?php foreach ($_SESSION['privilege'] as $a) :  if ($a['id_privilege'] <> 100) { ?><option value="<?= $a['id_privilege'] ?>"><?= $a['privilege'] ?></option><?php }
-                                                                                                                                                                                                                                                        endforeach ?></select>'
+            '<select id="value_"><option value="' + value + '" selected>' + valHtml + '</option><?php foreach ($_SESSION['resto_privilege'] as $a) :  if ($a['id_privilege'] <> 100) { ?><option value="<?= $a['id_privilege'] ?>"><?= $a['privilege'] ?></option><?php }
+                                                                                                                                                                                                                                                              endforeach ?></select>'
           );
           break;
         default:

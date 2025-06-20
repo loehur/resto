@@ -1,6 +1,6 @@
 <?php
-$no_meja = 14;
-$bawa_pulang = 7;
+$no_meja = 13;
+$bawa_pulang = 5;
 ?>
 
 
@@ -8,17 +8,14 @@ $bawa_pulang = 7;
 <div class="row mx-0" style="max-width: 450px;">
   <?php for ($i = 1; $i <= $no_meja; $i++) { ?>
     <div class="col-auto py-1 px-1">
-      <button style="width: 55px;" class="btn btn-sm btn-outline-success rounded-0 pilih <?= isset($data['order_0'][$i]) ? "border-2 border-dark" : "" ?>" data-group="nomor" data-mode="0" data-id="<?= $i ?>">
+      <button style="width: 67px;" class="btn btn-outline-success rounded-0 pilih <?= isset($data['order_0'][$i]) ? "border-2 border-dark" : "" ?>" data-group="nomor" data-mode="0" data-id="<?= $i ?>">
         DI-<b><?= $i ?></b>
       </button>
     </div>
   <?php } ?>
-</div>
-
-<div class="row mx-0">
   <?php for ($i = 1; $i <= $bawa_pulang; $i++) { ?>
     <div class="col-auto py-1 px-1">
-      <button style="width: 55px;" class="btn btn-sm btn-outline-info rounded-0 pilih <?= isset($data['order_1'][$i]) ? "border-2 border-dark" : "" ?>" data-group="nomor" data-mode="1" data-id="<?= $i ?>">
+      <button style="width: 67px;" class="btn btn-outline-danger rounded-0 pilih <?= isset($data['order_1'][$i]) ? "border-2 border-dark" : "" ?>" data-group="nomor" data-mode="1" data-id="<?= $i ?>">
         TA-<b><?= $i ?></b>
       </button>
     </div>
@@ -39,13 +36,13 @@ $bawa_pulang = 7;
     </div>
     <div class="row px-3 mx-0">
       <div class="col py-1 px-1">
-        <button class="btn btn-sm btn-outline-success text-nowrap w-100 pilih active" data-group="kategori" data-id="0">
+        <button class="btn btn-outline-success text-nowrap w-100 pilih active" data-group="kategori" data-id="0">
           Semua
         </button>
       </div>
       <?php foreach ($data['kat'] as $dk) { ?>
         <div class="col py-1 px-1">
-          <button class="btn btn-sm btn-outline-dark text-nowrap w-100 pilih" data-group="kategori" data-id="<?= $dk['id'] ?>">
+          <button class="btn btn-outline-dark text-nowrap w-100 pilih" data-group="kategori" data-id="<?= $dk['id'] ?>">
             <?= $dk['nama'] ?>
           </button>
         </div>

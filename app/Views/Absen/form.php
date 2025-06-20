@@ -21,7 +21,7 @@
             <input style="visibility: hidden; height:0">
             <select name="karyawan" class="form-control tize form-control-sm" style="width: 100%;" required>
               <option value="" selected disabled></option>
-              <?php foreach ($_SESSION['users'] as $a) { ?>
+              <?php foreach ($_SESSION['resto_users'] as $a) { ?>
                 <option value="<?= $a['no_user'] ?>"><?= $a['id_user'] . "-" . strtoupper($a['nama_user']) ?></option>
               <?php } ?>
             </select>
