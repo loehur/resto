@@ -119,7 +119,7 @@ if ($log_mode == 1) {
                 <?php if ($this->id_privilege == 100 or $this->id_privilege == 12) { ?>
                     <div class="col-auto ps-0 pe-1">
                         <select id="selectCabang" class="form-control form-control-sm bg-primary">
-                            <?php foreach ($_SESSION['cabangs'] as $lcb) { ?>
+                            <?php foreach ($_SESSION['resto_cabangs'] as $lcb) { ?>
                                 <option class="font-weight-bold" value="<?= $lcb['id_cabang'] ?>" <?= ($this->id_cabang == $lcb['id_cabang']) ? "selected" : '' ?>><?= $lcb['kode_cabang'] ?></option>
                             <?php } ?>
                         </select>
@@ -171,7 +171,7 @@ if ($log_mode == 1) {
                             </tr>
                             <tr>
                                 <td><i class="fas fa-wifi"></i></td>
-                                <td><?= $_SESSION['cabangs'][$_SESSION['resto_user']['id_cabang']]['wifi_pass']; ?></td>
+                                <td><?= $_SESSION['resto_cabangs'][$_SESSION['resto_user']['id_cabang']]['wifi_pass']; ?></td>
                             </tr>
                         </table>
                     </div>
