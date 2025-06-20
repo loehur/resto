@@ -7,40 +7,64 @@ foreach ($data['order'] as $dk) { ?>
     </div>
     <div class="py-1 align-self-center">
       <button data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" data-add="-1" class="btn btn-sm btn-outline-danger fw-bold tambah_ubah" style="width: 30px;">-</button>
-      <input data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" style="width: 40px;" value="<?= $dk['qty'] ?>" class="manual_qty_ubah border-0 text-center fw-bold border-bottom-1" id="qty<?= $dk['id'] ?>" type="number">
+      <input data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" style="width: 40px;" value="<?= $dk['qty'] ?>" class="manual_qty_ubah border-0 text-center fw-bold border-bottom-1" id="qty_ubah<?= $dk['id_menu'] ?>" type="number">
       <button data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" data-add="1" class="btn btn-sm btn-outline-success fw-bold tambah_ubah" style="width: 30px;">+</button>
     </div>
   </div>
 <?php } ?>
 
 <script>
+  var val_before;
+  var milidetik = 0;
+  var id, id_kat, qty;
+  var interval;
+
+  function update_qty() {
+    milidetik += 1;
+    if (milidetik == 100) {
+      clearInterval(interval);
+      milidetik = 0;
+      tambahMenuManual(id, qty, id_kat);
+    }
+  }
+
   $(".tambah_ubah").click(function() {
     const add = $(this).attr("data-add");
-    const id = $(this).attr("data-id");
-    const id_kat = $(this).attr("data-kat");
-
-    let qty = $("#qty" + id).val();
+    id = $(this).attr("data-id");
+    id_kat = $(this).attr("data-kat");
+    qty = $("#qty_ubah" + id).val();
     if (qty == 0 && add == -1) {
       return;
     } else {
-      tambahMenu(add, id, qty, id_kat);
+      $("#qty_ubah" + id).val(parseInt(qty) + parseInt(add));
+      qty = $("#qty_ubah" + id).val();
+      if (milidetik == 0) {
+        interval = setInterval(update_qty, 1);
+      } else {
+        milidetik = 0;
+      }
     }
   })
 
-  var val_before;
   $("input.manual_qty_ubah").focusin(function() {
     val_before = $(this).val();
   });
 
   $("input.manual_qty_ubah").focusout(function() {
-    const qty = $(this).val();
+    qty = $(this).val();
     if (val_before == qty) {
       console.log('Tidak ada perubahan qty');
       return;
     }
-    const id = $(this).attr("data-id");
-    const id_kat = $(this).attr("data-kat");
+    id = $(this).attr("data-id");
+    id_kat = $(this).attr("data-kat");
     tambahMenuManual(id, qty, id_kat);
+  });
+
+  var diskon_before = 0;
+  $("input.diskon").focusin(function() {
+    diskon_before = $(this).val();
+    $(this).val('');
   });
 
   $("input.diskon").focusout(function() {
@@ -48,15 +72,14 @@ foreach ($data['order'] as $dk) { ?>
     const id = $(this).attr("data-id");
     const val = $(this).attr("data-val");
     const diskon = $(this).val();
-    if (parseInt(diskon) > parseInt(max)) {
-      $(this).val(val);
-      return;
+    if (diskon != diskon_before && diskon != '') {
+      if (parseInt(diskon) > parseInt(max)) {
+        $(this).val(val);
+      } else {
+        setDiskon(id, diskon)
+      }
     } else {
-      setDiskon(id, diskon)
+      $(this).val(diskon_before);
     }
-  });
-
-  $("input.diskon").focusin(function() {
-    $(this).val('');
   });
 </script>

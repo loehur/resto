@@ -154,33 +154,6 @@ $bawa_pulang = 5;
     }
   })
 
-  function tambahMenu(add, id, qty, id_kat) {
-    $("div.menu_edit_load").load('<?= URL::BASE_URL ?>Load/spinner/2');
-    qty = parseInt(qty) + parseInt(add);
-    $.ajax({
-      url: "<?= URL::BASE_URL ?>Penjualan/add/" + mode_dt + "/" + nomor,
-      data: {
-        add: add,
-        id: id,
-        id_kat: id_kat
-      },
-      type: "POST",
-      success: function(res) {
-        if (res == 1) {
-          $("#qty" + id).val(qty);
-          load_pesanan(mode_dt, nomor);
-          $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').removeClass('border-2 border-dark');
-        } else if (res == 0) {
-          $("#qty" + id).val(qty);
-          load_pesanan(mode_dt, nomor);
-          $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').addClass('border-2 border-dark');
-        } else {
-          console.log(res);
-        }
-      },
-    });
-  }
-
   function tambahMenuManual(id, qty, id_kat) {
     $("div.menu_edit_load").load('<?= URL::BASE_URL ?>Load/spinner/2');
     $.ajax({
@@ -193,11 +166,9 @@ $bawa_pulang = 5;
       type: "POST",
       success: function(res) {
         if (res == 1) {
-          $("#qty" + id).html(qty);
           load_pesanan(mode_dt, nomor);
           $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').removeClass('border-2 border-dark');
         } else if (res == 0) {
-          $("#qty" + id).val(qty);
           load_pesanan(mode_dt, nomor);
           $('button.pilih[data-group=nomor][data-id=' + nomor + '][data-mode=' + mode_dt + ']').addClass('border-2 border-dark');
         } else {

@@ -13,32 +13,53 @@
 <?php } ?>
 
 <script>
-  $(".tambah").click(function() {
-    const add = $(this).attr("data-add");
-    const id = $(this).attr("data-id");
-    const id_kat = $(this).attr("data-kat");
-
-    let qty = $("#qty" + id).val();
-    if (qty == 0 && add == -1) {
-      return;
-    } else {
-      tambahMenu(add, id, qty, id_kat);
-    }
-  })
-
   var val_before;
+  var milidetik = 0;
+  var add = 0;
+  var id, id_kat, qty;
+  var interval;
+
   $("input.manual_qty").focusin(function() {
     val_before = $(this).val();
   });
 
+  function update_qty() {
+    milidetik += 1;
+    if (milidetik == 100) {
+      clearInterval(interval);
+      milidetik = 0;
+      tambahMenuManual(id, qty, id_kat);
+    }
+  }
+
+  $(".tambah").click(function() {
+    add = $(this).attr("data-add");
+    id = $(this).attr("data-id");
+    id_kat = $(this).attr("data-kat");
+
+    qty = $("#qty" + id).val();
+    if (qty == 0 && add == -1) {
+      return;
+    } else {
+      $("#qty" + id).val(parseInt(qty) + parseInt(add));
+      qty = $("#qty" + id).val();
+      if (milidetik == 0) {
+        interval = setInterval(update_qty, 1);
+      } else {
+        milidetik = 0;
+      }
+    }
+  })
+
+
   $("input.manual_qty").focusout(function() {
-    const qty = $(this).val();
+    qty = $(this).val();
     if (val_before == qty) {
       console.log('Tidak ada perubahan qty');
       return;
     }
-    const id = $(this).attr("data-id");
-    const id_kat = $(this).attr("data-kat");
+    id = $(this).attr("data-id");
+    id_kat = $(this).attr("data-kat");
     tambahMenuManual(id, qty, id_kat);
   });
 </script>
