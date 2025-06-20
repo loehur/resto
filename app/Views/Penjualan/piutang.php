@@ -12,7 +12,7 @@ foreach ($data['order'] as $dk) {
 <div class="w-100 mt-3">
   <div class="text-center">Pilih Pelanggan</div>
   <div class="text-center">
-    <select name="pelanggan" class="form-control form-control-sm" required>
+    <select name="pelanggan" class="form-control" required>
       <option selected value="0"></option>
       <?php foreach ($data['pelanggan'] as $p) { ?>
         <option value="<?= $p['id'] ?>"><?= $p['nama'] ?></option>

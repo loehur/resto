@@ -11,10 +11,10 @@ foreach ($data['order'] as $dk) {
 </div>
 <div class="w-100 mt-3">
   <div class="d-flex justify-content-center">
-    <div class="px-1"><span onclick="data_kembalian(<?= $total ?>)" class="pilihBayar btn btn-sm rounded-0 btn-outline-primary">Bayar Pas</span></div>
-    <div class="px-1"><span onclick="data_kembalian(20000)" class="pilihBayar btn btn-sm rounded-0 btn-outline-primary">20.000</span></div>
-    <div class="px-1"><span onclick="data_kembalian(50000)" class="pilihBayar btn btn-sm rounded-0 btn-outline-primary">50.000</span></div>
-    <div class="px-1"><span onclick="data_kembalian(100000)" class="pilihBayar btn btn-sm rounded-0 btn-outline-primary">100.000</span></div>
+    <div class="px-1"><span onclick="data_kembalian(<?= $total ?>)" class="pilihBayar btn rounded-0 btn-outline-primary">Bayar Pas</span></div>
+    <div class="px-1"><span onclick="data_kembalian(20000)" class="pilihBayar btn rounded-0 btn-outline-primary">20.000</span></div>
+    <div class="px-1"><span onclick="data_kembalian(50000)" class="pilihBayar btn rounded-0 btn-outline-primary">50.000</span></div>
+    <div class="px-1"><span onclick="data_kembalian(100000)" class="pilihBayar btn rounded-0 btn-outline-primary">100.000</span></div>
   </div>
 </div>
 <div class="w-100 mt-3">
