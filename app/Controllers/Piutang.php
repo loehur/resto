@@ -52,7 +52,7 @@ class Piutang extends Controller
          }
       }
       echo "<pre>";
-      print_r($order);
+      print_r($total);
       echo "</pre>";
 
       $data['total'] = $total;
