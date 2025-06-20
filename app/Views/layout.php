@@ -335,7 +335,6 @@ if ($log_mode == 1) {
 
                     if (same == false) {
                         $(".offcanvas").each(function() {
-                            console.log($(this));
                             $(this).offcanvas('hide');
                         })
 

@@ -70,4 +70,27 @@ class Piutang extends Controller
       }
       $this->view($viewData, $data);
    }
+
+   function cek_bayar($pelanggan)
+   {
+      $viewData = __CLASS__ . '/bayar';
+      $data['order'] = $this->db($this->book)->get_where('ref', "pelanggan = " . $pelanggan . " AND step = 3", "tgl", 1);
+      $data['order_ref'] = $this->db($this->book)->get_where('ref', "pelanggan = " . $pelanggan . " AND step = 3", "id");
+
+      foreach ($data['order_ref'] as $key => $r) {
+         $order[$key] = $this->db($this->book)->get_where('pesanan', "ref = '" . $key . "'");
+         foreach ($order[$key] as $dk) {
+            $subTotal = ($dk['harga'] * $dk['qty']) - $dk['diskon'];
+            if (isset($total[$r['tgl']])) {
+               $total[$r['tgl']] += $subTotal;
+            } else {
+               $total[$r['tgl']] = $subTotal;
+            }
+         }
+      }
+
+      $data['total'] = $total;
+      $data['pelanggan'] = $pelanggan;
+      $this->view($viewData, $data);
+   }
 }
