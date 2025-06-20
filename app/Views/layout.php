@@ -319,6 +319,26 @@ if ($log_mode == 1) {
             <script src="<?= $this->ASSETS_URL ?>plugins/adminLTE-3.1.0/js/adminlte.js"></script>
 
             <script>
+                function buka_canvas(id) {
+                    let same = false;
+                    $(".offcanvas.show").each(function() {
+                        if ($(this).attr('id') == id) {
+                            same = true;
+                        }
+                    })
+
+                    if (same == false) {
+                        $(".offcanvas").each(function() {
+                            console.log($(this));
+                            $(this).offcanvas('hide');
+                        })
+
+                        const canvasElemen = document.getElementById(id)
+                        const canvas = new bootstrap.Offcanvas(canvasElemen)
+                        canvas.show()
+                    }
+                }
+
                 let startX, startY;
                 const threshold = 50; // Minimum swipe distance
 
@@ -479,13 +499,4 @@ if ($log_mode == 1) {
                         },
                     });
                 });
-
-                window.setTimeout("waktu()", 60000);
-
-                function waktu() {
-                    setTimeout("waktu()", 60000);
-                    $("#jam").load('<?= URL::BASE_URL . 'Time/get/H' ?>');
-                    $("#menit").load('<?= URL::BASE_URL . 'Time/get/i' ?>');
-                    $("#detik").load('<?= URL::BASE_URL . 'Time/get/s' ?>');
-                }
             </script>

@@ -1,6 +1,6 @@
 <?php
 foreach ($data['ref'] as $key => $r) { ?>
-  <div data-ref="<?= $key ?>" class="row mx-0 border-bottom py-1 cekPesanan" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+  <div data-ref="<?= $key ?>" class="row mx-0 border-bottom py-1 cekPesanan" style="cursor: pointer;" aria-controls="offcanvasRight">
     <div class="col">
       <b><?= $r['id'] ?></b><br>
       <span class="badge bg-primary"><?= $r['mode'] == 0 ? "Dine-In" : "Take-Away" ?></span><br>
@@ -50,6 +50,7 @@ foreach ($data['ref'] as $key => $r) { ?>
 
 <script>
   $(".cekPesanan").click(function() {
+    buka_canvas('offcanvasRight');
     var ref = $(this).attr('data-ref');
     $("div#cart").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
       $("div#cart").load('<?= URL::BASE_URL ?>Riwayat/cart/' + ref);

@@ -1,12 +1,12 @@
 <table class="table table-sm mx-0">
-  <thead style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+  <thead style="cursor: pointer;" id="pesan">
     <tr>
       <th class="text-purple border-top-0">Pesanan (+)</th>
       <th class="text-end border-top-0">Total</th>
     </tr>
   </thead>
 
-  <tbody id="ubah_pesanan" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight1" aria-controls="offcanvasRight" style="cursor: pointer;">
+  <tbody id="ubah_pesanan" style="cursor: pointer;">
     <?php
     $total = 0;;
     foreach ($data['order'] as $key => $d) { ?>
@@ -56,7 +56,21 @@
 </table>
 <?php if ($total > 0 && $_SESSION['resto_user']['id_privilege'] >= 30) { ?>
   <div class="d-flex flex-row justify-content-between px-1">
-    <div class="piutang" onclick="load_piutang(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn btn-sm rounded-0 btn-outline-danger" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight3" aria-controls="offcanvasRight">Jadikan Piutang</button></div>
-    <div class="bayar" onclick="load_bayar(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn btn-sm rounded-0 btn-outline-success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight2" aria-controls="offcanvasRight">Pembayaran</button></div>
+    <div class="piutang" onclick="load_piutang(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn btn-sm rounded-0 btn-outline-danger">Jadikan Piutang</button></div>
+    <div class="bayar" onclick="load_bayar(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn btn-sm rounded-0 btn-outline-success">Pembayaran</button></div>
   </div>
 <?php } ?>
+
+<script>
+  $("#pesan").click(function() {
+    buka_canvas('offcanvasRight');
+  })
+
+  $(".bayar").click(function() {
+    buka_canvas('offcanvasRight2');
+  })
+
+  $(".piutang").click(function() {
+    buka_canvas('offcanvasRight3');
+  })
+</script>
