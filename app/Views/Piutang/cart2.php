@@ -18,7 +18,7 @@
         ?>
         <tr>
           <td>
-            <small><?= $d['id'] ?></small><span class="fw-bold"><?= $data['menu'][$key]['nama'] ?></span><br>
+            <small></small><span class="fw-bold"><?= $data['menu'][$key]['nama'] ?></span><br>
             <?= $d['qty'] ?>x @<?= number_format($d['harga']) ?> <?= number_format($total_awal) ?>
           </td>
           <td class="text-end">

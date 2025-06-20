@@ -47,7 +47,7 @@ class Piutang extends Controller
             if (isset($total[$r['tgl']])) {
                $total[$r['tgl']] += $subTotal;
             } else {
-               $total[$r['tgl']] = 0;
+               $total[$r['tgl']] = $subTotal;
             }
          }
       }
