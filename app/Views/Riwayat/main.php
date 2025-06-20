@@ -3,8 +3,8 @@ foreach ($data['ref'] as $key => $r) { ?>
   <div data-ref="<?= $key ?>" class="row mx-0 border-bottom py-1 cekPesanan" style="cursor: pointer;" aria-controls="offcanvasRight">
     <div class="col">
       <b><?= $r['id'] ?></b><br>
-      <span class="badge bg-primary"><?= $r['mode'] == 0 ? "Dine-In" : "Take-Away" ?></span><br>
-      No. <?= $r['nomor'] ?>
+      No. <?= $r['nomor'] ?><br>
+      <?= $r['mode'] == 0 ? "<span class='badge bg-success bg-gradient'>Dine-In</span>" : "<span class='badge bg-primary bg-gradient'>Take-Away</span>" ?></span>
     </div>
     <div class="col text-end">
       <?= date('d M y, H:i', strtotime($r['tgl'] . " " . $r['jam'] . ":00")) ?><br>
@@ -12,19 +12,19 @@ foreach ($data['ref'] as $key => $r) { ?>
       <?php
       switch ($r['step']) {
         case 1:
-          echo "<span class='badge bg-success'>Lunas</span>";
+          echo "<span class='badge bg-gradient bg-success'>Lunas</span>";
           break;
         case 2:
-          echo "<span class='badge bg-secondary'>Batal</span>";
+          echo "<span class='badge bg-gradient bg-secondary'>Batal</span>";
           break;
         case 3:
-          echo "<span class='badge bg-danger'>Piutang</span>";
+          echo "<span class='badge bg-gradient bg-danger'>Piutang</span>";
           break;
         case 4:
-          echo "<span class='badge bg-warning'>Pengecekan</span>";
+          echo "<span class='badge bg-gradient bg-warning'>Pengecekan</span>";
           break;
         default:
-          echo "<span class='badge bg-dark'>???</span>";
+          echo "<span class='badge bg-gradient bg-dark'>???</span>";
           break;
       }
       ?>

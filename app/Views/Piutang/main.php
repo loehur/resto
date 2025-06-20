@@ -5,7 +5,7 @@ foreach ($data['data'] as $key => $r) { ?>
       <?= $data['pelanggan'][$key]['nama'] ?>
     </div>
     <div class="col text-end">
-      <?= number_format($r) ?>
+      Rp<?= number_format($r) ?>
     </div>
   </div>
 <?php } ?>

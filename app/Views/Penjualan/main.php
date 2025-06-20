@@ -8,14 +8,14 @@ $bawa_pulang = 5;
 <div class="row mx-0" style="max-width: <?= URL::MAX_WIDTH ?>px;">
   <?php for ($i = 1; $i <= $no_meja; $i++) { ?>
     <div class="col-auto py-1 px-1">
-      <button style="width: 65px;" class="btn btn-outline-success rounded-0 pilih <?= isset($data['order_0'][$i]) ? "border-2 border-dark" : "" ?>" data-group="nomor" data-mode="0" data-id="<?= $i ?>">
+      <button style="width: 65px;" class="btn btn-outline-success pilih <?= isset($data['order_0'][$i]) ? "border-2 border-dark" : "" ?>" data-group="nomor" data-mode="0" data-id="<?= $i ?>">
         D-<b><?= $i ?></b>
       </button>
     </div>
   <?php } ?>
   <?php for ($i = 1; $i <= $bawa_pulang; $i++) { ?>
     <div class="col-auto py-1 px-1">
-      <button style="width: 65px;" class="btn btn-outline-danger rounded-0 pilih <?= isset($data['order_1'][$i]) ? "border-2 border-dark" : "" ?>" data-group="nomor" data-mode="1" data-id="<?= $i ?>">
+      <button style="width: 65px;" class="btn btn-outline-primary pilih <?= isset($data['order_1'][$i]) ? "border-2 border-dark" : "" ?>" data-group="nomor" data-mode="1" data-id="<?= $i ?>">
         T-<b><?= $i ?></b>
       </button>
     </div>
