@@ -52,6 +52,12 @@ if (isset($data)) {
             opacity: 0.1 !important;
         }
 
+        .accordion-button:focus,
+        .btn {
+            outline: none;
+            box-shadow: none;
+        }
+
         input:focus,
         .form-select:focus,
         .btn:focus,

@@ -61,6 +61,8 @@
   </div>
 <?php } ?>
 
+<div class="pb-5"></div>
+
 <script>
   $("#pesan").click(function() {
     buka_canvas('offcanvasRight');

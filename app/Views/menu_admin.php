@@ -33,7 +33,7 @@ $menu[1] = [
             [
                 'c' => 'Rekap/i/4',
                 'title' => 'Rekap Total Bulanan',
-                'txt' => 'Cabang Harian',
+                'txt' => 'Total Bulanan',
             ],
         ]
     ],

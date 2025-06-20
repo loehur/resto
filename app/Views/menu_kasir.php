@@ -16,6 +16,13 @@ $menu[0] = [
     ],
     [
         'p' => 30,
+        'c' => 'Piutang',
+        'title' => 'Piutang',
+        'icon' => 'fas fa-file-invoice',
+        'txt' => 'Piutang',
+    ],
+    [
+        'p' => 30,
         'c' => 'Kas',
         'title' => 'Kas',
         'icon' => 'fas fa-wallet',
@@ -35,10 +42,4 @@ $menu[0] = [
         'icon' => 'fas fa-address-book',
         'txt' => 'Pelanggan'
     ],
-    // [
-    //     'c' => '#',
-    //     'title' => 'Piutang',
-    //     'icon' => 'fas fa-receipt',
-    //     'txt' => 'Piutang',
-    // ],
 ];

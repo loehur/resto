@@ -15,7 +15,6 @@ class Riwayat extends Controller
 
       $order = [];
       $total = [];
-      $pay = [];
       foreach ($data['ref'] as $key => $r) {
          $order[$key] = $this->db($this->book)->get_where('pesanan', "ref = '" . $key . "'");
          $total[$key] = 0;
@@ -25,7 +24,6 @@ class Riwayat extends Controller
          }
       }
 
-      $data['pay'] = $pay;
       $data['order'] = $order;
       $data['total'] = $total;
 
