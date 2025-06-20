@@ -10,8 +10,7 @@
     <?php
     $total = 0;;
     foreach ($data['order'] as $ref => $a) {
-      foreach ($a as $key => $d) {
-    ?>
+      foreach ($a as $key => $d) { ?>
         <?php
         $total_awal = ($d['harga'] * $d['qty']);
         $subTotal = ($d['harga'] * $d['qty']) - $d['diskon'];
@@ -19,7 +18,7 @@
         ?>
         <tr>
           <td>
-            <span class="fw-bold"><?= $data['menu'][$key]['nama'] ?></span><br>
+            <small><?= $d['id'] ?></small><span class="fw-bold"><?= $data['menu'][$key]['nama'] ?></span><br>
             <?= $d['qty'] ?>x @<?= number_format($d['harga']) ?> <?= number_format($total_awal) ?>
           </td>
           <td class="text-end">
