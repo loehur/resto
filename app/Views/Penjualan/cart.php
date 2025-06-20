@@ -56,8 +56,8 @@
 </table>
 <?php if ($total > 0 && $_SESSION['resto_user']['id_privilege'] >= 30) { ?>
   <div class="d-flex flex-row justify-content-between px-1">
-    <div class="piutang" onclick="load_piutang(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn btn-sm rounded-0 btn-outline-danger">Jadikan Piutang</button></div>
-    <div class="bayar" onclick="load_bayar(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn btn-sm rounded-0 btn-outline-success">Pembayaran</button></div>
+    <div class="piutang" onclick="load_piutang(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn rounded-0 btn-outline-danger">Jadikan Piutang</button></div>
+    <div class="bayar" onclick="load_bayar(<?= $data['mode'] ?>,<?= $data['nomor'] ?>)"><button class="btn rounded-0 btn-outline-success">Pembayaran</button></div>
   </div>
 <?php } ?>
 
