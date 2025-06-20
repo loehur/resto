@@ -51,9 +51,6 @@ class Piutang extends Controller
             }
          }
       }
-      echo "<pre>";
-      print_r($total);
-      echo "</pre>";
 
       $data['total'] = $total;
       $data['pelanggan'] = $pelanggan;
