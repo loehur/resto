@@ -20,10 +20,13 @@ class Piutang extends Controller
 
       foreach ($data['ref'] as $key => $r) {
          $order[$key] = $this->db($this->book)->get_where('pesanan', "ref = '" . $key . "'");
-         $data_[$r['pelanggan']] = 0;
          foreach ($order[$key] as $dk) {
             $subTotal = ($dk['harga'] * $dk['qty']) - $dk['diskon'];
-            $data_[$r['pelanggan']] += $subTotal;
+            if (isset($data_[$r['pelanggan']])) {
+               $data_[$r['pelanggan']] += $subTotal;
+            } else {
+               $data_[$r['pelanggan']] = $subTotal;
+            }
          }
       }
 
