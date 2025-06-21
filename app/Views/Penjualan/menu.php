@@ -5,9 +5,9 @@
       Rp<?= number_format($dk['harga']) ?>
     </div>
     <div class="py-1 align-self-center">
-      <button data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" data-add="-1" class="btn btn-sm btn-outline-danger fw-bold tambah" style="width: 30px;">-</button>
-      <input data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" style="width: 40px;" value="<?= isset($data['order'][$dk['id']]) ? $data['order'][$dk['id']]['qty'] : 0 ?>" class="manual_qty qty<?= $dk['id'] ?> border-0 text-center fw-bold border-bottom-1" type="number">
-      <button data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" data-add="1" class="btn btn-sm btn-outline-success fw-bold tambah" style="width: 30px;">+</button>
+      <button data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" data-add="-1" class="btn btn-outline-danger fw-bold tambah" style="width: 40px;">-</button>
+      <input data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" style="width: 35px;" value="<?= isset($data['order'][$dk['id']]) ? $data['order'][$dk['id']]['qty'] : 0 ?>" class="manual_qty qty<?= $dk['id'] ?> border-0 text-center fw-bold border-bottom-1" type="number">
+      <button data-id="<?= $dk['id'] ?>" data-kat="<?= $dk['id_kategori'] ?>" data-add="1" class="btn btn-outline-success fw-bold tambah" style="width: 40px;">+</button>
     </div>
   </div>
 <?php } ?>

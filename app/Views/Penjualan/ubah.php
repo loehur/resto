@@ -3,12 +3,12 @@ foreach ($data['order'] as $dk) { ?>
   <div class="d-flex flex-row border-bottom justify-content-between">
     <div class="py-1">
       <span class="fw-bold"><?= $data['menu'][$dk['id_menu']]['nama'] ?></span><br>
-      <span class="text-success">Diskon:</span> <input data-val="<?= $dk['diskon'] ?>" data-max="<?= $dk['harga'] * $dk['qty'] ?>" class="border-0 text-success border-bottom-1 diskon" data-id="<?= $dk['id'] ?>" value="<?= $dk['diskon'] ?>" type="number">
+      <span class="text-success">Diskon:</span> <input style="width: 60px;" data-val="<?= $dk['diskon'] ?>" data-max="<?= $dk['harga'] * $dk['qty'] ?>" class="border-0 text-success border-bottom-1 diskon" data-id="<?= $dk['id'] ?>" value="<?= $dk['diskon'] ?>" type="number">
     </div>
-    <div class="py-1 align-self-center">
-      <button data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" data-add="-1" class="btn btn-sm btn-outline-danger fw-bold tambah_ubah" style="width: 30px;">-</button>
-      <input data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" style="width: 40px;" value="<?= $dk['qty'] ?>" class="manual_qty_ubah qty<?= $dk['id_menu'] ?> border-0 text-center fw-bold border-bottom-1" type="number">
-      <button data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" data-add="1" class="btn btn-sm btn-outline-success fw-bold tambah_ubah" style="width: 30px;">+</button>
+    <div class="py-1 align-self-center text-nowrap">
+      <button data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" data-add="-1" class="btn btn-outline-danger fw-bold tambah_ubah" style="width: 40px;">-</button>
+      <input data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" style="width: 35px;" value="<?= $dk['qty'] ?>" class="manual_qty_ubah qty<?= $dk['id_menu'] ?> border-0 text-center fw-bold border-bottom-1" type="number">
+      <button data-id="<?= $dk['id_menu'] ?>" data-kat="<?= $data['menu'][$dk['id_menu']]['id_kategori'] ?>" data-add="1" class="btn btn-outline-success fw-bold tambah_ubah" style="width: 40px;">+</button>
     </div>
   </div>
 <?php } ?>

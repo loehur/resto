@@ -46,7 +46,7 @@ class Rekap extends Controller
             $whereCabang = $this->wCabang . " AND ";
             break;
          case 3:
-            $layout = ['title' => 'Rekap Total Harian', 'vLaundry' => true];
+            $layout = ['title' => 'Rekap Total Bulanan', 'vLaundry' => true];
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
@@ -60,7 +60,7 @@ class Rekap extends Controller
             $whereCabang = '';
             break;
          case 4:
-            $layout = ['title' => 'Rekap Total Bulanan', 'vLaundry' => true];
+            $layout = ['title' => 'Rekap Total Harian', 'vLaundry' => true];
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {

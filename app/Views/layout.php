@@ -20,8 +20,8 @@ if (isset($data)) {
     <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>plugins/adminLTE-3.1.0/css/adminlte.min.css">
     <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>plugins/select2/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>css/selectize.bootstrap3.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>css/jquery-ui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>css/style.css" rel="stylesheet" />
 
     <style>
         @font-face {
@@ -30,50 +30,22 @@ if (isset($data)) {
         }
 
         html .table {
-            font-family: 'fontku', sans-serif;
+            font-family: "fontku", sans-serif;
         }
 
         html .content {
-            font-family: 'fontku', sans-serif;
+            font-family: "fontku", sans-serif;
         }
 
         html body {
-            font-family: 'fontku', sans-serif;
+            font-family: "fontku", sans-serif;
         }
 
         @media print {
             p div {
-                font-family: 'fontku', sans-serif;
+                font-family: "fontku", sans-serif;
                 font-size: 14px;
             }
-        }
-
-        .modal-backdrop {
-            opacity: 0.1 !important;
-        }
-
-        .accordion-button:focus,
-        .btn {
-            outline: none;
-            box-shadow: none;
-        }
-
-        input:focus,
-        .form-select:focus,
-        .btn:focus,
-        select:focus,
-        textarea,
-        input.form-control:focus {
-            outline: none !important;
-            outline-width: 0 !important;
-            box-shadow: none;
-            -moz-box-shadow: none;
-            -webkit-box-shadow: none;
-        }
-
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            display: none;
         }
     </style>
 </head>
@@ -108,7 +80,6 @@ if ($log_mode == 1) {
     $hideKasir = "";
     $classAdmin = "btn-secondary";
 }
-
 ?>
 
 <body class="hold-transition sidebar-mini">
@@ -117,14 +88,13 @@ if ($log_mode == 1) {
     </div>
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand navbar-light sticky-top pb-0 pt-2">
-            <div class="row w-100 mx-0 px-0">
+            <div class="row w-100 mx-0 px-0 pb-1">
                 <div class="col-auto ps-0 pe-1 text-nowrap">
-                    <a class="nav-link p-0 ps-2" id="menu_utama" data-widget="pushmenu" href="#" role="button"> <span class="btn btn-sm"><i class="fas fa-bars"></i> Menu</span></a>
+                    <a class="nav-link p-0" id="menu_utama" data-widget="pushmenu" href="#" role="button"> <span class="btn"><i class="fas fa-bars"></i></span></a>
                 </div>
-
                 <?php if ($this->id_privilege == 100 or $this->id_privilege == 12) { ?>
                     <div class="col-auto ps-0 pe-1">
-                        <select id="selectCabang" class="form-control form-control-sm bg-primary">
+                        <select id="selectCabang" class="form-control bg-primary">
                             <?php foreach ($_SESSION['resto_cabangs'] as $lcb) { ?>
                                 <option class="font-weight-bold" value="<?= $lcb['id_cabang'] ?>" <?= ($this->id_cabang == $lcb['id_cabang']) ? "selected" : '' ?>><?= $lcb['kode_cabang'] ?></option>
                             <?php } ?>
@@ -132,7 +102,7 @@ if ($log_mode == 1) {
                     </div>
                     <div class="col-auto ps-0 pe-1">
                         <?php if ($this->id_privilege == 100) { ?>
-                            <select id="userLog" class="form-control form-control-sm bg-success">
+                            <select id="userLog" class="form-control bg-success">
                                 <option>------</option>
                                 <?php foreach ($_SESSION['resto_users'] as $a) {
                                     if ($a['id_user'] <> $_SESSION['resto_user']['id_user']) { ?>
@@ -144,21 +114,21 @@ if ($log_mode == 1) {
                     </div>
                 <?php } ?>
 
-                <div class="col-auto ps-0 me-auto pe-1">
-                    <select id="selectBook" class="form-control form-control-sm bg-info">
+                <div class="col-auto ps-0 me-auto">
+                    <select id="selectBook" class="form-control bg-info">
                         <?php for ($y = URL::Y_START; $y <= date('Y'); $y++) { ?>
                             <option class="font-weight-bold" value="<?= $y ?>" <?= ($_SESSION['resto_user']['book'] == $y) ? "selected" : '' ?>><?= $y ?></option>
                         <?php } ?>
                     </select>
                 </div>
-                <div class="col-auto ps-0 pe-1">
+                <div class="col-auto ps-0">
                     <a class="refresh" href="#">
-                        <span class="btn btn-sm btn-outline-success"><i class="fas fa-sync"></i></span>
+                        <span class="btn btn-outline-success"><i class="fas fa-sync"></i></span>
                     </a>
                 </div>
-                <div class="col-auto ps-0 pe-1">
+                <div class="col-auto ps-0">
                     <a class="" href="<?= URL::BASE_URL ?>Login/logout" role="button">
-                        <span class="btn btn-sm btn-outline-dark"><i class="fas fa-sign-out-alt"></i></span>
+                        <span class="btn btn-outline-dark"><i class="fas fa-sign-out-alt"></i></span>
                     </a>
                 </div>
             </div>
@@ -186,10 +156,10 @@ if ($log_mode == 1) {
                 <?php if ($this->id_privilege == 100) { ?>
                     <div class="row mx-0 user-panel mb-2 pb-2 pt-1">
                         <div class="col text-end mb-1">
-                            <span id="btnKasir" style="width: 42px;" class="btn btn-sm <?= $classKasir ?> px-2"><i class="fas fa-cash-register"></i></span>
+                            <span id="btnKasir" style="width: 42px;" class="btn <?= $classKasir ?> px-2"><i class="fas fa-cash-register"></i></span>
                         </div>
                         <div class="col text-start">
-                            <span id="btnAdmin" style="width: 42px;" class="btn btn-sm <?= $classAdmin ?> px-2"><i class="fas fa-user-shield"></i></span>
+                            <span id="btnAdmin" style="width: 42px;" class="btn <?= $classAdmin ?> px-2"><i class="fas fa-user-shield"></i></span>
                         </div>
                     </div>
                 <?php } ?>

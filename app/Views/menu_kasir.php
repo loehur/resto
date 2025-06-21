@@ -8,7 +8,7 @@ $menu[0] = [
         'txt' => 'Buka Order [ <b>' . $_SESSION['resto_cabangs'][$_SESSION['resto_user']['id_cabang']]['kode_cabang'] . '</b> ]'
     ],
     [
-        'p' => 30,
+        'p' => 0,
         'c' => 'Riwayat',
         'title' => 'Riwayat Pesanan',
         'icon' => 'far fa-clock',

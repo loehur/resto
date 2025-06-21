@@ -59,3 +59,14 @@ function checkboxArray(name) {
   );
   return values;
 }
+
+function is_numeric(value) {
+  try {
+    if (isNaN(value)) {
+      return false;
+    }
+    return true;
+  } catch (error) {
+    return false;
+  }
+}

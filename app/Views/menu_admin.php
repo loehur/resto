@@ -2,7 +2,7 @@
 $menu[1] = [
     [
         'p' => 100,
-        'c' => 'E/e_page/construction',
+        'c' => 'Approval',
         'title' => 'Approval',
         'icon' => 'fas fa-tasks',
         'txt' => 'Approval'
@@ -26,12 +26,12 @@ $menu[1] = [
                 'txt' => 'Cabang Harian',
             ],
             [
-                'c' => 'Rekap/i/3',
+                'c' => 'Rekap/i/4',
                 'title' => 'Rekap Total Harian',
                 'txt' => 'Total Harian',
             ],
             [
-                'c' => 'Rekap/i/4',
+                'c' => 'Rekap/i/3',
                 'title' => 'Rekap Total Bulanan',
                 'txt' => 'Total Bulanan',
             ],

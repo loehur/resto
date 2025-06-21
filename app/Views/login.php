@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="icon" href="<?= $this->ASSETS_URL ?>icon/logo.png">
-    <title>RM Saiyo Sakato</title>
+    <title>Resto</title>
     <meta name="viewport" content="width=410, user-scalable=no">
     <script src="<?= $this->ASSETS_URL ?>js/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>plugins/bootstrap-5.1/bootstrap.min.css">
@@ -139,7 +139,7 @@
 <body class="login-page small" style="min-height: 496.781px;">
     <div class="login-box">
         <div class="login-logo">
-            <a href="#">RM <span class="text-success">SAIYO SAKATO</span></a><br>
+            <a href="#">MDL <span class="text-success">RESTO</span></a><br>
         </div>
         <!-- /.login-logo -->
         <div class="card border border-success rounded">

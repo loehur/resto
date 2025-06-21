@@ -21,9 +21,9 @@
             </td>
             <td class="text-end">
               <?php if ($d['diskon'] > 0) { ?>
-                <small class="text-success">Disc. <?= number_format($d['diskon']) ?></small><br>
+                <small class="text-success">Disc. <?= number_format($d['diskon']) ?></small>
               <?php } ?>
-              <?= number_format($subTotal) ?>
+              <br><?= number_format($subTotal) ?>
             </td>
           </tr>
         <?php } ?>
