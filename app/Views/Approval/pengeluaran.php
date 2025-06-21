@@ -10,7 +10,7 @@
       $f4 = $a['jumlah'];
       $st = $a['status_mutasi']; ?>
       <tr id="tr<?= $id ?>">
-        <td class='text-right align-content-center'>
+        <td class='text-right align-content-center d-none'>
           <span class="btn btn-outline-danger" x-on:click="verify(<?= $id ?>,2)"><i class="fas fa-times"></i></span>
         </td>
         <td class="text-end">
