@@ -23,7 +23,7 @@ $target_page_rekap = $uri_segments[$uriCount - 1];
           <?php if (isset($data['dataTanggal']['tanggal'])) { ?>
             <td>
               <label>Tanggal</label>
-              <select name="d" class="form-control form-control-sm">
+              <select name="d" class="form-control">
                 <option class="text-right" value="01" <?php if ($currentDay == '01') {
                                                         echo 'selected';
                                                       } ?>>01</option>
@@ -122,7 +122,7 @@ $target_page_rekap = $uri_segments[$uriCount - 1];
           <?php } ?>
           <td>
             <label>Bulan</label>
-            <select name="m" class="form-control form-control-sm">
+            <select name="m" class="form-control">
               <option class="text-right" value="01" <?php if ($currentMonth == '01') {
                                                       echo 'selected';
                                                     } ?>>01</option>
@@ -162,18 +162,46 @@ $target_page_rekap = $uri_segments[$uriCount - 1];
             </select>
           </td>
           <td style="vertical-align: bottom;">
-            <button class="btn btn-sm btn-outline-success w-100">Cek</button>
+            <button class="btn btn-outline-success w-100">Cek</button>
           </td>
         </tr>
       </table>
     </form>
 
     <div class="card">
+      <div class="card-body p-0 table-responsive-sm">
+        <table class="table table-sm w-100">
+          <thead>
+            <tr>
+              <th colspan="3" class="text-success border-success">Penjualan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $total_tj = 0;
+            foreach ($data['total_jual'] as $key => $tj) {
+              $total_tj += $tj ?>
+              <tr>
+                <td><?= $key == 0 ? "Dine-In" : "Take-Away" ?></td>
+                <td class="text-end"><?= number_format($tj) ?></td>
+              </tr>
+            <?php } ?>
+
+            <tr class="table-success">
+              <td><b>Total Penjualan</b></td>
+              <td class="text-right"><b>Rp<?= number_format($total_tj) ?></b></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
       <?php $total_pendapatan = $data['kasLaundry']; ?>
       <div class="card-body p-0 table-responsive-sm">
         <table class="table table-sm w-100">
           <tbody>
-            <tr class="table-success">
+            <tr class="table-warning">
               <td class="fw-bold">Total Pendapatan</td>
               <td class="text-right fw-bold">Rp<?= number_format($total_pendapatan) ?></td>
             </tr>

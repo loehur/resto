@@ -75,16 +75,20 @@ class Rekap extends Controller
             break;
       }
 
-      //STATISTIC LAUNDRY
-      if ($whereCabang == '') {
-         $where = $whereCabang . "insertTime LIKE '%" . $today . "%'";
-         $data_lain1 = $this->db($_SESSION['resto_user']['book'])->get_where('pesanan', $where);
-         foreach ($data_lain1 as $dl1) {
-            array_push($data_main, $dl1);
+      //STATISTIC
+      $total_jual = [];
+      $where = $whereCabang . "insertTime LIKE '%" . $today . "%'";
+      $data_ref = $this->db($this->book)->get_where('ref', "tgL LIKE '%" . $today . "'", 'id');
+      foreach ($data_ref as $ref => $d) {
+         $data_penjualan = $this->db($this->book)->get_where('pesanan', "ref = '" . $ref . "'");
+         foreach ($data_penjualan as $dk) {
+            $subTotal = ($dk['harga'] * $dk['qty']) - $dk['diskon'];
+            if (isset($total_jual[$d['mode']])) {
+               $total_jual[$d['mode']] += $subTotal;
+            } else {
+               $total_jual[$d['mode']] = $subTotal;
+            }
          }
-      } else {
-         $where = $whereCabang . "insertTime LIKE '%" . $today . "%'";
-         $data_main = $this->db($_SESSION['resto_user']['book'])->get_where('pesanan', $where);
       }
 
       //PENDAPATAN
@@ -138,6 +142,7 @@ class Rekap extends Controller
 
       $this->view('layout', $layout);
       $this->view($viewData, [
+         'total_jual' => $total_jual,
          'data_main' => $data_main,
          'dataTanggal' => $dataTanggal,
          'kasLaundry' => $kas,
