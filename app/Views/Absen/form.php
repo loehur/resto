@@ -144,13 +144,4 @@
       },
     });
   });
-
-  window.setTimeout("waktu()", 1000);
-
-  function waktu() {
-    setTimeout("waktu()", 1000);
-    $("#jam").load('<?= URL::BASE_URL . 'Time/get/H' ?>');
-    $("#menit").load('<?= URL::BASE_URL . 'Time/get/i' ?>');
-    $("#detik").load('<?= URL::BASE_URL . 'Time/get/s' ?>');
-  }
 </script>
