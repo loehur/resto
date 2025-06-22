@@ -11,7 +11,7 @@ foreach ($data['menu'] as $id => $dk) { ?>
       <span class=""><?= $dk['nama'] ?></span><br>
     </div>
     <div class="py-1 align-self-center text-nowrap">
-      <input <?= $data['tgl'] <> date("Ymd") ? "readonly" : "" ?> name="<?= $dk['id'] ?>" style="width: 50px;" value="<?= $data['data'][$id][$data['mode']] ?>" class="border-0 text-end fw-bold border-bottom-1 data" type="number">
+      <input <?= $data['tgl'] <> date("Ymd") ? "readonly" : "" ?> name="<?= $dk['id'] ?>" style="width: 70px;" value="<?= $data['data'][$id][$data['mode']] ?>" class="border-0 text-end fw-bold border-bottom-1 data" type="number">
     </div>
   </div>
 <?php } ?>
