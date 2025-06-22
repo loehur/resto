@@ -17,7 +17,7 @@ foreach ($data['menu'] as $id => $dk) { ?>
 <?php } ?>
 
 <?php if ($data['tgl'] == date("Ymd")) { ?>
-  <span class="btn btn-success w-100 mt-3" x-on:click="simpan('<?= $data['tgl'] ?>','<?= $data['mode'] ?>')">Simpan</span>
+  <span class="btn btn-success w-100 mt-4" x-on:click="simpan('<?= $data['tgl'] ?>','<?= $data['mode'] ?>')">Simpan</span>
 <?php } ?>
 
 <script>
