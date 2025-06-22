@@ -78,7 +78,7 @@ class Rekap extends Controller
       //STATISTIC
       $total_jual = [];
       $where = $whereCabang . "insertTime LIKE '%" . $today . "%'";
-      $data_ref = $this->db($this->book)->get_where('ref', "tgL LIKE '%" . $today . "'", 'id');
+      $data_ref = $this->db($this->book)->get_where('ref', "tgL LIKE '%" . $today . "%'", 'id');
       foreach ($data_ref as $ref => $d) {
          $data_penjualan = $this->db($this->book)->get_where('pesanan', "ref = '" . $ref . "'");
          foreach ($data_penjualan as $dk) {

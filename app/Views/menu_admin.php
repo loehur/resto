@@ -23,18 +23,18 @@ $menu[1] = [
             [
                 'c' => 'Rekap/i/2',
                 'title' => 'Rekap Cabang Bulanan',
-                'txt' => 'Cabang Harian',
+                'txt' => 'Cabang Bulanan',
             ],
-            [
-                'c' => 'Rekap/i/4',
-                'title' => 'Rekap Total Harian',
-                'txt' => 'Total Harian',
-            ],
-            [
-                'c' => 'Rekap/i/3',
-                'title' => 'Rekap Total Bulanan',
-                'txt' => 'Total Bulanan',
-            ],
+            // [
+            //     'c' => 'Rekap/i/4',
+            //     'title' => 'Rekap Total Harian',
+            //     'txt' => 'Total Harian',
+            // ],
+            // [
+            //     'c' => 'Rekap/i/3',
+            //     'title' => 'Rekap Total Bulanan',
+            //     'txt' => 'Total Bulanan',
+            // ],
         ]
     ],
     [
