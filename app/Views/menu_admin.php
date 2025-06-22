@@ -11,7 +11,7 @@ $menu[1] = [
         'p' => 100,
         'c' => '',
         'title' => 'Rekap',
-        'icon' => 'fas fa-user-friends',
+        'icon' => 'fas fa-chart-line',
         'txt' => 'Laporan',
         'submenu' =>
         [

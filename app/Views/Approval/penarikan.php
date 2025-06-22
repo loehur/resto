@@ -10,16 +10,13 @@
       $f4 = $a['jumlah'];
       $st = $a['status_mutasi']; ?>
       <tr id="tr<?= $id ?>">
-        <td class='text-right align-content-center d-none'>
-          <span class="btn btn-outline-danger" x-on:click="verify(<?= $id ?>,2,<?= $data['key'] ?>)"><i class="fas fa-times"></i></span>
-        </td>
         <td class="text-end">
           <small>#<?= $id ?> <?= date('d M, H:i', strtotime($f1)) ?> </small>
           <br><span class="badge bg-gradient bg-success"><?= $f2b ?></span> <b>Rp<span><?= number_format($f4) ?></span></b></span>
           <br><small><?= $f2 ?></small>
         </td>
         <td class='text-right align-content-center'>
-          <span class="btn btn-outline-success" x-on:click="verify(<?= $id ?>,2,<?= $data['key'] ?>)"><i class="fas fa-check"></i></span>
+          <span class="btn btn-outline-success" x-on:click="verify(<?= $id ?>,1,<?= $data['key'] ?>)"><i class="fas fa-check"></i></span>
         </td>
       </tr>
     <?php } ?>

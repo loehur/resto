@@ -182,20 +182,31 @@ class DB extends DBC
         }
     }
 
-    public function insert($table, $values)
+    public function insert($table, $values, $update = "")
     {
-        $query = "INSERT INTO $table VALUES($values)";
-        $run = $this->mysqli->query($query);
-        if ($run) {
-            return TRUE;
+        if ($update == "") {
+            $query = "INSERT INTO $table VALUES($values)";
         } else {
-            return array('query' => $query, 'info' => $this->mysqli->error);
+            $query = "INSERT INTO $table VALUES($values) ON DUPLICATE KEY UPDATE $update;";
+        }
+
+        try {
+            $this->mysqli->query($query);
+            return array('query' => $query, 'error' => $this->mysqli->error, 'errno' => $this->mysqli->errno);
+        } catch (\Throwable $th) {
+            return array('query' => $query, 'error' => $this->mysqli->error, 'errno' => $this->mysqli->errno);
         }
     }
 
-    public function insertCols($table, $columns, $values)
+    public function insertCols($table, $columns, $values, $update = "")
     {
-        $query = "INSERT INTO $table($columns) VALUES($values)";
+
+        if ($update == "") {
+            $query = "INSERT INTO $table($columns) VALUES($values)";
+        } else {
+            $query = "INSERT INTO $table($columns) VALUES($values) ON DUPLICATE KEY UPDATE $update";
+        }
+
         try {
             $this->mysqli->query($query);
             return array('query' => $query, 'error' => $this->mysqli->error, 'errno' => $this->mysqli->errno);
@@ -263,11 +274,12 @@ class DB extends DBC
 
     public function query($query)
     {
-        $runQuery = $this->mysqli->query($query);
-        if ($runQuery) {
-            return TRUE;
-        } else {
-            return FALSE;
+        $query = $this->mysqli->query($query);
+        try {
+            $this->mysqli->query($query);
+            return array('query' => $query, 'error' => $this->mysqli->error, 'errno' => $this->mysqli->errno);
+        } catch (\Throwable $th) {
+            return array('query' => $query, 'error' => $this->mysqli->error, 'errno' => $this->mysqli->errno);
         }
     }
 
@@ -349,6 +361,10 @@ class DB extends DBC
 
         $reply = $result->fetch_assoc();
         if ($result) {
+            if ($reply["Total"] == '') {
+                $reply["Total"] = 0;
+            }
+
             return $reply["Total"];
         } else {
             return array('query' => $query, 'error' => $this->mysqli->error, 'errno' => $this->mysqli->errno, 'db' => $this->db_name);

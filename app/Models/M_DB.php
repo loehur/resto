@@ -74,13 +74,13 @@ class M_DB
 
     //===========================================================
 
-    public function insert($table, $values)
+    public function insert($table, $values, $update = "")
     {
-        return $this->db->insert($table, $values);
+        return $this->db->insert($table, $values, $update);
     }
-    public function insertCols($table, $columns, $values)
+    public function insertCols($table, $columns, $values = "", $update = "")
     {
-        return $this->db->insertCols($table, $columns, $values);
+        return $this->db->insertCols($table, $columns, $values, $update);
     }
 
     public function delete_where($table, $where)

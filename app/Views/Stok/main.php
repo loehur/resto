@@ -1,0 +1,76 @@
+<div x-data="data">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Tanggal</th>
+        <th class="text-end">Awal</th>
+        <th class="text-end">Sisa</th>
+      </tr>
+    </thead>
+    <?php foreach ($data['tgl'] as $c) {
+      $day = date('D, d M y', strtotime($c)) ?>
+      <tr>
+        <td><?= $day ?></td>
+        <td style="cursor: pointer;" x-on:click="cek(<?= $c ?>,'a')" x-bind:class="c[<?= $c ?>].a > 0 ? 'text-success' : 'text-danger'" class="text-end fw-bold text-success" x-text="c[<?= $c ?>].a"></td>
+        <td style="cursor: pointer;" x-on:click="cek(<?= $c ?>,'s')" x-bind:class="c[<?= $c ?>].s > 0 ? 'text-success' : 'text-danger'" class="text-end fw-bold text-success" x-text="c[<?= $c ?>].s"></td>
+      </tr>
+    <?php } ?>
+  </table>
+  <div class="offcanvas offcanvas-end overflow-hidden" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="canvas1">
+    <div class="bg-light bg-gradient mb-2" style="box-shadow: 0px 1px 10px silver;">
+      <div class="row py-2" style="cursor: pointer;" data-bs-dismiss="offcanvas">
+        <div class="col py-2 w-100 text-dark text-center"><i class="fas fa-arrow-left"></i> &nbsp; Kembali</div>
+      </div>
+    </div>
+    <div class="offcanvas-body pt-0">
+      <div class="px-1 pt-2" id="load1"></div>
+    </div>
+    <div style="max-height: 50px; cursor:pointer" class="w-100 mt-1 bg-light bg-gradient" data-bs-dismiss="offcanvas">
+      <div class="d-flex justify-content-center" style="box-shadow: 0px -1px 10px silver; height:50px">
+        <div class="align-self-center"><i class="fas fa-arrow-left"></i> &nbsp; Kembali</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php $jsonData = json_encode($data['qty']) ?>
+
+<script src="<?= $this->ASSETS_URL ?>mine/luhur.js"></script>
+<script src="<?= $this->ASSETS_URL ?>js/alpine.min.js" defer></script>
+<script>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('data', () => ({
+      c: <?= $jsonData ?>,
+      cek(c, mode) {
+        buka_canvas("canvas1");
+        $("div#load1").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
+          $("div#load1").load('<?= URL::BASE_URL ?>Stok/cek/' + c + '/' + mode);
+        });
+      },
+
+      simpan(tgl, mode) {
+        var inputData = {};
+        $('input.data').each(function() {
+          inputData[$(this).attr("name")] = $(this).val();
+        })
+
+        $.ajax({
+          url: "<?= URL::BASE_URL ?>Stok/update/" + mode,
+          data: {
+            tgl: tgl,
+            data: inputData
+          },
+
+          type: "POST",
+          success: function(res) {
+            if (is_numeric(res)) {
+              this.c[tgl][mode] = res;
+            } else {
+              console.log(res);
+            }
+          }.bind(this),
+        });
+      }
+    }))
+  })
+</script>
