@@ -314,6 +314,14 @@ if ($log_mode == 1) {
                     }
                 }
 
+                function tutup_canvas(id) {
+                    $(".offcanvas.show").each(function() {
+                        if ($(this).attr('id') == id) {
+                            $(this).offcanvas('hide');
+                        }
+                    })
+                }
+
                 let startX, startY;
                 const threshold = 50; // Minimum swipe distance
 

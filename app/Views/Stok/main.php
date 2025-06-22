@@ -65,6 +65,7 @@
           success: function(res) {
             if (is_numeric(res)) {
               this.c[tgl][mode] = res;
+              tutup_canvas("canvas1");
             } else {
               console.log(res);
             }
