@@ -26,7 +26,7 @@ class Stok extends Controller
    {
       $data['tgl'] = $get;
       $data['mode'] = $mode;
-      $data['menu'] = $this->db(0)->get_where('menu_item', "hitung = 1", "id");
+      $data['menu'] = $this->db(0)->get_where('menu_item', "hitung = 1 ORDER BY freq DESC", "id");
       $data['data'] = $this->db($this->book)->get_where('stok', "tgl = '" . $get . "'", "id_menu");
       foreach ($data['menu'] as $key => $v) {
          if (!isset($data['data'][$key])) {
