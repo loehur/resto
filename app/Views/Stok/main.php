@@ -3,6 +3,7 @@
     <thead>
       <tr>
         <th>Tanggal</th>
+        <th class="text-end">Sale</th>
         <th class="text-end">Awal</th>
         <th class="text-end">Sisa</th>
       </tr>
@@ -11,8 +12,9 @@
       $day = date('D, d M y', strtotime($c)) ?>
       <tr>
         <td><?= $day ?></td>
-        <td style="cursor: pointer;" x-on:click="cek(<?= $c ?>,'a')" x-bind:class="c[<?= $c ?>].a > 0 ? 'text-success' : 'text-danger'" class="text-end fw-bold text-success" x-text="c[<?= $c ?>].a"></td>
-        <td style="cursor: pointer;" x-on:click="cek(<?= $c ?>,'s')" x-bind:class="c[<?= $c ?>].s > 0 ? 'text-success' : 'text-danger'" class="text-end fw-bold text-success" x-text="c[<?= $c ?>].s"></td>
+        <td class="text-end" x-bind:class="(c[<?= $c ?>].a - c[<?= $c ?>].s) != 0 ? 'text-success' : 'text-dark'" x-text="c[<?= $c ?>].a - c[<?= $c ?>].s"></td>
+        <td style="cursor: pointer;" x-on:click="cek(<?= $c ?>,'a')" x-bind:class="c[<?= $c ?>].a > 0 ? 'text-primary' : 'text-dark'" class="text-end" x-text="c[<?= $c ?>].a"></td>
+        <td style="cursor: pointer;" x-on:click="cek(<?= $c ?>,'s')" x-bind:class="c[<?= $c ?>].s > 0 ? 'text-danger' : 'text-dark'" class="text-end" x-text="c[<?= $c ?>].s"></td>
       </tr>
     <?php } ?>
   </table>
