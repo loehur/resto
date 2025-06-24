@@ -41,11 +41,20 @@
   document.addEventListener('alpine:init', () => {
     Alpine.data('data', () => ({
       c: <?= $jsonData ?>,
+      last_mode: "c",
+
       cek(c, mode) {
         buka_canvas("canvas1");
-        $("div#load1").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
-          $("div#load1").load('<?= URL::BASE_URL ?>Stok/cek/' + c + '/' + mode);
-        });
+
+        if (this.last_mode != mode) {
+          this.last_mode = mode;
+
+          $("div#load1").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
+            $("div#load1").load('<?= URL::BASE_URL ?>Stok/cek/' + c + '/' + mode);
+          })
+        }
+
+        console.log(this.last_mode);
       },
 
       simpan(tgl, mode) {
