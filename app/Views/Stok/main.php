@@ -48,8 +48,8 @@
       cek(c, mode) {
         buka_canvas("canvas1");
 
-        if (this.last_mode != mode) {
-          this.last_mode = mode;
+        if (this.last_mode != (c + mode)) {
+          this.last_mode = c + mode;
 
           $("div#load1").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
             $("div#load1").load('<?= URL::BASE_URL ?>Stok/cek/' + c + '/' + mode);
