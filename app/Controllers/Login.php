@@ -21,8 +21,8 @@ class Login extends Controller
 
    function cek_cookie()
    {
-      if (isset($_COOKIE["MDLSESSID"])) {
-         $cookie_value = $this->model("Enc")->dec_2($_COOKIE["MDLSESSID"]);
+      if (isset($_COOKIE["RESTOSESSID"])) {
+         $cookie_value = $this->model("Enc")->dec_2($_COOKIE["RESTOSESSID"]);
 
          $user_data = unserialize($cookie_value);
          if (isset($user_data['username']) && isset($user_data['no_user']) && isset($user_data['device'])) {
@@ -44,7 +44,7 @@ class Login extends Controller
       $device = $_SERVER['HTTP_USER_AGENT'];
       $data_user['device'] = $device;
       $cookie_value = $this->model("Enc")->enc_2(serialize($data_user));
-      setcookie("MDLSESSID", $cookie_value, time() + 86400, "/");
+      setcookie("RESTOSESSID", $cookie_value, time() + 86400, "/");
    }
 
    function save_nums($usernum)
@@ -297,7 +297,7 @@ class Login extends Controller
 
    public function logout()
    {
-      setcookie("MDLSESSID", 0, time() + 1, "/");
+      setcookie("RESTOSESSID", 0, time() + 1, "/");
       session_destroy();
       header('Location: ' . URL::BASE_URL . "Penjualan/i");
    }
