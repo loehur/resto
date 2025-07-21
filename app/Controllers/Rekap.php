@@ -2,10 +2,12 @@
 
 class Rekap extends Controller
 {
+   public $book;
    public function __construct()
    {
       $this->session_cek(1);
       $this->operating_data();
+      $this->book = $this->book;
    }
 
    public function i($mode)
@@ -22,8 +24,8 @@ class Rekap extends Controller
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
-               $today = $_SESSION['resto_user']['book'] . "-" . $_POST['m'] . "-" . $_POST['d'];
-               $dataTanggal = array('tanggal' => $_POST['d'], 'bulan' => $_POST['m'], 'tahun' => $_SESSION['resto_user']['book']);
+               $today = $this->book . "-" . $_POST['m'] . "-" . $_POST['d'];
+               $dataTanggal = array('tanggal' => $_POST['d'], 'bulan' => $_POST['m'], 'tahun' => $this->book);
             } else {
                $today = date('Y-m-d');
                $dataTanggal = array('tanggal' => date('d'), 'bulan' => date('m'), 'tahun' => date('Y'));
@@ -36,8 +38,8 @@ class Rekap extends Controller
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
-               $today = $_SESSION['resto_user']['book'] . "-" . $_POST['m'];
-               $dataTanggal = array('bulan' => $_POST['m'], 'tahun' => $_SESSION['resto_user']['book']);
+               $today = $this->book . "-" . $_POST['m'];
+               $dataTanggal = array('bulan' => $_POST['m'], 'tahun' => $this->book);
             } else {
                $today = date('Y-m');
                $dataTanggal = array('bulan' => date('m'), 'tahun' => date('Y'));
@@ -50,8 +52,8 @@ class Rekap extends Controller
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
-               $today = $_SESSION['resto_user']['book'] . "-" . $_POST['m'];
-               $dataTanggal = array('bulan' => $_POST['m'], 'tahun' => $_SESSION['resto_user']['book']);
+               $today = $this->book . "-" . $_POST['m'];
+               $dataTanggal = array('bulan' => $_POST['m'], 'tahun' => $this->book);
             } else {
                $today = date('Y-m');
                $dataTanggal = array('bulan' => date('m'), 'tahun' => date('Y'));
@@ -64,8 +66,8 @@ class Rekap extends Controller
             $viewData = 'Rekap/main';
 
             if (isset($_POST['m'])) {
-               $today = $_SESSION['resto_user']['book'] . "-" . $_POST['m'] . "-" . $_POST['d'];
-               $dataTanggal = array('tanggal' => $_POST['d'], 'bulan' => $_POST['m'], 'tahun' => $_SESSION['resto_user']['book']);
+               $today = $this->book . "-" . $_POST['m'] . "-" . $_POST['d'];
+               $dataTanggal = array('tanggal' => $_POST['d'], 'bulan' => $_POST['m'], 'tahun' => $this->book);
             } else {
                $today = date('Y-m-d');
                $dataTanggal = array('tanggal' => date('d'), 'bulan' => date('m'), 'tahun' => date('Y'));
@@ -77,17 +79,19 @@ class Rekap extends Controller
 
       //STATISTIC
       $total_jual = [];
-      $where = $whereCabang . "insertTime LIKE '" . $today . "%'";
-      $data_ref = $this->db($this->book)->get_where('ref', "tgL LIKE '" . $today . "%'", 'id');
-      foreach ($data_ref as $ref => $d) {
-         $data_penjualan = $this->db($this->book)->get_where('pesanan', "ref = '" . $ref . "'");
-         foreach ($data_penjualan as $dk) {
-            $subTotal = ($dk['harga'] * $dk['qty']) - $dk['diskon'];
-            if (isset($total_jual[$d['mode']])) {
-               $total_jual[$d['mode']] += $subTotal;
-            } else {
-               $total_jual[$d['mode']] = $subTotal;
+      $data_ref[0] = $this->db($this->book)->get_where('ref', "tgL LIKE '" . $today . "%' AND mode = 0", 'id');
+      $data_ref[1] = $this->db($this->book)->get_where('ref', "tgL LIKE '" . $today . "%' AND mode = 1", 'id');
+
+      $cols = "SUM((harga * qty) - diskon) as total";
+      for ($i = 0; $i <= 1; $i++) {
+         $refs[$i] = "";
+         if (count($data_ref[$i]) > 0) {
+            foreach ($data_ref[$i] as $key => $d) {
+               $refs[$i] .= $key . ",";
             }
+            $refs[$i] = rtrim($refs[$i], ',');
+            $where = "ref IN (" . $refs[$i] . ")";
+            $total_jual[$i] = $this->db($this->book)->get_cols_where('pesanan', $cols, $where, 0)['total'];
          }
       }
 
@@ -96,13 +100,13 @@ class Rekap extends Controller
       $where = $whereCabang . "jenis_transaksi = 1 AND status_mutasi <> 2 AND insertTime LIKE '%" . $today . "%'";
       $where_umum = $where;
       $kas = 0;
-      $kas = $this->db($_SESSION['resto_user']['book'])->get_cols_where('kas', $cols, $where_umum, 0)['total'];
+      $kas = $this->db($this->book)->get_cols_where('kas', $cols, $where_umum, 0)['total'];
 
       //PENGELUARAN
       $cols = "note_primary, sum(jumlah) as total";
       $where = $whereCabang . "jenis_transaksi = 4 AND status_mutasi <> 2 AND insertTime LIKE '%" . $today . "%' GROUP BY note_primary";
       $where_keluar =  $whereCabang . "jenis_transaksi = 4 AND status_mutasi <> 3 AND insertTime LIKE '%" . $today . "%'";
-      $kas_keluar = $this->db($_SESSION['resto_user']['book'])->get_cols_where('kas', $cols, $where, 1);
+      $kas_keluar = $this->db($this->book)->get_cols_where('kas', $cols, $where, 1);
 
       //PENGELUARAN PREPAID/POSTPAID
       $col = "price";
@@ -115,7 +119,7 @@ class Rekap extends Controller
       $cols = "note_primary, sum(jumlah) as total";
       $where = $whereCabang . "jenis_transaksi = 2 AND status_mutasi <> 2 AND insertTime LIKE '%" . $today . "%' GROUP BY note_primary";
       $where_tarik =  $whereCabang . "jenis_transaksi = 2 AND status_mutasi <> 3 AND insertTime LIKE '%" . $today . "%'";
-      $kas_tarik = $this->db($_SESSION['resto_user']['book'])->get_cols_where('kas', $cols, $where, 1);
+      $kas_tarik = $this->db($this->book)->get_cols_where('kas', $cols, $where, 1);
 
       //GAJI KARYAWAN
       $cols = "sum(jumlah) as total";
@@ -164,7 +168,7 @@ class Rekap extends Controller
 
       $data = [];
       $where =  base64_decode($where);
-      $data = $this->db($_SESSION['resto_user']['book'])->get_where('kas', $where);
+      $data = $this->db($this->book)->get_where('kas', $where);
 
       $this->view($viewData, [
          'data' => $data,
