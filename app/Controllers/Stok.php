@@ -12,8 +12,9 @@ class Stok extends Controller
    {
       $layout = ['title' => 'Stok'];
       $data['tgl'] = [];
-      $data['menu'] = $this->db(0)->get_where('menu_item', "induk <> 0", "id");
+      $menu_induk = $this->db(0)->get_where('menu_item', "induk <> 0 ORDER BY freq DESC", "id");
       for ($i = 0; $i >= -6; $i--) {
+         $sales = [];
          $tgl = date('Ymd', strtotime($i . ' days', strtotime(date('Y-m-d'))));
          array_push($data['tgl'], $tgl);
          $data['qty'][$tgl]['a'] = $this->db($this->book)->sum_col_where('stok', 'a', "tgl = '" . $tgl . "' AND a <> 0");
@@ -21,14 +22,17 @@ class Stok extends Controller
          $tgl_pesan = date('Y-m-d', strtotime($i . ' days', strtotime(date('Y-m-d'))));
          $terjual = $this->db($this->book)->get_cols_where('pesanan', 'id_menu, SUM(qty) as qty', "insertTime LIKE '" . $tgl_pesan . "%' GROUP BY id_menu", 1, 'id_menu'); //sale
 
-         foreach ($terjual as $id_menu => $d) {
-            if (!isset($data['menu'][$id_menu])) {
-               unset($terjual[$id_menu]);
+         foreach ($menu_induk as $id_menu => $d) {
+            if (isset($terjual[$id_menu])) {
+               if (isset($sales[$d['induk']])) {
+                  $sales[$d['induk']] += ($terjual[$id_menu]['qty'] * $d['qty_induk']);
+               } else {
+                  $sales[$d['induk']] = ($terjual[$id_menu]['qty'] * $d['qty_induk']);
+               }
             }
          }
-         $sum = array_column($terjual, 'qty');
-         $sum = array_sum($sum);
-         $data['qty'][$tgl]['t'] = $sum;
+
+         $data['qty'][$tgl]['t'] = array_sum($sales);
       }
       $this->view('layout', $layout);
       $this->view(__CLASS__ . "/main", $data);
@@ -47,9 +51,9 @@ class Stok extends Controller
          foreach ($menu_induk as $id_menu => $d) {
             if (isset($terjual[$id_menu])) {
                if (isset($sales[$d['induk']])) {
-                  $sales[$d['induk']] += $terjual[$id_menu]['qty'];
+                  $sales[$d['induk']] += ($terjual[$id_menu]['qty'] * $d['qty_induk']);
                } else {
-                  $sales[$d['induk']] = $terjual[$id_menu]['qty'];
+                  $sales[$d['induk']] = ($terjual[$id_menu]['qty'] * $d['qty_induk']);
                }
             }
          }
