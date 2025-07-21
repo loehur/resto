@@ -2,19 +2,23 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Tanggal</th>
-        <th class="text-end">Sale</th>
+        <th>Date</th>
         <th class="text-end">Awal</th>
-        <th class="text-end">Sisa</th>
+        <th class="text-end">Jual</th>
+        <th class="text-end">S (O)</th>
+        <th class="text-end">S (M)</th>
+        <th class="text-end">Selisih</th>
       </tr>
     </thead>
     <?php foreach ($data['tgl'] as $c) {
-      $day = date('D, d M y', strtotime($c)) ?>
+      $day = date('d/M', strtotime($c)) ?>
       <tr>
         <td><?= $day ?></td>
-        <td class="text-end" x-bind:class="(c[<?= $c ?>].a - c[<?= $c ?>].s) != 0 ? 'text-success' : 'text-dark'" x-text="c[<?= $c ?>].a - c[<?= $c ?>].s"></td>
         <td style="cursor: pointer;" x-on:click="cek(<?= $c ?>,'a')" x-bind:class="c[<?= $c ?>].a > 0 ? 'text-primary' : 'text-dark'" class="text-end" x-text="c[<?= $c ?>].a"></td>
+        <td x-bind:class="c[<?= $c ?>].a > 0 ? 'text-success' : 'text-dark'" class="text-end" x-text="c[<?= $c ?>].t"></td>
+        <td style="cursor: pointer;" class="text-end" x-on:click="cek(<?= $c ?>,'sa')" x-text="c[<?= $c ?>].a - c[<?= $c ?>].t"></td>
         <td style="cursor: pointer;" x-on:click="cek(<?= $c ?>,'s')" x-bind:class="c[<?= $c ?>].s > 0 ? 'text-danger' : 'text-dark'" class="text-end" x-text="c[<?= $c ?>].s"></td>
+        <td class="text-end" x-bind:class="(c[<?= $c ?>].a - c[<?= $c ?>].s) != 0 ? 'text-success' : 'text-dark'" x-text="c[<?= $c ?>].s - (c[<?= $c ?>].a - c[<?= $c ?>].t)"></td>
       </tr>
     <?php } ?>
   </table>
@@ -55,8 +59,6 @@
             $("div#load1").load('<?= URL::BASE_URL ?>Stok/cek/' + c + '/' + mode);
           })
         }
-
-        console.log(this.last_mode);
       },
 
       simpan(tgl, mode) {

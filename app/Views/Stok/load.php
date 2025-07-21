@@ -11,12 +11,12 @@ foreach ($data['menu'] as $id => $dk) { ?>
       <span class=""><?= $dk['nama'] ?></span><br>
     </div>
     <div class="py-1 align-self-center text-nowrap">
-      <input <?= $data['tgl'] <> date("Ymd") ? "disabled" : "" ?> name="<?= $dk['id'] ?>" style="width: 70px;" value="<?= $data['data'][$id][$data['mode']] ?>" class="border-0 text-end fw-bold border-bottom-1 data" type="number">
+      <input <?= $data['tgl'] <> date("Ymd") ||  $data['mode'] == 'sa' ? "disabled" : "" ?> name="<?= $dk['id'] ?>" style="width: 70px;" value="<?= $data['data'][$id][$data['mode']] ?>" class="border-0 text-end fw-bold border-bottom-1 data" type="number">
     </div>
   </div>
 <?php } ?>
 
-<?php if ($data['tgl'] == date("Ymd")) { ?>
+<?php if ($data['tgl'] == date("Ymd") && $data['mode'] <> 'sa') { ?>
   <span class="btn btn-success w-100 mt-4" x-on:click="simpan('<?= $data['tgl'] ?>','<?= $data['mode'] ?>')">Simpan</span>
 <?php } ?>
 
