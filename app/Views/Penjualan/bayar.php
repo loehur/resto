@@ -86,7 +86,7 @@ foreach ($data['order'] as $dk) {
           return;
         }
 
-        if (this.metodePilih != 1 && $('input[name="catatan"]').val() == '') {
+        if ((this.metodePilih == 4 || this.metodePilih == 5) && $('input[name="catatan"]').val() == '') {
           alert('Catatan harus diisi');
           return;
         }
