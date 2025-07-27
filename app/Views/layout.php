@@ -11,22 +11,19 @@ if (isset($data)) {
 
 <head>
     <meta charset="utf-8">
-    <link rel="icon" href="<?= $this->ASSETS_URL ?>icon/logo.png">
+    <link rel="icon" href="<?= URL::ASSET_URL ?>icon/logo.png">
     <title><?= $title ?></title>
     <meta name="viewport" content="width=<?= URL::MIN_WIDTH ?>, user-scalable=no">
-    <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>css/ionicons.min.css">
-    <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>plugins/fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>plugins/bootstrap-5.1/bootstrap.min.css">
-    <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>plugins/adminLTE-3.1.0/css/adminlte.min.css">
-    <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>plugins/select2/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>css/selectize.bootstrap3.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>css/jquery-ui.css" rel="stylesheet" />
-    <link rel="stylesheet" href="<?= $this->ASSETS_URL ?>css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?= URL::ASSETS_URL ?>plugins/fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?= URL::ASSETS_URL ?>plugins/bootstrap-5.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= URL::ASSETS_URL ?>plugins/adminLTE-3.1.0/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= URL::ASSETS_URL ?>css/jquery-ui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?= URL::ASSET_URL ?>css/style.css" rel="stylesheet" />
 
     <style>
         @font-face {
             font-family: "fontku";
-            src: url("<?= $this->ASSETS_URL ?>font/Titillium-Regular.otf");
+            src: url("<?= URL::ASSETS_URL ?>font/Titillium-Regular.otf");
         }
 
         html .table {
@@ -289,10 +286,10 @@ if ($log_mode == 1) {
         </aside>
 
         <div class="content-wrapper pt-2 px-2 bg-white" id="content" style="min-width: <?= URL::MIN_WIDTH ?>px;max-width: <?= URL::MAX_WIDTH ?>px;">
-            <script src="<?= $this->ASSETS_URL ?>plugins/adminLTE-3.1.0/jquery/jquery.min.js"></script>
-            <script src="<?= $this->ASSETS_URL ?>plugins/adminLTE-3.1.0/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="<?= $this->ASSETS_URL ?>plugins/bootstrap-5.1/bootstrap.bundle.min.js"></script>
-            <script src="<?= $this->ASSETS_URL ?>plugins/adminLTE-3.1.0/js/adminlte.js"></script>
+            <script src="<?= URL::ASSETS_URL ?>plugins/adminLTE-3.1.0/jquery/jquery.min.js"></script>
+            <script src="<?= URL::ASSETS_URL ?>plugins/adminLTE-3.1.0/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="<?= URL::ASSETS_URL ?>plugins/bootstrap-5.3/js/bootstrap.bundle.min.js"></script>
+            <script src="<?= URL::ASSETS_URL ?>plugins/adminLTE-3.1.0/js/adminlte.js"></script>
 
             <script>
                 function buka_canvas(id) {

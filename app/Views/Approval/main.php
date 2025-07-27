@@ -25,8 +25,8 @@
 </div>
 <?php $jsonData = json_encode($jsonData) ?>
 
-<script src="<?= $this->ASSETS_URL ?>mine/luhur.js"></script>
-<script src="<?= $this->ASSETS_URL ?>js/alpine.min.js" defer></script>
+<script src="<?= URL::ASSETS_URL ?>mine/luhur.js"></script>
+<script src="<?= URL::ASSETS_URL ?>js/alpine.min.js" defer></script>
 <script>
   document.addEventListener('alpine:init', () => {
     Alpine.data('data', () => ({

@@ -12,7 +12,7 @@
       <tr id="tr<?= $id ?>">
         <td class="text-end">
           <small>#<?= $id ?> <?= date('d M, H:i', strtotime($f1)) ?> </small>
-          <br><span class="badge bg-gradient bg-primary"><i class="fas fa-qrcode"></i> QRIS</span> <b>Rp<span><?= number_format($f4) ?></span></b></span>
+          <br><span class="badge bg-gradient bg-primary"><i class="fas fa-qrcode"></i> <?= strtoupper(URL::METOD_BAYAR[$a['metode_mutasi']]) ?></span> <b>Rp<span><?= number_format($f4) ?></span></b></span>
           <br><small><?= $f2 ?></small>
         </td>
         <td class='text-right align-content-center'>

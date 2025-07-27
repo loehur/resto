@@ -86,13 +86,12 @@ class Data_List extends Controller
             $data_main = $this->db(0)->count_where($table, $where);
             if ($data_main < 1) {
                $do = $this->db(0)->insertCols($table, $cols, $vals);
-
                if ($do['errno'] <> 0) {
-                  $this->model('Log')->write($do['error']);
+                  echo $do['error'];
+               } else {
+                  $this->dataSynchrone($_SESSION['resto_user']['id_user']);
+                  echo 1;
                }
-
-               $this->dataSynchrone($_SESSION['resto_user']['id_user']);
-               echo 1;
             } else {
                $text =  "Gagal! nama " . strtoupper($nama_pelanggan) . " sudah digunakan";
                echo $text;
