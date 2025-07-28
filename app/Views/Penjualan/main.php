@@ -191,15 +191,15 @@ $bawa_pulang = 5;
 
   }
 
-  function load_bayar(mode, nomor) {
+  function load_bayar(ref) {
     $("div#bayar").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
-      $("div#bayar").load('<?= URL::BASE_URL ?>Penjualan/cek_bayar/' + mode + "/" + nomor);
+      $("div#bayar").load('<?= URL::BASE_URL ?>Penjualan/cek_bayar/' + ref);
     });
   }
 
-  function load_piutang(mode, nomor) {
+  function load_piutang(ref) {
     $("div#piutang").load('<?= URL::BASE_URL ?>Load/spinner/2', function() {
-      $("div#piutang").load('<?= URL::BASE_URL ?>Penjualan/cek_piutang/' + mode + "/" + nomor);
+      $("div#piutang").load('<?= URL::BASE_URL ?>Penjualan/cek_piutang/' + ref);
     });
   }
 

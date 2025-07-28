@@ -33,6 +33,8 @@ class Penjualan extends Controller
          $data['order'] = [];
          $data['bayar'] = [];
       }
+
+      $data['ref'] = $cek;
       $this->view($viewData, $data);
    }
 
@@ -73,10 +75,9 @@ class Penjualan extends Controller
 
    public function bayar()
    {
-      $mode = $_POST['mode'];
-      $nomor = $_POST['nomor'];
       $uang_diterima = $_POST['dibayar'];
       $metode = $_POST['metode'];
+      $ref = $_POST['ref'];
 
       if ($metode == 1) {
          $st_mutasi = 1;
@@ -86,12 +87,7 @@ class Penjualan extends Controller
          $step = 4;
       }
 
-      $cek = $this->db($this->book)->get_where_row('ref', "mode = " . $mode . " AND nomor = " . $nomor . " AND step = 0");
-      if (count($cek) > 0) {
-         $order = $this->db($this->book)->get_where('pesanan', "ref = '" . $cek['id'] . "'", "id_menu");
-      } else {
-         $order = [];
-      }
+      $order = $this->db($this->book)->get_where('pesanan', "ref = '" . $ref . "'", "id_menu");
 
       $sisa_tagihan = 0;
       foreach ($order as $dk) {
@@ -100,7 +96,7 @@ class Penjualan extends Controller
       }
 
       $yg_sudah_dibayar = 0;
-      $cek_dibayar = $this->db($this->book)->get_where('kas', "status_mutasi <> 2 AND jenis_transaksi = 1 AND ref = '" . $cek['id'] . "'");
+      $cek_dibayar = $this->db($this->book)->get_where('kas', "status_mutasi <> 2 AND jenis_transaksi = 1 AND ref = '" . $ref . "'");
       foreach ($cek_dibayar as $b) {
          $yg_sudah_dibayar += $b['jumlah'];
          if ($b['status_mutasi'] == 0) {
@@ -123,11 +119,11 @@ class Penjualan extends Controller
          }
 
          $cols = "id_cabang, jenis_mutasi, jenis_transaksi, ref, metode_mutasi, status_mutasi, jumlah, id_user, dibayar, kembali";
-         $vals = $this->id_cabang . ",1,1,'" . $cek['id'] . "'," . $metode . "," . $st_mutasi . "," . $jumlah_bayar . "," . $this->id_user . "," . $uang_diterima . "," . $kembali;
+         $vals = $this->id_cabang . ",1,1,'" . $ref . "'," . $metode . "," . $st_mutasi . "," . $jumlah_bayar . "," . $this->id_user . "," . $uang_diterima . "," . $kembali;
          $in = $this->db($this->book)->insertCols("kas", $cols, $vals);
          if ($in['errno'] == 0) {
             if ($uang_diterima >= $sisa_tagihan) {
-               $up = $this->db($this->book)->update('ref', "step = " . $step, "id = '" . $cek['id'] . "'");
+               $up = $this->db($this->book)->update('ref', "step = " . $step, "id = '" . $ref . "'");
                echo $up['errno'] == 0 ? 0 : $up['error'];
             } else {
                echo 1;
@@ -140,21 +136,15 @@ class Penjualan extends Controller
 
    public function piutang()
    {
-      $mode = $_POST['mode'];
-      $nomor = $_POST['nomor'];
       $pelanggan = $_POST['pelanggan'];
+      $ref = $_POST['ref'];
 
       if ($pelanggan <= 0) {
          echo "Pelanggan tidak ditemukan";
          exit();
       }
 
-      $cek = $this->db($this->book)->get_where_row('ref', "mode = " . $mode . " AND nomor = " . $nomor . " AND step = 0");
-      if (count($cek) > 0) {
-         $order = $this->db($this->book)->get_where('pesanan', "ref = '" . $cek['id'] . "'", "id_menu");
-      } else {
-         $order = [];
-      }
+      $order = $this->db($this->book)->get_where('pesanan', "ref = '" . $ref . "'", "id_menu");
 
       $total = 0;
       foreach ($order as $dk) {
@@ -163,43 +153,27 @@ class Penjualan extends Controller
       }
 
       if ($total > 0) {
-         $up = $this->db($this->book)->update('ref', "step = 3, pelanggan = " . $pelanggan, "id = '" . $cek['id'] . "'");
+         $up = $this->db($this->book)->update('ref', "step = 3, pelanggan = " . $pelanggan, "id = '" . $ref . "'");
          echo $up['errno'] == 0 ? 0 : $up['error'];
       }
    }
 
-   public function cek_bayar($mode = 0, $nomor = 0)
+   public function cek_bayar($ref)
    {
       $viewData = __CLASS__ . '/bayar';
-
-      $data['mode'] = $mode;
-      $data['nomor'] = $nomor;
-
-      $cek = $this->db($this->book)->get_where_row('ref', "mode = " . $mode . " AND nomor = " . $nomor . " AND step = 0");
-      if (count($cek) > 0) {
-         $data['order'] = $this->db($this->book)->get_where('pesanan', "ref = '" . $cek['id'] . "'", "id_menu");
-      } else {
-         $data['order'] = [];
-      }
-
+      $data['order'] = $this->db($this->book)->get_where('pesanan', "ref = '" . $ref . "'", "id_menu");
+      $data['bayar'] = $this->db($this->book)->get_where('kas', "ref = '" . $ref . "' AND status_mutasi <> 2");
+      $data['ref'] = $ref;
       $this->view($viewData, $data);
    }
 
-   public function cek_piutang($mode = 0, $nomor = 0)
+   public function cek_piutang($ref)
    {
       $viewData = __CLASS__ . '/piutang';
-
-      $data['mode'] = $mode;
-      $data['nomor'] = $nomor;
-
-      $cek = $this->db($this->book)->get_where_row('ref', "mode = " . $mode . " AND nomor = " . $nomor . " AND step = 0");
-      if (count($cek) > 0) {
-         $data['order'] = $this->db($this->book)->get_where('pesanan', "ref = '" . $cek['id'] . "'", "id_menu");
-      } else {
-         $data['order'] = [];
-      }
-
+      $data['order'] = $this->db($this->book)->get_where('pesanan', "ref = '" . $ref . "'", "id_menu");
+      $data['bayar'] = $this->db($this->book)->get_where('kas', "ref = '" . $ref . "' AND status_mutasi <> 2");
       $data['pelanggan'] = $this->db(0)->get("pelanggan");
+      $data['ref'] = $ref;
       $this->view($viewData, $data);
    }
 
