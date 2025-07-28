@@ -63,7 +63,7 @@ class Pelanggan extends Controller
             }
             break;
       }
-      $where = $this->wCabang . " AND id_pelanggan = " . $id;
+      $where = $this->wCabang . " AND id = " . $id;
 
       $set = $col . " = '" . $value . "'";
       $up = $this->db(0)->update('pelanggan', $set, $where);
