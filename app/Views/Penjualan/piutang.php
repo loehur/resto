@@ -41,7 +41,7 @@ foreach ($data['bayar'] as $b) {
       $.ajax({
         url: "<?= URL::BASE_URL ?>Penjualan/piutang",
         data: {
-          ref: <?= $data['ref'] ?>,
+          ref: '<?= $data['ref'] ?>',
           pelanggan: pelanggan,
         },
         type: "POST",
