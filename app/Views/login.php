@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="icon" href="<?= URL::ASSETS_URL ?>icon/logo.png">
+    <link rel="icon" href="<?= URL::ASSET_URL ?>icon/logo.png">
     <title>Resto</title>
     <meta name="viewport" content="width=410, user-scalable=no">
     <script src="<?= URL::ASSETS_URL ?>js/jquery-3.6.0.min.js"></script>
