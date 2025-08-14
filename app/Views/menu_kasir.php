@@ -30,6 +30,13 @@ $menu[0] = [
     ],
     [
         'p' => 30,
+        'c' => 'Riwayat_Bayar',
+        'title' => 'Riwayat Bayar',
+        'icon' => 'fa-solid fa-timer',
+        'txt' => 'Riwayat Piutang',
+    ],
+    [
+        'p' => 30,
         'c' => 'Kas',
         'title' => 'Kas',
         'icon' => 'fas fa-wallet',

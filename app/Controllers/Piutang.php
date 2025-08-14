@@ -76,7 +76,7 @@ class Piutang extends Controller
    {
       $viewData = __CLASS__ . '/cart2';
       $data['menu'] = $_SESSION['resto_menu'];
-      $data['ref'] = $this->db($this->book)->get_where('ref', "pelanggan = " . $pelanggan . " AND step = 3 AND tgl = '" . $tgl . "'", 'id');
+      $data['ref'] = $this->db($this->book)->get_where('ref', "pelanggan = " . $pelanggan . " AND tgl = '" . $tgl . "'", 'id');
       foreach ($data['ref'] as $key => $d) {
          $data['order'][$key] = $this->db($this->book)->get_where('pesanan', "ref = '" . $key . "'", "id_menu");
          $data['bayar'][$key] = [];
@@ -165,8 +165,8 @@ class Piutang extends Controller
                      $jumBayar = 0;
                   }
 
-                  $cols = "id_cabang, jenis_mutasi, jenis_transaksi, ref, metode_mutasi, status_mutasi, jumlah, id_user, dibayar, kembali, ref_bayar";
-                  $vals = $this->id_cabang . ",1,1,'" . $ref . "'," . $metode . "," . $st_mutasi . "," . $jumlah_bayar[$ref] . "," . $this->id_user . "," . $jumlah_bayar[$ref] . ",0,'" . $ref_bayar . "'";
+                  $cols = "id_cabang, jenis_mutasi, jenis_transaksi, ref, metode_mutasi, status_mutasi, jumlah, id_user, dibayar, kembali, ref_bayar, id_client";
+                  $vals = $this->id_cabang . ",1,1,'" . $ref . "'," . $metode . "," . $st_mutasi . "," . $jumlah_bayar[$ref] . "," . $this->id_user . "," . $jumlah_bayar[$ref] . ",0,'" . $ref_bayar . "'," . $pelanggan;
                   $in = $this->db($this->book)->insertCols("kas", $cols, $vals);
 
                   if ($in['errno'] == 0) {

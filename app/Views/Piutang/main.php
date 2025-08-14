@@ -1,11 +1,13 @@
 <?php
 foreach ($data['data'] as $key => $r) { ?>
   <div class="row mx-0 border-bottom py-1">
-    <div class="col cekPesanan" style="cursor: pointer;" data-ref="<?= $key ?>">
-      Cek <i class="fas fa-ellipsis-v"></i> <span class="text-purple fw-bold"><?= $data['pelanggan'][$key]['nama'] ?></span>
-    </div>
-    <div class="col text-end bayarPiutang" style="cursor: pointer;" data-ref="<?= $key ?>">
-      <span class="fw-bold">Rp<?= number_format($r) ?></span> <i class="fas fa-ellipsis-v"></i> Bayar
+    <div class="col">
+      <div class="cekPesanan" style="cursor: pointer;" data-ref="<?= $key ?>">
+        Cek <i class="fas fa-ellipsis-v"></i> <span class="text-purple fw-bold"><?= $data['pelanggan'][$key]['nama'] ?></span>
+      </div>
+      <div class="text-end bayarPiutang" style="cursor: pointer;" data-ref="<?= $key ?>">
+        <span class="fw-bold">Rp<?= number_format($r) ?></span> <i class="fas fa-ellipsis-v"></i> Bayar
+      </div>
     </div>
   </div>
 <?php } ?>

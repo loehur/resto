@@ -38,7 +38,7 @@
         foreach ($data['bayar'][$ref] as $b) {
           $dibayar[$ref] += $b['jumlah']; ?>
           <tr>
-            <td class="text-end"><?= URL::METOD_BAYAR[$b['metode_mutasi']] ?></td>
+            <td class="text-end"><?= URL::METOD_BAYAR[$b['metode_mutasi']] ?> <?= $b['ref_bayar'] == '' ? '' : '(P)' ?> <?= date('d/m/y', strtotime($b['insertTime'])) ?></td>
             <td class="text-end">-<?= number_format($b['jumlah'])  ?></td>
           </tr>
         <?php } ?>

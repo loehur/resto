@@ -15,6 +15,7 @@ if (isset($data)) {
     <title><?= $title ?></title>
     <meta name="viewport" content="width=<?= URL::MIN_WIDTH ?>, user-scalable=no">
     <link rel="stylesheet" href="<?= URL::ASSETS_URL ?>plugins/fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?= URL::ASSETS_URL ?>plugins/fontawesome-pro-6.7.2-web/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= URL::ASSETS_URL ?>plugins/bootstrap-5.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?= URL::ASSETS_URL ?>plugins/adminLTE-3.1.0/css/adminlte.min.css">
     <link rel="stylesheet" href="<?= URL::ASSETS_URL ?>css/jquery-ui.css" rel="stylesheet" />
