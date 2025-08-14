@@ -6,7 +6,7 @@ class Approval extends Controller
    private $where = [
       "jenis_transaksi = 4 AND jenis_mutasi = 2",
       "jenis_transaksi = 2 AND jenis_mutasi = 2",
-      "jenis_transaksi = 1 AND jenis_mutasi = 1 AND metode_mutasi = 2"
+      "jenis_transaksi = 1 AND jenis_mutasi = 1 AND metode_mutasi <> 1"
    ];
 
    public function __construct()
