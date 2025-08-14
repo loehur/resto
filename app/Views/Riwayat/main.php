@@ -21,7 +21,7 @@ foreach ($data['ref'] as $key => $r) { ?>
           echo "<span class='badge bg-gradient bg-danger'>Piutang</span>";
           break;
         case 4:
-          echo "<span class='badge bg-gradient bg-warning'>Pengecekan</span>";
+          echo "<span class='badge bg-gradient bg-warning'>Non Tunai</span>";
           break;
         default:
           echo "<span class='badge bg-gradient bg-dark'>???</span>";
