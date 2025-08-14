@@ -122,6 +122,13 @@ class Piutang extends Controller
       }
       if (count($p['list_tgl']) > 0) {
          $ref_bayar = date('mdHis') . $this->id_cabang;
+
+         $cek_double = $this->db($this->book)->count_where('kas', "ref_bayar LIKE '" . date('mdH') . "%' AND id_client = " . $pelanggan . " AND status_mutasi <> 2");
+         if ($cek_double > 0) {
+            echo "Anda sudah melakukan pembayaran, silahkan cek riwayat piutang, atau coba kembali di jam berikutnya";
+            exit();
+         }
+
          $jumBayar = $p['jumBayar'];
          $metode = $p['metode'];
          if ($metode == 1) {

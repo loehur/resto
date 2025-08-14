@@ -125,7 +125,7 @@ $total = 0;
             if (res == 0) {
               location.reload(true);
             } else {
-              console.log(res);
+              alert(res);
             }
           },
         });
