@@ -257,4 +257,18 @@ class Penjualan extends Controller
       $up = $this->db($this->book)->update("pesanan", "diskon = " . $p['diskon'], $where);
       echo $up['errno'] == 0 ? 0 : $up['error'];
    }
+
+   function set_harga()
+   {
+      $p = $_POST;
+      $where = "id = " . $p['id'];
+      $cek_menu = $this->db($this->book)->get_where_row("pesanan", $where);
+      $min_harga = $cek_menu['harga'];
+      if ($p['harga'] < $min_harga) {
+         echo "Harga harus lebih mahal dari harga awal";
+         exit();
+      }
+      $up = $this->db($this->book)->update("pesanan", "harga = " . $p['harga'], $where);
+      echo $up['errno'] == 0 ? 0 : $up['error'];
+   }
 }

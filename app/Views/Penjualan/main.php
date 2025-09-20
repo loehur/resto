@@ -220,4 +220,22 @@ $bawa_pulang = 5;
       },
     });
   }
+
+  function setHarga(id, harga) {
+    $.ajax({
+      url: "<?= URL::BASE_URL ?>Penjualan/set_harga",
+      data: {
+        id: id,
+        harga: harga,
+      },
+      type: "POST",
+      success: function(res) {
+        if (res == 0) {
+          load_pesanan(mode_dt, nomor);
+        } else {
+          console.log(res);
+        }
+      },
+    });
+  }
 </script>

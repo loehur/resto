@@ -3,6 +3,7 @@ foreach ($data['order'] as $dk) { ?>
   <div class="d-flex flex-row border-bottom justify-content-between">
     <div class="py-1">
       <span class="fw-bold"><?= $data['menu'][$dk['id_menu']]['nama'] ?></span><br>
+      Rp<input style="width: 60px;" data-val="<?= $dk['harga'] ?>" class="border-0 text-primary border-bottom-1 harga" data-id="<?= $dk['id'] ?>" value="<?= $dk['harga'] ?>" type="number"></span>
       <span class="text-success">Diskon:</span> <input style="width: 60px;" data-val="<?= $dk['diskon'] ?>" data-max="<?= $dk['harga'] * $dk['qty'] ?>" class="border-0 text-success border-bottom-1 diskon" data-id="<?= $dk['id'] ?>" value="<?= $dk['diskon'] ?>" type="number">
     </div>
     <div class="py-1 align-self-center text-nowrap">
@@ -92,6 +93,28 @@ foreach ($data['order'] as $dk) { ?>
       }
     } else {
       $(this).val(diskon_before);
+    }
+  });
+
+  var harga_before = 0;
+  $("input.harga").focusin(function() {
+    harga_before = $(this).val();
+    $(this).val('');
+  });
+
+  $("input.harga").focusout(function() {
+    const max = $(this).attr("data-max");
+    const id = $(this).attr("data-id");
+    const val = $(this).attr("data-val");
+    const harga = $(this).val();
+    if (harga != harga_before && harga != '') {
+      if (parseInt(harga) > parseInt(max)) {
+        $(this).val(val);
+      } else {
+        setHarga(id, harga)
+      }
+    } else {
+      $(this).val(harga_before);
     }
   });
 </script>
