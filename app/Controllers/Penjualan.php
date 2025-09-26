@@ -225,7 +225,7 @@ class Penjualan extends Controller
             exit();
          }
 
-         $ref = date('mdHis') . $this->id_cabang;
+         $ref = (date('Y') - 2024) . date('mdHis') . $this->id_cabang;
          $cols = "id, mode, nomor, tgl, jam, id_cabang";
          $vals = "'" . $ref . "'," . $mode . "," . $nomor . ",'" . date('Y-m-d') . "','" . date("H:i") . "'," . $this->id_cabang;
          $in = $this->db($this->book)->insertCols("ref", $cols, $vals);

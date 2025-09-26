@@ -121,7 +121,7 @@ class Piutang extends Controller
          exit();
       }
       if (count($p['list_tgl']) > 0) {
-         $ref_bayar = date('mdHis') . $this->id_cabang;
+         $ref_bayar = (date('Y') - 2024) . date('mdHis') . $this->id_cabang;
 
          $cek_double = $this->db($this->book)->count_where('kas', "ref_bayar LIKE '" . date('mdH') . "%' AND id_client = " . $pelanggan . " AND status_mutasi <> 2");
          if ($cek_double > 0) {
